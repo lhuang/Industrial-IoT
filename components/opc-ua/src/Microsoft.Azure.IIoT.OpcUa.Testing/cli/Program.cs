@@ -271,7 +271,7 @@ Operations (Mutually exclusive):
         }
 
         /// <inheritdoc/>
-        private class ModelWriter : IEventEmitter {
+        private class ModelWriter : IPropertyReporter {
 
             public ModelWriter(ClientServices client, ILogger logger) {
                 _logger = logger;

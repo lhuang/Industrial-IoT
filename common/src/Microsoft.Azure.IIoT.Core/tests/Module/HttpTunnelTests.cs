@@ -278,14 +278,14 @@ namespace Microsoft.Azure.IIoT.Module.Default {
             /// </summary>
             public IDeviceTelemetryHandler Handler { get; set; }
 
-            public Task SendEventAsync(byte[] data, string contentType,
+            public Task SendEventAsync(string target, byte[] data, string contentType,
                 string eventSchema, string contentEncoding, CancellationToken ct) {
                 return Handler.HandleAsync("test", "test", data, new Dictionary<string, string> {
                     ["content-type"] = contentType
                 }, () => Task.CompletedTask);
             }
 
-            public Task SendEventAsync(IEnumerable<byte[]> batch, string contentType,
+            public Task SendEventAsync(string target, IEnumerable<byte[]> batch, string contentType,
                 string eventSchema, string contentEncoding, CancellationToken ct) {
                 throw new NotImplementedException();
             }

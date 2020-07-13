@@ -86,12 +86,12 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding.Runtime {
             _hub = new IoTHubConfig(configuration);
             _sb = new ServiceBusConfig(configuration);
             _ep = new EventProcessorConfig(configuration);
-            _eh = new IoTHubEventConfig(configuration);
+            _eh = new IoTHubEventHubConfig(configuration);
             _cosmos = new CosmosDbConfig(configuration);
         }
 
         private readonly EventProcessorConfig _ep;
-        private readonly IoTHubEventConfig _eh;
+        private readonly IoTHubEventHubConfig _eh;
         private readonly ServiceBusConfig _sb;
         private readonly CosmosDbConfig _cosmos;
         private readonly IoTHubConfig _hub;

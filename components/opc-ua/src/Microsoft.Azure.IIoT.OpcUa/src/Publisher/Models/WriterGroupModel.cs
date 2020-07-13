@@ -102,5 +102,10 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
         /// Keep alive time
         /// </summary>
         public TimeSpan? KeepAliveTime { get; set; }
+
+        /// <summary>
+        /// State of the writer group
+        /// </summary>
+        public WriterGroupStateModel State { get; set; }
     }
 }

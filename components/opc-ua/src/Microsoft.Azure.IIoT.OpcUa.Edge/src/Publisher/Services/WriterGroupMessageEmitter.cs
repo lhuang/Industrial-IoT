@@ -198,7 +198,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
         private async Task EmitNetworkMessageAsync(NetworkMessageModel message) {
             try {
                 using (kSendingDuration.NewTimer()) {
-                    await _events.SendEventAsync(message.Body,
+                    await _events.SendEventAsync(null, message.Body,  // TODO: Target
                         message.ContentType, message.MessageSchema, message.ContentEncoding);
                 }
                 _diagnostics.ReportNetworkMessageSent(WriterGroupId);

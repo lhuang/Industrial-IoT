@@ -17,7 +17,7 @@ namespace Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients {
     /// <summary>
     /// Create service bus clients
     /// </summary>
-    public class ServiceBusClientFactory : IServiceBusClientFactory {
+    public class ServiceBusClientFactory : IServiceBusClientFactory, IAsyncDisposable {
 
         /// <summary>
         /// Create factory
@@ -99,7 +99,7 @@ namespace Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients {
         }
 
         /// <inheritdoc/>
-        public async Task CloseAsync() {
+        public async ValueTask DisposeAsync() {
             await Task.WhenAll(
                 CloseAllAsync(_queueLock, _queueClients),
                 CloseAllAsync(_topicLock, _topicClients),

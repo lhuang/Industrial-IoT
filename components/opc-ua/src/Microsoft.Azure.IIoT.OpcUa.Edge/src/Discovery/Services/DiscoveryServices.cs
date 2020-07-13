@@ -12,7 +12,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Discovery.Services {
     using Microsoft.Azure.IIoT.OpcUa.Protocol;
     using Microsoft.Azure.IIoT.Net.Scanner;
     using Microsoft.Azure.IIoT.Net.Models;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Serializers;
@@ -47,7 +47,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Discovery.Services {
         /// <param name="logger"></param>
         /// <param name="serializer"></param>
         /// <param name="progress"></param>
-        public DiscoveryServices(IEndpointDiscovery client, IEventEmitter events,
+        public DiscoveryServices(IEndpointDiscovery client, IEventClient events,
             IJsonSerializer serializer, ILogger logger, IDiscoveryProgress progress = null) {
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -564,7 +564,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Discovery.Services {
                     discovery.Index = i;
                     return discovery;
                 });
-            await Task.Run(() => _events.SendEventAsync(
+            await Task.Run(() => _events.SendEventAsync(null,
                 messages.Select(message => _serializer.SerializeToBytes(message).ToArray()),
                     ContentMimeType.Json, MessageSchemaTypes.DiscoveryEvents, "utf-8"), ct);
             _logger.Information("{count} results uploaded.", discovered.Count);
@@ -646,7 +646,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Discovery.Services {
 
         private readonly ILogger _logger;
         private readonly IJsonSerializer _serializer;
-        private readonly IEventEmitter _events;
+        private readonly IEventClient _events;
         private readonly IDiscoveryProgress _progress;
         private readonly IEndpointDiscovery _client;
         private readonly Task _runner;

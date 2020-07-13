@@ -17,7 +17,8 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <param name="model"></param>
         /// <returns></returns>
         public static bool? IsConnected(this DeviceModel model) {
-            return model.ConnectionState?.EqualsIgnoreCase("Connected");
+            return model.ConnectionState?.Equals("Connected",
+                StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
@@ -26,7 +27,8 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <param name="model"></param>
         /// <returns></returns>
         public static bool? IsDisabled(this DeviceModel model) {
-            return model.Status?.EqualsIgnoreCase("disabled");
+            return model.Status?.Equals("disabled",
+                StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>

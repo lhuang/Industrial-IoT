@@ -11,7 +11,7 @@ namespace Microsoft.Azure.IIoT.Messaging {
     /// <summary>
     /// Hub Endpoint lookup
     /// </summary>
-    public interface IEndpoint<THub> {
+    public interface ICallbackEndpoint<THub> {
 
         /// <summary>
         /// Resource name

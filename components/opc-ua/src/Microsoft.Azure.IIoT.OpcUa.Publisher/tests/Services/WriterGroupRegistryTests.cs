@@ -16,6 +16,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Services {
     using Microsoft.Azure.IIoT.Storage;
     using Microsoft.Azure.IIoT.Storage.Default;
     using Autofac.Extras.Moq;
+    using Autofac;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -23,7 +24,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Services {
     using System.Threading;
     using Xunit;
     using Xunit.Sdk;
-    using Autofac;
     using Moq;
 
     /// <summary>
@@ -792,6 +792,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Services {
                 Assert.Equal("HeaderLayoutUri", group.HeaderLayoutUri);
                 Assert.Equal(TimeSpan.FromSeconds(56), group.KeepAliveTime);
                 Assert.All(group.LocaleIds, b => Assert.Equal("a", b));
+                Assert.NotNull(group.State);
                 Assert.NotNull(group.MessageSettings);
                 Assert.Equal(DataSetOrderingType.AscendingWriterIdSingle, group.MessageSettings.DataSetOrdering);
                 Assert.Equal(34u, group.MessageSettings.GroupVersion);
@@ -986,6 +987,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Services {
                 Assert.Null(group.KeepAliveTime);
                 Assert.Null(group.LocaleIds);
                 Assert.NotNull(group.MessageSettings);
+                Assert.NotNull(group.State);
                 Assert.Null(group.MessageSettings.DataSetOrdering);
                 Assert.Null(group.MessageSettings.GroupVersion);
                 Assert.Null(group.MessageSettings.NetworkMessageContentMask);

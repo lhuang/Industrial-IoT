@@ -15,22 +15,17 @@ namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Processors {
     /// <summary>
     /// Forwards samples to another event hub
     /// </summary>
-    public sealed class MonitoredItemSampleForwarder : ISubscriberMessageProcessor,
-        IDisposable {
+    public sealed class MonitoredItemSampleForwarder : ISubscriberMessageProcessor {
 
         /// <summary>
         /// Create forwarder
         /// </summary>
-        /// <param name="queue"></param>
+        /// <param name="client"></param>
         /// <param name="serializer"></param>
-        public MonitoredItemSampleForwarder(IEventQueueService queue,
+        public MonitoredItemSampleForwarder(IEventQueueClient client,
             IJsonSerializer serializer) {
-            _serializer = serializer ??
-                throw new ArgumentNullException(nameof(serializer));
-            if (queue == null) {
-                throw new ArgumentNullException(nameof(queue));
-            }
-            _client = queue.OpenAsync().Result;
+            _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
+            _client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
         /// <inheritdoc/>
@@ -40,7 +35,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Processors {
                 [CommonProperties.EventSchemaType] =
                     Core.MessageSchemaTypes.MonitoredItemMessageModelJson
             };
-            return _client.SendAsync(_serializer.SerializeToBytes(sample).ToArray(),
+            return _client.SendAsync(null, _serializer.SerializeToBytes(sample).ToArray(),
                 properties, sample.DataSetWriterId);
         }
 
@@ -50,13 +45,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Processors {
                 [CommonProperties.EventSchemaType] =
                     Core.MessageSchemaTypes.NetworkMessageModelJson
             };
-            return _client.SendAsync(_serializer.SerializeToBytes(message).ToArray(),
+            return _client.SendAsync(null, _serializer.SerializeToBytes(message).ToArray(),
                 properties, message.DataSetWriterId);
-        }
-
-        /// <inheritdoc/>
-        public void Dispose() {
-            _client.Dispose();
         }
 
         private readonly IEventQueueClient _client;

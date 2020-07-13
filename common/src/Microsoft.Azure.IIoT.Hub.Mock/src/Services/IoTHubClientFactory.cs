@@ -92,7 +92,7 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
             }
 
             /// <inheritdoc />
-            public Task SendEventAsync(Message message, CancellationToken ct) {
+            public Task SendEventAsync(string target, Message message, CancellationToken ct) {
                 // Add event to telemetry list
                 if (!IsClosed) {
                     Connection.SendEvent(message);
@@ -101,7 +101,7 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
             }
 
             /// <inheritdoc />
-            public Task SendEventBatchAsync(IEnumerable<Message> messages,
+            public Task SendEventBatchAsync(string target, IEnumerable<Message> messages,
                 CancellationToken ct) {
                 if (!IsClosed) {
                     foreach (var message in messages) {

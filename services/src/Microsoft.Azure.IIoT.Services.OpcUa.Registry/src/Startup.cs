@@ -207,8 +207,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
             // Iot hub services
             builder.RegisterType<IoTHubServiceHttpClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<IoTHubMessagingHttpClient>()
-                .AsImplementedInterfaces();
             builder.RegisterType<IoTHubTwinMethodClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<ChunkMethodClient>()

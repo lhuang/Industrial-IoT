@@ -35,18 +35,18 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
             GetSourceStates(dataSetWriterId).Events.TryAdd(state);
         }
 
-        public Task SendEventAsync(byte[] data, string contentType, string eventSchema,
+        public Task SendEventAsync(string target, byte[] data, string contentType, string eventSchema,
             string contentEncoding, CancellationToken ct) {
             var message = new Message(data, contentType, eventSchema, contentEncoding);
-            GetMessages(null).Events.TryAdd(message);
+            GetMessages(target).Events.TryAdd(message);
             return Task.CompletedTask;
         }
 
-        public Task SendEventAsync(IEnumerable<byte[]> batch, string contentType,
+        public Task SendEventAsync(string target, IEnumerable<byte[]> batch, string contentType,
             string eventSchema, string contentEncoding, CancellationToken ct) {
             foreach (var data in batch) {
                 var message = new Message(data, contentType, eventSchema, contentEncoding);
-                GetMessages(null).Events.TryAdd(message);
+                GetMessages(target).Events.TryAdd(message);
             }
             return Task.CompletedTask;
         }
@@ -61,8 +61,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
             return _sources.GetOrAdd(dataSetWriterId, new EventStore<PublishedDataSetSourceStateModel>());
         }
 
-        public EventStore<Message> GetMessages(string writerGroupId) {
-            return _messages.GetOrAdd("todo", new EventStore<Message>());
+        public EventStore<Message> GetMessages(string target) {
+            return _messages.GetOrAdd(target ?? "default", new EventStore<Message>());
         }
 
         /// <summary>

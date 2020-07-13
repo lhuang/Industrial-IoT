@@ -30,11 +30,13 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
         /// </summary>
         /// <param name="client"></param>
         /// <param name="events"></param>
+        /// <param name="identity"></param>
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
-        public EndpointTwinServices(IEndpointServices client, IEventEmitter events,
-            IJsonSerializer serializer, ILogger logger) {
+        public EndpointTwinServices(IEndpointServices client, IPropertyReporter events,
+            IIdentity identity, IJsonSerializer serializer, ILogger logger) {
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
+            _identity = identity ?? throw new ArgumentNullException(nameof(identity));
             _client = client ?? throw new ArgumentNullException(nameof(client));
             _events = events ?? throw new ArgumentNullException(nameof(events));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -50,7 +52,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
                 if (!endpoint.IsSameAs(previous)) {
                     _logger.Debug(
                         "Updating twin {device} endpoint from {previous} to {endpoint}...",
-                        _events?.DeviceId, previous?.Url, endpoint?.Url);
+                        _identity?.DeviceId, previous?.Url, endpoint?.Url);
 
                     if (_endpoint.Task.IsCompleted) {
                         _endpoint = new TaskCompletionSource<EndpointModel>();
@@ -85,14 +87,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
                                      _serializer.FromObject(state));
                             });
                         _logger.Information("Endpoint {endpoint} ({device}, {module}) updated.",
-                            endpoint?.Url, _events.DeviceId, _events.ModuleId);
+                            endpoint?.Url, _identity.DeviceId, _identity.ModuleId);
 
                         // ready to use
                         _endpoint.TrySetResult(endpoint);
                     }
 
                     _logger.Information("Twin {device} endpoint updated to {endpoint}.",
-                         _events?.DeviceId, endpoint?.Url);
+                         _identity?.DeviceId, endpoint?.Url);
                 }
             }
             finally {
@@ -128,7 +130,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
                 }
                 catch (OperationCanceledException) {
                     _logger.Error("Failed to get endpoint for twin {device} - " +
-                        "timed out waiting for configuration!", _events?.DeviceId);
+                        "timed out waiting for configuration!", _identity?.DeviceId);
                     throw new InvalidConfigurationException(
                         "Twin without endpoint configuration");
                 }
@@ -152,7 +154,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
         private readonly IJsonSerializer _serializer;
         private readonly SemaphoreSlim _lock;
         private readonly IEndpointServices _client;
-        private readonly IEventEmitter _events;
+        private readonly IIdentity _identity;
+        private readonly IPropertyReporter _events;
         private readonly ILogger _logger;
     }
 }

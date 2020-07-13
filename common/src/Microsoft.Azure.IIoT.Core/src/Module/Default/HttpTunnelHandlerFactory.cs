@@ -156,7 +156,7 @@ namespace Microsoft.Azure.IIoT.Module.Default {
 
                 // Send events
                 for (var messageId = 0; messageId < buffers.Count; messageId++) {
-                    await _outer._client.SendEventAsync(buffers[messageId],
+                    await _outer._client.SendEventAsync(null, buffers[messageId],
                         requestId + "_" + messageId.ToString(),
                         HttpTunnelRequestModel.SchemaName, ContentMimeType.Binary);
                 }

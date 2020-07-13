@@ -26,7 +26,7 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
     /// Mock device registry
     /// </summary>
     public class IoTHubServices : IIoTHubTwinServices,
-        IIoTHubTelemetryServices, IIoTHub, IEventProcessingHost, IHostProcess {
+        IIoTHub, IEventProcessingHost, IHostProcess {
 
         /// <inheritdoc/>
         public string HostName { get; } = "mock.azure-devices.net";
@@ -107,22 +107,6 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
         }
 
         /// <inheritdoc/>
-        public Task SendAsync(string deviceId, string moduleId, EventModel message) {
-            var payload = _serializer.SerializeToBytes(message.Payload).ToArray();
-            var ev = new EventMessage {
-                DeviceId = deviceId,
-                ModuleId = moduleId,
-                EnqueuedTimeUtc = DateTime.UtcNow,
-                Message = new Message(payload)
-            };
-            foreach (var item in message.Properties) {
-                ev.Message.Properties.Add(item.Key, item.Value);
-            }
-            Events.TryAdd(ev);
-            return Task.CompletedTask;
-        }
-
-        /// <inheritdoc/>
         public Task<DeviceTwinModel> CreateOrUpdateAsync(DeviceTwinModel twin, bool force,
             CancellationToken ct) {
             lock (_lock) {
@@ -140,7 +124,6 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
                 return Task.FromResult(model.Twin);
             }
         }
-
 
         /// <inheritdoc/>
         public Task<DeviceTwinModel> PatchAsync(DeviceTwinModel twin, bool force,

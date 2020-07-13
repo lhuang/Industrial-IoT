@@ -5,16 +5,15 @@
 
 namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.Utils;
     using Serilog;
     using System;
     using System.Threading.Tasks;
     using System.Threading;
 
     /// <summary>
-    /// Performs continous endpoint activation synchronization
+    /// Performs continous endpoint placement of writer groups
     /// </summary>
-    public sealed class OrchestrationHost : IHostProcess, IDisposable {
+    public sealed class OrchestrationHost : AbstractRunHost {
 
         /// <summary>
         /// Create process
@@ -23,73 +22,18 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="config"></param>
         /// <param name="logger"></param>
         public OrchestrationHost(IPublisherOrchestration orchestrator,
-            IOrchestrationConfig config, ILogger logger) {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _config = config ?? throw new ArgumentNullException(nameof(config));
-
+            ILogger logger, IOrchestrationConfig config = null) :
+            base(logger, "Service Endpoint Update",
+                config?.UpdatePlacementInterval ?? TimeSpan.FromMinutes(3)) {
             _orchestrator = orchestrator ??
                 throw new ArgumentNullException(nameof(orchestrator));
-            _updateTimer = new Timer(OnUpdateTimerFiredAsync);
-        }
-
-
-        /// <inheritdoc/>
-        public void Dispose() {
-            Try.Async(StopAsync).Wait();
-            _updateTimer.Dispose();
         }
 
         /// <inheritdoc/>
-        public Task StartAsync() {
-            if (_cts == null) {
-                _cts = new CancellationTokenSource();
-                // Make it so that we run after first interval has expired.
-                _updateTimer.Change(_config?.UpdatePlacementInterval ?? kDefaultInterval,
-                    Timeout.InfiniteTimeSpan);
-            }
-            return Task.CompletedTask;
+        protected override Task RunAsync(CancellationToken token) {
+            return _orchestrator.SynchronizeWriterGroupPlacementsAsync(token);
         }
 
-        /// <inheritdoc/>
-        public Task StopAsync() {
-            if (_cts != null) {
-                _cts.Cancel();
-                _updateTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            }
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Timer operation
-        /// </summary>
-        /// <param name="sender"></param>
-        private async void OnUpdateTimerFiredAsync(object sender) {
-            try {
-                _cts.Token.ThrowIfCancellationRequested();
-                _logger.Information("Running writer group orchestration...");
-                await _orchestrator.SynchronizeWriterGroupPlacementsAsync(_cts.Token);
-                _logger.Information("Writer group orchestration finished.");
-            }
-            catch (OperationCanceledException) {
-                // Cancel was called - dispose cancellation token
-                _cts.Dispose();
-                _cts = null;
-                return;
-            }
-            catch (Exception ex) {
-                _logger.Error(ex, "Failed to run writer group orchestration.");
-            }
-            _updateTimer.Change(_config?.UpdatePlacementInterval ?? kDefaultInterval,
-                Timeout.InfiniteTimeSpan);
-        }
-
-        private static readonly TimeSpan kDefaultInterval = TimeSpan.FromMinutes(5);
-        private readonly ILogger _logger;
-        private readonly Timer _updateTimer;
-#pragma warning disable IDE0069 // Disposable fields should be disposed
-        private CancellationTokenSource _cts;
-#pragma warning restore IDE0069 // Disposable fields should be disposed
         private readonly IPublisherOrchestration _orchestrator;
-        private readonly IOrchestrationConfig _config;
     }
 }

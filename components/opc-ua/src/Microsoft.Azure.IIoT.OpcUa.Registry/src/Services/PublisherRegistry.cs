@@ -25,7 +25,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     /// and writer group identity management.
     /// </summary>
     public sealed class PublisherRegistry : IPublisherRegistry, IPublisherOrchestration,
-        IWriterGroupRegistryListener, IDataSetWriterRegistryListener, IWriterGroupStatus {
+        IWriterGroupStatus, IWriterGroupSync, IWriterGroupRegistryListener,
+        IDataSetWriterRegistryListener {
 
         /// <summary>
         /// Create registry services
@@ -296,7 +297,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                     var twin = await _iothub.FindAsync(
                         PublisherRegistryEx.ToDeviceId(writerGroup.WriterGroupId));
                     if (twin == null) {
-                        _logger.Warning("Missed add group event - try recreating a disabled twin...");
+                        _logger.Warning("Missed add group event - try recreating disabled twin...");
                         twin = await _iothub.CreateOrUpdateAsync(
                             writerGroup.ToWriterGroupRegistration(true).ToDeviceTwin(_serializer),
                             false, CancellationToken.None);
@@ -350,7 +351,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
             }
 
             // Disable group
-            _logger.Debug("Deactive group {id} event - Disable twin...",
+            _logger.Debug("Deactivate group {id} event - Disable twin...",
                 writerGroup.WriterGroupId);
             var group = writerGroup.ToWriterGroupRegistration(true);
             await _iothub.CreateOrUpdateAsync(group.ToDeviceTwin(_serializer), true);
@@ -378,6 +379,43 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 // Retry create/update
                 _logger.Error(ex, "Remove group {id} event - Deleting twin failed...",
                     writerGroupId);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task SynchronizeWriterGroupAsync(WriterGroupInfoModel writerGroup,
+            IEnumerable<DataSetWriterInfoModel> writers, CancellationToken ct) {
+            if (writerGroup == null) {
+                throw new ArgumentNullException(nameof(writerGroup));
+            }
+            if (writers == null) {
+                throw new ArgumentNullException(nameof(writers));
+            }
+
+            var disabled = writerGroup.State == null ||
+                writerGroup.State.State == WriterGroupState.Disabled;
+
+            var twin = writerGroup.ToWriterGroupRegistration(disabled).ToDeviceTwin(_serializer);
+            twin = await _iothub.CreateOrUpdateAsync(twin, true, ct);
+            var configuredWriters = new HashSet<string>();
+            foreach (var prop in twin.Properties.Desired.Keys) {
+                if (PublisherRegistryEx.IsDataSetWriterProperty(prop)) {
+                    configuredWriters.Add(PublisherRegistryEx.ToDataSetWriterId(prop));
+                }
+            }
+            foreach (var dataSetWriterId in writers.Select(w => w.DataSetWriterId)) {
+                if (!configuredWriters.Remove(dataSetWriterId)) {
+                    // Should be added because it is not yet in the list
+                    await AddRemoveWriterFromWriterGroupTwinAsync(
+                        PublisherRegistryEx.ToDeviceId(writerGroup.WriterGroupId),
+                        dataSetWriterId, false);
+                }
+            }
+            foreach (var dataSetWriterId in configuredWriters) {
+                // The rest should be removed
+                await AddRemoveWriterFromWriterGroupTwinAsync(
+                    PublisherRegistryEx.ToDeviceId(writerGroup.WriterGroupId),
+                    dataSetWriterId, true);
             }
         }
 

@@ -3,17 +3,18 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Messaging {
+
+namespace Microsoft.Azure.IIoT.OpcUa.Registry {
+    using System;
 
     /// <summary>
-    /// Typed message data
+    /// Configures group synchronization
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IMessageData<T> : IMessageData {
+    public interface IWriterGroupSyncConfig {
 
         /// <summary>
-        /// Data value
+        /// Registry sync interval
         /// </summary>
-        new T Value { get; }
+        TimeSpan WriterGroupSyncInterval { get; }
     }
 }

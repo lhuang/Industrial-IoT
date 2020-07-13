@@ -7,7 +7,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     using Microsoft.Azure.IIoT.OpcUa.Registry;
     using Microsoft.Azure.IIoT.OpcUa.Edge;
     using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Serializers;
     using Serilog;
     using System;
@@ -17,7 +16,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     /// <summary>
     /// Update settings on all module entities
     /// </summary>
-    public class SettingsSyncHost : IHostProcess, IDisposable {
+    public class SettingsSyncHost : AbstractRunHost {
 
         /// <summary>
         /// Create host
@@ -28,81 +27,25 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
         public SettingsSyncHost(IIoTHubTwinServices twins, IServiceEndpoint endpoint,
-            IJsonSerializer serializer, ILogger logger, ISettingsSyncConfig config = null) {
+            IJsonSerializer serializer, ILogger logger, ISettingsSyncConfig config = null) :
+            base(logger, "Service Endpoint Update",
+                config?.SettingSyncInterval ?? TimeSpan.FromMinutes(1)) {
+
             _endpoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
             _twins = twins ?? throw new ArgumentNullException(nameof(twins));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _config = config;
-            _updateTimer = new Timer(OnUpdateTimerFiredAsync);
+
             _endpoint.OnServiceEndpointUpdated += OnServiceEndpointUpdated;
         }
 
         /// <inheritdoc/>
-        public void Dispose() {
+        protected override void OnDisposing() {
             _endpoint.OnServiceEndpointUpdated -= OnServiceEndpointUpdated;
-            Try.Async(StopAsync).Wait();
-            _updateTimer.Dispose();
         }
 
         /// <inheritdoc/>
-        public Task StartAsync() {
-            if (_cts == null) {
-                _cts = new CancellationTokenSource();
-                _updateTimer.Change(0, Timeout.Infinite);
-            }
-            return Task.CompletedTask;
-        }
-
-        /// <inheritdoc/>
-        public Task StopAsync() {
-            if (_cts != null) {
-                _cts.Cancel();
-                _updateTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            }
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Service endpoint was updated - sync now
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnServiceEndpointUpdated(object sender, EventArgs e) {
-            if (_cts != null) {
-                _updateTimer.Change(0, Timeout.Infinite);
-            }
-        }
-
-        /// <summary>
-        /// Timer operation
-        /// </summary>
-        /// <param name="sender"></param>
-        private async void OnUpdateTimerFiredAsync(object sender) {
-            try {
-                _cts.Token.ThrowIfCancellationRequested();
-                _logger.Information("Updating service endpoint urls...");
-                await UpdateServiceEndpointsAsync(_cts.Token);
-                _logger.Information("Service endpoint Url update finished.");
-            }
-            catch (OperationCanceledException) {
-                // Cancel was called - dispose cancellation token
-                _cts.Dispose();
-                _cts = null;
-                return;
-            }
-            catch (Exception ex) {
-                _logger.Error(ex, "Failed to update service endpoint urls.");
-            }
-            _updateTimer.Change(_config?.SettingSyncInterval ?? kDefaultInterval,
-                Timeout.InfiniteTimeSpan);
-        }
-
-        /// <summary>
-        /// Update all identity tokens
-        /// </summary>
-        /// <returns></returns>
-        public async Task UpdateServiceEndpointsAsync(CancellationToken ct) {
+        protected override async Task RunAsync(CancellationToken ct) {
             var url = _endpoint.ServiceEndpoint?.TrimEnd('/');
             if (string.IsNullOrEmpty(url)) {
                 return;
@@ -130,18 +73,21 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 ct.ThrowIfCancellationRequested();
             }
             while (continuation != null);
-            _logger.Information("Job orchestrator url updated to {url} on all twins.", url);
+            _logger.Information("Endpoint url updated to {url} on all module twins.", url);
         }
 
-        private static readonly TimeSpan kDefaultInterval = TimeSpan.FromMinutes(1);
+        /// <summary>
+        /// Service endpoint was updated - sync now
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnServiceEndpointUpdated(object sender, EventArgs e) {
+            RunNow();
+        }
+
         private readonly IServiceEndpoint _endpoint;
         private readonly IJsonSerializer _serializer;
         private readonly IIoTHubTwinServices _twins;
-        private readonly ISettingsSyncConfig _config;
         private readonly ILogger _logger;
-        private readonly Timer _updateTimer;
-#pragma warning disable IDE0069 // Disposable fields should be disposed
-        private CancellationTokenSource _cts;
-#pragma warning restore IDE0069 // Disposable fields should be disposed
     }
 }

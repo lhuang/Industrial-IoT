@@ -4,31 +4,26 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Messaging {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Messaging client
+    /// Message queue client
     /// </summary>
-    public interface IEventQueueClient : IEventClient, IDisposable {
+    public interface IEventQueueClient {
 
         /// <summary>
         /// Send the provided message
         /// </summary>
+        /// <param name="target"></param>
         /// <param name="payload"></param>
         /// <param name="properties"></param>
         /// <param name="partitionKey"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        Task SendAsync(byte[] payload, IDictionary<string, string> properties = null,
+        Task SendAsync(string target, byte[] payload,
+            IDictionary<string, string> properties = null,
             string partitionKey = null, CancellationToken ct = default);
-
-        /// <summary>
-        /// Close client
-        /// </summary>
-        /// <returns></returns>
-        Task CloseAsync();
     }
 }

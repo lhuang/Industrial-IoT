@@ -16,19 +16,38 @@ namespace Microsoft.Azure.IIoT.Hub.Client {
     using System.Linq;
     using System.Threading.Tasks;
     using System.Threading;
+    using System.Net;
+    using System.Security.Cryptography;
+    using System.Text;
 
     /// <summary>
     /// Implementation of twin and job services, talking to iot hub
     /// directly. Alternatively, there is a sdk based implementation
     /// in the Hub.Client nuget package that can also be used.
     /// </summary>
-    public sealed class IoTHubServiceHttpClient : IoTHubHttpClientBase,
-        IIoTHubTwinServices, IHealthCheck {
+    public sealed class IoTHubServiceHttpClient : IIoTHubTwinServices, IHealthCheck {
 
         /// <summary>
         /// The host name the client is talking to
         /// </summary>
         public string HostName => HubConnectionString.HostName;
+
+        /// <summary>
+        /// Hub connection string to use
+        /// </summary>
+        ConnectionString HubConnectionString {
+            get {
+                if (_connectionString == null) {
+                    // Lazy parse and return
+                    if (!ConnectionString.TryParse(_config.IoTHubConnString,
+                            out _connectionString)) {
+                        throw new InvalidConfigurationException(
+                            "No or bad IoT Hub owner connection string in configuration.");
+                    }
+                }
+                return _connectionString;
+            }
+        }
 
         /// <summary>
         /// Create service client
@@ -38,8 +57,11 @@ namespace Microsoft.Azure.IIoT.Hub.Client {
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
         public IoTHubServiceHttpClient(IHttpClient httpClient,
-            IIoTHubConfig config, IJsonSerializer serializer, ILogger logger) :
-            base(httpClient, config, serializer, logger) {
+            IIoTHubConfig config, IJsonSerializer serializer, ILogger logger) {
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
         /// <inheritdoc/>
@@ -318,5 +340,68 @@ namespace Microsoft.Azure.IIoT.Hub.Client {
                 }
             };
         }
+
+        /// <summary>
+        /// Helper to create new request
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private IHttpRequest NewRequest(string path) {
+            var request = _httpClient.NewRequest(new UriBuilder {
+                Scheme = "https",
+                Host = HubConnectionString.HostName,
+                Path = path,
+                Query = "api-version=" + kApiVersion
+            }.Uri);
+            request.Headers.Add(HttpRequestHeader.Authorization.ToString(),
+                CreateSasToken(HubConnectionString, 3600));
+            request.Headers.Add(HttpRequestHeader.UserAgent.ToString(), kClientId);
+            return request;
+        }
+
+        /// <summary>
+        /// Helper to create resource path for device and optional module
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="moduleId"></param>
+        /// <returns></returns>
+        private static string ToResourceId(string deviceId, string moduleId) {
+            return string.IsNullOrEmpty(moduleId) ? deviceId : $"{deviceId}/modules/{moduleId}";
+        }
+
+        /// <summary>
+        /// Create a token for iothub from connection string.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        /// <param name="validityPeriodInSeconds"></param>
+        /// <returns></returns>
+        private static string CreateSasToken(ConnectionString connectionString,
+            int validityPeriodInSeconds) {
+            // http://msdn.microsoft.com/en-us/library/azure/dn170477.aspx
+            // signature is computed from joined encoded request Uri string and expiry string
+            var expiryTime = DateTime.UtcNow + TimeSpan.FromSeconds(validityPeriodInSeconds);
+            var expiry = ((long)(expiryTime -
+                new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds).ToString();
+            var encodedScope = Uri.EscapeDataString(connectionString.HostName);
+            // the connection string signature is base64 encoded
+            var key = connectionString.SharedAccessKey.DecodeAsBase64();
+            using (var hmac = new HMACSHA256(key)) {
+                var sig = hmac.ComputeHash(Encoding.UTF8.GetBytes(encodedScope + "\n" + expiry))
+                    .ToBase64String();
+                return $"SharedAccessSignature sr={encodedScope}" +
+                    $"&sig={Uri.EscapeDataString(sig)}&se={Uri.EscapeDataString(expiry)}" +
+                    $"&skn={Uri.EscapeDataString(connectionString.SharedAccessKeyName)}";
+            }
+        }
+
+        private const string kApiVersion = "2020-03-01";
+        private const string kClientId = "AzureIIoT";
+        private const int kMaxRetryCount = 4;
+
+        private readonly IIoTHubConfig _config;
+        private readonly IHttpClient _httpClient;
+        private readonly IJsonSerializer _serializer;
+        private readonly ILogger _logger;
+        private ConnectionString _connectionString;
     }
 }

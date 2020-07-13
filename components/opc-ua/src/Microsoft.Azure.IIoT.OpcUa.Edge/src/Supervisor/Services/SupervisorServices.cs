@@ -32,14 +32,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
         /// </summary>
         /// <param name="factory"></param>
         /// <param name="config"></param>
-        /// <param name="events"></param>
+        /// <param name="identity"></param>
         /// <param name="process"></param>
         /// <param name="logger"></param>
         public SupervisorServices(IContainerFactory factory, IModuleConfig config,
-            IEventEmitter events, IProcessControl process, ILogger logger) {
+            IIdentity identity, IProcessControl process, ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _config = config ?? throw new ArgumentNullException(nameof(config));
-            _events = events ?? throw new ArgumentNullException(nameof(events));
+            _identity = identity ?? throw new ArgumentNullException(nameof(identity));
             _process = process ?? throw new ArgumentNullException(nameof(process));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
@@ -152,8 +152,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
                     });
                 return new SupervisorStatusModel {
                     Entities = entities.ToList(),
-                    DeviceId = _events.DeviceId,
-                    ModuleId = _events.ModuleId
+                    DeviceId = _identity.DeviceId,
+                    ModuleId = _identity.ModuleId
                 };
             }
             finally {
@@ -449,7 +449,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
 
         private readonly ILogger _logger;
         private readonly IModuleConfig _config;
-        private readonly IEventEmitter _events;
+        private readonly IIdentity _identity;
         private readonly IProcessControl _process;
         private readonly IContainerFactory _factory;
 

@@ -5,7 +5,6 @@
 
 namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.Utils;
     using Serilog;
     using System;
     using System.Threading.Tasks;
@@ -14,7 +13,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     /// <summary>
     /// Performs continous endpoint activation synchronization
     /// </summary>
-    public sealed class ActivationSyncHost : IHostProcess, IDisposable {
+    public sealed class ActivationSyncHost : AbstractRunHost {
 
         /// <summary>
         /// Create activation process
@@ -23,71 +22,16 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="config"></param>
         /// <param name="logger"></param>
         public ActivationSyncHost(IEndpointActivation activation, ILogger logger,
-            IActivationSyncConfig config = null) {
+            IActivationSyncConfig config = null) : base(logger, "Endpoint synchronization",
+                config?.ActivationSyncInterval ?? TimeSpan.FromMinutes(2)) {
             _activation = activation ?? throw new ArgumentNullException(nameof(activation));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _config = config;
-            _updateTimer = new Timer(OnUpdateTimerFiredAsync);
-        }
-
-
-        /// <inheritdoc/>
-        public void Dispose() {
-            Try.Async(StopAsync).Wait();
-            _updateTimer.Dispose();
         }
 
         /// <inheritdoc/>
-        public Task StartAsync() {
-            if (_cts == null) {
-                _cts = new CancellationTokenSource();
-                // Make it so that we run after first interval has expired.
-                _updateTimer.Change(_config?.ActivationSyncInterval ?? kDefaultInterval,
-                    Timeout.InfiniteTimeSpan);
-            }
-            return Task.CompletedTask;
+        protected override Task RunAsync(CancellationToken token) {
+            return _activation.SynchronizeActivationAsync(token);
         }
 
-        /// <inheritdoc/>
-        public Task StopAsync() {
-            if (_cts != null) {
-                _cts.Cancel();
-                _updateTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            }
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Timer operation
-        /// </summary>
-        /// <param name="sender"></param>
-        private async void OnUpdateTimerFiredAsync(object sender) {
-            try {
-                _cts.Token.ThrowIfCancellationRequested();
-                _logger.Information("Running endpoint synchronization...");
-                await _activation.SynchronizeActivationAsync(_cts.Token);
-                _logger.Information("Endpoint synchronization finished.");
-            }
-            catch (OperationCanceledException) {
-                // Cancel was called - dispose cancellation token
-                _cts.Dispose();
-                _cts = null;
-                return;
-            }
-            catch (Exception ex) {
-                _logger.Error(ex, "Failed to run endpoint synchronization.");
-            }
-            _updateTimer.Change(_config?.ActivationSyncInterval ?? kDefaultInterval,
-                Timeout.InfiniteTimeSpan);
-        }
-
-        private static readonly TimeSpan kDefaultInterval = TimeSpan.FromMinutes(2);
-        private readonly ILogger _logger;
-        private readonly Timer _updateTimer;
-#pragma warning disable IDE0069 // Disposable fields should be disposed
-        private CancellationTokenSource _cts;
-#pragma warning restore IDE0069 // Disposable fields should be disposed
         private readonly IEndpointActivation _activation;
-        private readonly IActivationSyncConfig _config;
     }
 }

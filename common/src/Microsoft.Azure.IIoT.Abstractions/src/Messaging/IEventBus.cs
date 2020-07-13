@@ -7,7 +7,7 @@ namespace Microsoft.Azure.IIoT.Messaging {
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Higher level event bus implementation
+    /// Higher level integration event bus implementation
     /// </summary>
     public interface IEventBus {
 

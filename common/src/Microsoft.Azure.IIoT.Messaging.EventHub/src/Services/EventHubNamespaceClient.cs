@@ -13,11 +13,12 @@ namespace Microsoft.Azure.IIoT.Messaging.EventHub.Services {
     using System.Linq;
     using System.Threading.Tasks;
     using System.Threading;
+    using System.Collections.Concurrent;
 
     /// <summary>
     /// Event hub namespace client
     /// </summary>
-    public sealed class EventHubNamespaceClient : IEventQueueService {
+    public sealed class EventHubNamespaceClient : IEventQueueClient, IEventClient, IDisposable {
 
         /// <summary>
         /// Create service client
@@ -30,96 +31,91 @@ namespace Microsoft.Azure.IIoT.Messaging.EventHub.Services {
             _config = config ?? throw new ArgumentNullException(nameof(config));
         }
 
+
         /// <inheritdoc/>
-        public Task<IEventQueueClient> OpenAsync(string name) {
-            var cs = new EventHubsConnectionStringBuilder(_config.EventHubConnString) {
-                EntityPath = name ?? _config.EventHubPath
-            }.ToString();
-            var client = EventHubClient.CreateFromConnectionString(cs);
-            return Task.FromResult<IEventQueueClient>(new EventHubClientWrapper(client));
+        public Task SendAsync(string target, byte[] payload,
+            IDictionary<string, string> properties, string partitionKey, CancellationToken ct) {
+            using (var ev = new EventData(payload)) {
+                if (properties != null) {
+                    foreach (var prop in properties) {
+                        ev.Properties.Add(prop.Key, prop.Value);
+                    }
+                }
+                var client = GetClient(target);
+                if (partitionKey != null) {
+                    return client.SendAsync(ev, partitionKey);
+                }
+                return client.SendAsync(ev);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Task SendEventAsync(string target, byte[] data, string contentType,
+            string eventSchema, string contentEncoding, CancellationToken ct) {
+            using (var ev = CreateEvent(data, contentType, eventSchema, contentEncoding)) {
+                var client = GetClient(target);
+                return client.SendAsync(ev);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Task SendEventAsync(string target, IEnumerable<byte[]> batch, string contentType,
+            string eventSchema, string contentEncoding, CancellationToken ct) {
+            var events = batch
+                .Select(b => CreateEvent(b, contentType, eventSchema, contentEncoding))
+                .ToList();
+            try {
+                var client = GetClient(target);
+                return client.SendAsync(events);
+            }
+            finally {
+                events.ForEach(e => e?.Dispose());
+            }
+        }
+
+        /// <inheritdoc/>
+        public void Dispose() {
+            foreach (var client in _cache.Values.ToList()) {
+                client.Close();
+            }
+            _cache.Clear();
+        }
+
+
+        /// <summary>
+        /// Helper to create event from buffer and content type
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="contentType"></param>
+        /// <param name="eventSchema"></param>
+        /// <param name="contentEncoding"></param>
+        /// <returns></returns>
+        private static EventData CreateEvent(byte[] data, string contentType,
+            string eventSchema, string contentEncoding) {
+            var ev = new EventData(data);
+            ev.Properties.Add(EventProperties.ContentEncoding, contentEncoding);
+            ev.Properties.Add(EventProperties.ContentType, contentType);
+            ev.Properties.Add(EventProperties.EventSchema, eventSchema);
+            return ev;
         }
 
         /// <summary>
-        /// Wraps an event hub sdk client
+        /// Get client from cache
         /// </summary>
-        private class EventHubClientWrapper : IEventQueueClient {
-
-            /// <summary>
-            /// Create wrapper
-            /// </summary>
-            /// <param name="client"></param>
-            public EventHubClientWrapper(EventHubClient client) {
-                _client = client;
-            }
-
-            /// <inheritdoc/>
-            public Task SendAsync(byte[] payload, IDictionary<string, string> properties,
-                string partitionKey, CancellationToken ct) {
-                using (var ev = new EventData(payload)) {
-                    if (properties != null) {
-                        foreach (var prop in properties) {
-                            ev.Properties.Add(prop.Key, prop.Value);
-                        }
-                    }
-                    if (partitionKey != null) {
-                        return _client.SendAsync(ev, partitionKey);
-                    }
-                    return _client.SendAsync(ev);
-                }
-            }
-
-            /// <inheritdoc/>
-            public Task SendEventAsync(byte[] data, string contentType,
-                string eventSchema, string contentEncoding, CancellationToken ct) {
-                using (var ev = CreateEvent(data, contentType, eventSchema, contentEncoding)) {
-                    return _client.SendAsync(ev);
-                }
-            }
-
-            /// <inheritdoc/>
-            public Task SendEventAsync(IEnumerable<byte[]> batch, string contentType,
-                string eventSchema, string contentEncoding, CancellationToken ct) {
-                var events = batch
-                    .Select(b => CreateEvent(b, contentType, eventSchema, contentEncoding))
-                    .ToList();
-                try {
-                    return _client.SendAsync(events);
-                }
-                finally {
-                    events.ForEach(e => e?.Dispose());
-                }
-            }
-
-            /// <inheritdoc/>
-            public Task CloseAsync() {
-                return _client.CloseAsync();
-            }
-
-            /// <inheritdoc/>
-            public void Dispose() {
-                Try.Op(_client.Close);
-            }
-
-
-            /// <summary>
-            /// Helper to create event from buffer and content type
-            /// </summary>
-            /// <param name="data"></param>
-            /// <param name="contentType"></param>
-            /// <param name="eventSchema"></param>
-            /// <param name="contentEncoding"></param>
-            /// <returns></returns>
-            private static EventData CreateEvent(byte[] data, string contentType,
-                string eventSchema, string contentEncoding) {
-                var ev = new EventData(data);
-                ev.Properties.Add(EventProperties.ContentEncoding, contentEncoding);
-                ev.Properties.Add(EventProperties.ContentType, contentType);
-                ev.Properties.Add(EventProperties.EventSchema, eventSchema);
-                return ev;
-            }
-            private readonly EventHubClient _client;
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private EventHubClient GetClient(string name) {
+            var key = name ?? _config.EventHubPath;
+            return _cache.GetOrAdd(key, entityPath => {
+                var cs = new EventHubsConnectionStringBuilder(_config.EventHubConnString) {
+                    EntityPath = entityPath
+                }.ToString();
+                return EventHubClient.CreateFromConnectionString(cs);
+            });
         }
 
+        private readonly ConcurrentDictionary<string, EventHubClient> _cache =
+            new ConcurrentDictionary<string, EventHubClient>();
         private readonly IEventHubClientConfig _config;
     }
 }

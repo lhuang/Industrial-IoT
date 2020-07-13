@@ -14,7 +14,7 @@ namespace Microsoft.Azure.IIoT.Messaging.SignalR.Services {
     /// <summary>
     /// SignalR endpoint for serverless mode
     /// </summary>
-    public class SignalRServiceEndpoint<THub> : IEndpoint<THub>
+    public class SignalRServiceEndpoint<THub> : ICallbackEndpoint<THub>
         where THub : Hub {
 
         /// <inheritdoc/>

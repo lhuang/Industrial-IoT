@@ -22,8 +22,6 @@ namespace Microsoft.Azure.IIoT.Hub {
             // Services
             builder.RegisterType<IoTHubServiceHttpClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<IoTHubMessagingHttpClient>()
-                .AsImplementedInterfaces();
 
             // Adapters
             builder.RegisterType<IoTHubDeviceEventHandler>()

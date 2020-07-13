@@ -4,17 +4,15 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Module {
-    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Serializers;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Send telemetry events and property update events as
-    /// module or device identity
+    /// Send property update events as module or device identity
     /// </summary>
-    public interface IEventEmitter : IIdentity, IEventClient {
+    public interface IPropertyReporter {
 
         /// <summary>
         /// Send property changed notification

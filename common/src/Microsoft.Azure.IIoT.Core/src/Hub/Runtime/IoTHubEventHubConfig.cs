@@ -12,7 +12,7 @@ namespace Microsoft.Azure.IIoT.Hub.Client.Runtime {
     /// <summary>
     /// IoT Hub Event processor configuration - wraps a configuration root
     /// </summary>
-    public class IoTHubEventConfig : ConfigBase, IEventHubConsumerConfig {
+    public class IoTHubEventHubConfig : ConfigBase, IEventHubConsumerConfig {
 
         /// <summary>
         /// Event processor configuration
@@ -89,7 +89,7 @@ namespace Microsoft.Azure.IIoT.Hub.Client.Runtime {
         /// </summary>
         /// <param name="configuration"></param>
         /// <param name="serviceId"></param>
-        public IoTHubEventConfig(IConfiguration configuration, string serviceId = "") :
+        public IoTHubEventHubConfig(IConfiguration configuration, string serviceId = "") :
             base(configuration) {
             _serviceId = serviceId ?? throw new ArgumentNullException(nameof(serviceId));
         }

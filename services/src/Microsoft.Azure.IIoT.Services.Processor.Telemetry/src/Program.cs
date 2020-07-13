@@ -25,6 +25,7 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Telemetry {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Microsoft.Azure.IIoT.Hub;
 
     /// <summary>
     /// IoT Hub device telemetry event processor host.  Processes all
@@ -143,27 +144,20 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Telemetry {
         /// <summary>
         /// Forwards telemetry not part of the platform for example from other devices
         /// </summary>
-        internal sealed class UnknownTelemetryForwarder : IUnknownEventProcessor, IDisposable {
+        internal sealed class UnknownTelemetryForwarder : IUnknownEventProcessor {
 
             /// <summary>
             /// Create forwarder
             /// </summary>
-            /// <param name="queue"></param>
-            public UnknownTelemetryForwarder(IEventQueueService queue) {
-                if (queue == null) {
-                    throw new ArgumentNullException(nameof(queue));
-                }
-                _client = queue.OpenAsync().Result;
+            /// <param name="client"></param>
+            public UnknownTelemetryForwarder(IEventQueueClient client) {
+                _client = client ?? throw new ArgumentNullException(nameof(client));
             }
 
             /// <inheritdoc/>
-            public void Dispose() {
-                _client.Dispose();
-            }
-
-            /// <inheritdoc/>
-            public Task HandleAsync(byte[] eventData, IDictionary<string, string> properties) {
-                return _client.SendAsync(eventData, properties);
+            public async Task HandleAsync(byte[] eventData, IDictionary<string, string> properties) {
+                properties.TryGetValue(SystemProperties.To, out var route);
+                await _client.SendAsync(route, eventData, properties);
             }
 
             private readonly IEventQueueClient _client;

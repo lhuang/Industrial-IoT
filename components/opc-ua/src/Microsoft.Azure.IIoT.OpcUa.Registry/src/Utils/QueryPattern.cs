@@ -3,7 +3,6 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-
 namespace Microsoft.Azure.IIoT.OpcUa.Registry.Utils {
     using System;
     using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Utils {
     public static class QueryPattern {
 
         /// <summary>
-        /// Returns true if the target string matches the UA pattern string. 
+        /// Returns true if the target string matches the UA pattern string.
         /// The pattern string may include UA wildcards %_\[]!
         /// </summary>
         /// <param name="target">String to check for a pattern match.</param>
@@ -45,7 +44,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Utils {
         }
 
         /// <summary>
-        /// Returns true if the pattern string contains a UA pattern. 
+        /// Returns true if the pattern string contains a UA pattern.
         /// The pattern string may include UA wildcards %_\[]!
         /// </summary>
 

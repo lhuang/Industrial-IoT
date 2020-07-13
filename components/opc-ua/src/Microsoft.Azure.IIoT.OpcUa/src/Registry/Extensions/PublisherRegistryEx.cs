@@ -66,6 +66,18 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry {
         }
 
         /// <summary>
+        /// Returns writer id from property name
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public static bool IsDataSetWriterProperty(string propertyName) {
+            if (string.IsNullOrEmpty(propertyName)) {
+                return false;
+            }
+            return propertyName.StartsWith(IdentityType.DataSet);
+        }
+
+        /// <summary>
         /// Find publisher.
         /// </summary>
         /// <param name="service"></param>

@@ -8,6 +8,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
     using Microsoft.Azure.IIoT.Module.Framework.Services;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Exceptions;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Azure.Devices.Client.Exceptions;
     using Microsoft.Azure.Devices.Shared;
@@ -15,7 +16,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
     using Serilog;
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Globalization;
     using System.Linq;
     using System.Threading;
@@ -26,14 +26,11 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
     /// <summary>
     /// Module host implementation
     /// </summary>
-    public sealed class ModuleHost : IModuleHost, ITwinProperties, IEventEmitter,
-        IJsonMethodClient, IClientAccessor {
+    public sealed class ModuleHost : IModuleHost, IPropertyReporter,
+        IIdentity, IEventClient, IJsonMethodClient, IClientAccessor {
 
         /// <inheritdoc/>
         public int MaxMethodPayloadCharacterCount => 120 * 1024;
-
-        /// <inheritdoc/>
-        public IReadOnlyDictionary<string, VariantValue> Reported => _reported;
 
         /// <inheritdoc/>
         public string DeviceId { get; private set; }
@@ -93,7 +90,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                         CultureInfo.InvariantCulture)).Set(0);
                     Client?.Dispose();
                     Client = null;
-                    _reported?.Clear();
                     DeviceId = null;
                     ModuleId = null;
                     Gateway = null;
@@ -151,7 +147,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                     _logger.Error("Module Host failed to start.");
                     Client?.Dispose();
                     Client = null;
-                    _reported?.Clear();
                     DeviceId = null;
                     ModuleId = null;
                     Gateway = null;
@@ -165,27 +160,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         }
 
         /// <inheritdoc/>
-        public async Task RefreshAsync() {
-            try {
-                await _lock.WaitAsync();
-                if (Client != null) {
-                    var twin = await Client.GetTwinAsync();
-                    _reported.Clear();
-                    foreach (KeyValuePair<string, dynamic> property in twin.Properties.Reported) {
-                        _reported.AddOrUpdate(property.Key,
-                            (VariantValue)_serializer.FromObject(property.Value));
-                    }
-                    var reported = new Dictionary<string, VariantValue>();
-                    await ReportControllerStateAsync(twin, reported);
-                }
-            }
-            finally {
-                _lock.Release();
-            }
-        }
-
-        /// <inheritdoc/>
-        public async Task SendEventAsync(IEnumerable<byte[]> batch, string contentType,
+        public async Task SendEventAsync(string target, IEnumerable<byte[]> batch, string contentType,
             string eventSchema, string contentEncoding, CancellationToken ct) {
             try {
                 await _lock.WaitAsync();
@@ -196,7 +171,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                                 DeviceId, ModuleId))
                         .ToList();
                     try {
-                        await Client.SendEventBatchAsync(messages);
+                        await Client.SendEventBatchAsync(target, messages);
                     }
                     finally {
                         messages.ForEach(m => m?.Dispose());
@@ -209,14 +184,14 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         }
 
         /// <inheritdoc/>
-        public async Task SendEventAsync(byte[] data, string contentType, string eventSchema,
+        public async Task SendEventAsync(string target, byte[] data, string contentType, string eventSchema,
             string contentEncoding, CancellationToken ct) {
             try {
                 await _lock.WaitAsync();
                 if (Client != null) {
                     using (var msg = CreateMessage(data, contentEncoding, contentType,
                         eventSchema, DeviceId, ModuleId)) {
-                        await Client.SendEventAsync(msg, ct);
+                        await Client.SendEventAsync(target, msg, ct);
                     }
                 }
             }
@@ -236,10 +211,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                         collection[property.Key] = property.Value?.ConvertTo<object>();
                     }
                     await Client.UpdateReportedPropertiesAsync(collection, ct);
-                    foreach (var property in properties) {
-                        _reported.Remove(property.Key);
-                        _reported.Add(property.Key, property.Value);
-                    }
                 }
             }
             finally {
@@ -256,8 +227,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                         [propertyId] = value?.ConvertTo<object>()
                     };
                     await Client.UpdateReportedPropertiesAsync(collection, ct);
-                    _reported.Remove(propertyId);
-                    _reported.Add(propertyId, value);
                 }
             }
             finally {
@@ -352,18 +321,13 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             var reported = new Dictionary<string, VariantValue>();
 
             // Start with reported values which we desire to be re-applied
-            _reported.Clear();
             foreach (KeyValuePair<string, dynamic> property in twin.Properties.Reported) {
                 var value = (VariantValue)_serializer.FromObject(property.Value);
                 if (value.IsObject &&
                     value.TryGetProperty("status", out var val) &&
                     value.PropertyNames.Count() == 1) {
                     // Clear status properties from twin
-                    _reported.AddOrUpdate(property.Key, null);
                     continue;
-                }
-                if (!ProcessEdgeHostSettings(property.Key, value)) {
-                    _reported.AddOrUpdate(property.Key, value);
                 }
             }
             // Apply desired values on top.
@@ -400,7 +364,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                     if (exists) {
                         // If exists as reported, remove
                         reported.AddOrUpdate(property.Key, null);
-                        _reported.Remove(property.Key);
                     }
                 }
                 else {
@@ -418,7 +381,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
 
                     // Otherwise, add to reported properties
                     reported[property.Key] = property.Value;
-                    _reported.AddOrUpdate(property.Key, property.Value);
                 }
             }
             if (reported.Count > 0) {
@@ -478,9 +440,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                             collection[item.Key] = item.Value?.ConvertTo<object>();
                         }
                         await Client.UpdateReportedPropertiesAsync(collection);
-                        foreach (var item in reported) {
-                            _reported.AddOrUpdate(item.Key, item.Value);
-                        }
                     }
                     _logger.Information("New settings processed.");
                 }
@@ -519,8 +478,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         private readonly ILogger _logger;
         private readonly IClientFactory _factory;
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
-        private readonly Dictionary<string, VariantValue> _reported =
-            new Dictionary<string, VariantValue>();
         private readonly string _moduleGuid = Guid.NewGuid().ToString();
         private static readonly Gauge kModuleStart = Metrics
             .CreateGauge("iiot_edge_module_start", "starting module",

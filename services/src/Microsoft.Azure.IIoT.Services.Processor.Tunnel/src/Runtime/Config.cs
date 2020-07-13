@@ -64,12 +64,12 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Tunnel.Runtime {
         /// <param name="configuration"></param>
         public Config(IConfiguration configuration) : base(configuration) {
             _ep = new EventProcessorConfig(configuration);
-            _eh = new IoTHubEventConfig(configuration);
+            _eh = new IoTHubEventHubConfig(configuration);
             _hub = new IoTHubConfig(configuration);
         }
 
         private readonly EventProcessorConfig _ep;
-        private readonly IoTHubEventConfig _eh;
+        private readonly IoTHubEventHubConfig _eh;
         private readonly IoTHubConfig _hub;
     }
 }

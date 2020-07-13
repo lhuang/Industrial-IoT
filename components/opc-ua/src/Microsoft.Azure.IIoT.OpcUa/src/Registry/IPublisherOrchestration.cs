@@ -11,13 +11,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     /// <summary>
     /// Orchestrates and places worker groups across publishers
     /// </summary>
-    public interface IWorkerGroupOrchestration {
+    public interface IPublisherOrchestration {
 
         /// <summary>
         /// Place worker groups
         /// </summary>
-        /// <param name="token"></param>
+        /// <param name="ct"></param>
         /// <returns></returns>
-        Task UpdateGroupPlacementAsync(CancellationToken token);
+        Task SynchronizeWriterGroupPlacementsAsync(
+            CancellationToken ct = default);
     }
 }

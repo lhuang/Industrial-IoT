@@ -5,7 +5,6 @@
 
 namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
     using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -36,6 +35,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
                 Name = model.Name,
                 Priority = model.Priority,
                 SiteId = model.SiteId,
+                State = model.State.Clone(),
+                Schema = model.Schema,
                 MessageSettings = model.MessageSettings.Clone(),
                 Updated = model.Updated.Clone(),
                 Created = model.Created.Clone(),
@@ -64,6 +65,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
                 HeaderLayoutUri = model.HeaderLayoutUri,
                 WriterGroupId = model.WriterGroupId,
                 KeepAliveTime = model.KeepAliveTime,
+                State = model.State.Clone(),
                 LocaleIds = model.LocaleIds?.ToList(),
                 MaxNetworkMessageSize = model.MaxNetworkMessageSize,
                 Encoding = model.Encoding,
@@ -97,6 +99,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
             return new WriterGroupInfoModel {
                 WriterGroupId = null,
                 GenerationId = null,
+                State = null,
                 PublishingInterval = model.PublishingInterval,
                 HeaderLayoutUri = model.HeaderLayoutUri,
                 KeepAliveTime = model.KeepAliveTime,
@@ -109,11 +112,12 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
                 BatchSize = model.BatchSize,
                 Created = context.Clone(),
                 Updated = context.Clone(),
+                Schema = model.Schema,
                 // TODO:
                 MaxNetworkMessageSize = null,
                 SecurityGroupId = null,
                 SecurityKeyServices = null,
-                SecurityMode = null
+                SecurityMode = null,
             };
         }
 

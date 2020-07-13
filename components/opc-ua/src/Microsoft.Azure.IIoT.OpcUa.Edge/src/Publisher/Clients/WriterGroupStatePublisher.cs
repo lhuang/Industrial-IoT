@@ -10,6 +10,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Tasks;
     using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Messaging;
     using Serilog;
     using System;
     using System.Threading.Tasks;
@@ -23,14 +24,16 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
         /// Create listener
         /// </summary>
         /// <param name="events"></param>
+        /// <param name="identity"></param>
         /// <param name="serializer"></param>
         /// <param name="processor"></param>
         /// <param name="logger"></param>
-        public WriterGroupStatePublisher(IEventEmitter events, IJsonSerializer serializer,
-            ITaskProcessor processor, ILogger logger) {
+        public WriterGroupStatePublisher(IEventClient events, IIdentity identity,
+            IJsonSerializer serializer, ITaskProcessor processor, ILogger logger) {
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
             _processor = processor ?? throw new ArgumentNullException(nameof(processor));
             _events = events ?? throw new ArgumentNullException(nameof(events));
+            _identity = identity ?? throw new ArgumentNullException(nameof(identity));
             _logger = new WriterGroupStateLogger(logger);
         }
 
@@ -39,7 +42,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
             PublishedDataSetItemStateModel state) {
             _logger.OnDataSetEventStateChange(dataSetWriterId, state);
             var ev = new WriterGroupStateEventModel {
-                WriterGroupId = PublisherRegistryEx.ToWriterGroupId(_events.DeviceId),
+                WriterGroupId = PublisherRegistryEx.ToWriterGroupId(_identity.DeviceId),
                 DataSetWriterId = dataSetWriterId,
                 EventType = PublisherStateEventType.PublishedItem,
                 LastResult = state?.LastResult,
@@ -53,7 +56,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
             string variableId, PublishedDataSetItemStateModel state) {
             _logger.OnDataSetVariableStateChange(dataSetWriterId, variableId, state);
             var ev = new WriterGroupStateEventModel {
-                WriterGroupId = PublisherRegistryEx.ToWriterGroupId(_events.DeviceId),
+                WriterGroupId = PublisherRegistryEx.ToWriterGroupId(_identity.DeviceId),
                 DataSetWriterId = dataSetWriterId,
                 EventType = PublisherStateEventType.PublishedItem,
                 LastResult = state?.LastResult,
@@ -68,7 +71,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
             PublishedDataSetSourceStateModel state) {
             _logger.OnDataSetWriterStateChange(dataSetWriterId, state);
             var ev = new WriterGroupStateEventModel {
-                WriterGroupId = PublisherRegistryEx.ToWriterGroupId(_events.DeviceId),
+                WriterGroupId = PublisherRegistryEx.ToWriterGroupId(_identity.DeviceId),
                 DataSetWriterId = dataSetWriterId,
                 EventType = PublisherStateEventType.Source,
                 LastResult = state?.LastResult,
@@ -83,7 +86,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
         /// <param name="state"></param>
         /// <returns></returns>
         private Task SendAsync(WriterGroupStateEventModel state) {
-            return _events.SendEventAsync(
+            return _events.SendEventAsync(null,
                 _serializer.SerializeToBytes(state).ToArray(), ContentMimeType.Json,
                 MessageSchemaTypes.WriterGroupEvents, "utf-8");
         }
@@ -91,6 +94,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Clients {
         private readonly WriterGroupStateLogger _logger;
         private readonly IJsonSerializer _serializer;
         private readonly ITaskProcessor _processor;
-        private readonly IEventEmitter _events;
+        private readonly IEventClient _events;
+        private readonly IIdentity _identity;
     }
 }

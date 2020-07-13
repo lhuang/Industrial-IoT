@@ -20,14 +20,17 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// </summary>
         /// <param name="gateways"></param>
         /// <param name="applications"></param>
-        public DiscoveryProcessor(IGatewayRegistry gateways, IApplicationBulkProcessor applications) {
-            _gateways = gateways ?? throw new ArgumentNullException(nameof(gateways));
-            _applications = applications ?? throw new ArgumentNullException(nameof(applications));
+        public DiscoveryProcessor(IGatewayRegistry gateways,
+            IApplicationBulkProcessor applications) {
+            _gateways = gateways ??
+                throw new ArgumentNullException(nameof(gateways));
+            _applications = applications ??
+                throw new ArgumentNullException(nameof(applications));
         }
 
         /// <inheritdoc/>
-        public async Task ProcessDiscoveryResultsAsync(string discovererId, DiscoveryResultModel result,
-            IEnumerable<DiscoveryEventModel> events) {
+        public async Task ProcessDiscoveryResultsAsync(string discovererId,
+            DiscoveryResultModel result, IEnumerable<DiscoveryEventModel> events) {
             if (string.IsNullOrEmpty(discovererId)) {
                 throw new ArgumentNullException(nameof(discovererId));
             }

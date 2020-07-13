@@ -108,6 +108,10 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync {
             // Add unattended authentication
             builder.RegisterModule<UnattendedAuthentication>();
 
+            // Prometheus metric server
+            builder.RegisterType<MetricServerHost>()
+                .AsImplementedInterfaces().SingleInstance();
+
             // Iot hub services
             builder.RegisterType<IoTHubServiceHttpClient>()
                 .AsImplementedInterfaces();
@@ -124,16 +128,14 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync {
             builder.RegisterType<ServiceBusEventBus>()
                 .AsImplementedInterfaces().SingleInstance();
 
-            // Prometheus metric server
-            builder.RegisterType<MetricServerHost>()
-                .AsImplementedInterfaces().SingleInstance();
-
             // Register task processor
             builder.RegisterType<TaskProcessor>()
                 .AsImplementedInterfaces().SingleInstance();
 
-            // Handle discovery request and pass to all edges
+            // Registry services
             builder.RegisterModule<RegistryServices>();
+
+            // Handles discovery request and pass to all edges
             builder.RegisterType<DiscoveryRequestHandler>()
                 .AsImplementedInterfaces();
             builder.RegisterType<DiscovererModuleClient>()
@@ -141,7 +143,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync {
             builder.RegisterType<DiscoveryMultiplexer>()
                 .AsImplementedInterfaces().SingleInstance();
 
-            // Supervisor Activation and Settings sync
+            // Activation and Settings sync
             builder.RegisterType<TwinModuleActivationClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<TwinModuleCertificateClient>()

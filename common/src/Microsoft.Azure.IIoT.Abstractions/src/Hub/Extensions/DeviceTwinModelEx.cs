@@ -20,7 +20,8 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <param name="twin"></param>
         /// <returns></returns>
         public static bool? IsConnected(this DeviceTwinModel twin) {
-            return twin.ConnectionState?.EqualsIgnoreCase("Connected");
+            return twin.ConnectionState?.Equals("Connected",
+                StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
@@ -29,7 +30,8 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <param name="twin"></param>
         /// <returns></returns>
         public static bool? IsEnabled(this DeviceTwinModel twin) {
-            return twin.Status?.EqualsIgnoreCase("enabled");
+            return twin.Status?.Equals("enabled",
+                StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
@@ -38,7 +40,8 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
         /// <param name="twin"></param>
         /// <returns></returns>
         public static bool? IsDisabled(this DeviceTwinModel twin) {
-            return twin.Status?.EqualsIgnoreCase("disabled");
+            return twin.Status?.Equals("disabled",
+                StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>

@@ -7,7 +7,8 @@ namespace Microsoft.Azure.IIoT.Messaging {
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Handles typed integration events
+    /// Handles typed integration events - the other side of
+    /// <see cref="IEventBus"/>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IEventHandler<T> : IHandler {

@@ -96,6 +96,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Migration {
                 MaxNetworkMessageSize = null,
                 GenerationId = null,
                 KeepAliveTime = null,
+                State = null,
                 LocaleIds = null,
                 Priority = null,
                 SecurityGroupId = null,

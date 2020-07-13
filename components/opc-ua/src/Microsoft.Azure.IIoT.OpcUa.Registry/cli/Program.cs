@@ -33,6 +33,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Cli {
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Azure.IIoT.Messaging;
 
     /// <summary>
     /// Test client for opc ua services
@@ -339,7 +340,7 @@ Operations (Mutually exclusive):
         }
 
         /// <inheritdoc/>
-        private class ConsoleEmitter : IEventEmitter {
+        private class ConsoleEmitter : IPropertyReporter, IEventClient, IIdentity {
 
             /// <inheritdoc/>
             public string Gateway => Utils.GetHostName();
@@ -351,7 +352,7 @@ Operations (Mutually exclusive):
             public string ModuleId { get; } = "";
 
             /// <inheritdoc/>
-            public Task SendEventAsync(byte[] data, string contentType,
+            public Task SendEventAsync(string target, byte[] data, string contentType,
                 string eventSchema, string contentEncoding, CancellationToken ct) {
                 var json = Encoding.UTF8.GetString(data);
                 var o = JsonConvert.DeserializeObject(json);
@@ -361,10 +362,10 @@ Operations (Mutually exclusive):
             }
 
             /// <inheritdoc/>
-            public async Task SendEventAsync(IEnumerable<byte[]> batch, string contentType,
+            public async Task SendEventAsync(string target, IEnumerable<byte[]> batch, string contentType,
                 string eventSchema, string contentEncoding, CancellationToken ct) {
                 foreach (var data in batch) {
-                    await SendEventAsync(data, contentType, contentType, contentEncoding, ct);
+                    await SendEventAsync(target, data, contentType, contentType, contentEncoding, ct);
                 }
             }
 

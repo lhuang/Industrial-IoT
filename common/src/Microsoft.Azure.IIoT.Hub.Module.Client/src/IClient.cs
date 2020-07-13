@@ -19,19 +19,22 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         /// <summary>
         /// Sends an event to device hub
         /// </summary>
+        /// <param name="route"></param>
         /// <param name="message"></param>
         /// <param name="ct"></param>
         /// <returns>The message containing the event</returns>
-        Task SendEventAsync(Message message, CancellationToken ct = default);
+        Task SendEventAsync(string route,
+            Message message, CancellationToken ct = default);
 
         /// <summary>
         /// Sends a batch of events to device hub
         /// </summary>
+        /// <param name="route"></param>
         /// <param name="messages"></param>
         /// <param name="ct"></param>
         /// <returns>The task containing the event</returns>
-        Task SendEventBatchAsync(IEnumerable<Message> messages,
-            CancellationToken ct = default);
+        Task SendEventBatchAsync(string route,
+            IEnumerable<Message> messages, CancellationToken ct = default);
 
         /// <summary>
         /// Registers a new delegate that is called for a method that

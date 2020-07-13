@@ -30,6 +30,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
                     .ToList(),
                 HeaderLayoutUri = model.HeaderLayoutUri,
                 KeepAliveTime = model.KeepAliveTime,
+                State = model.State.Clone(),
                 GenerationId = model.GenerationId,
                 SiteId = model.SiteId,
                 LocaleIds = model.LocaleIds?.ToList(),
@@ -69,6 +70,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
                 Name = model.Name,
                 Priority = model.Priority,
                 SiteId = model.SiteId,
+                State = model.State.Clone(),
                 MessageSettings = model.MessageSettings == null ? null :
                     new WriterGroupMessageSettingsModel {
                         DataSetOrdering = model.MessageSettings.DataSetOrdering,
@@ -80,7 +82,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
                     },
                 Updated = context,
                 Created = context,
-                State = null,
                 GenerationId = null,
                 SecurityGroupId = null,
                 SecurityKeyServices = null,

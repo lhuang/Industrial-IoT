@@ -21,6 +21,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
     using System.Threading;
     using System.Diagnostics.Tracing;
     using Prometheus;
+    using Microsoft.Azure.IIoT.Hub;
 
     /// <summary>
     /// Injectable factory that creates clients from device sdk
@@ -105,7 +106,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                 }
             }
             if (!string.IsNullOrEmpty(ehubHost)) {
-                // Running in edge mode 
+                // Running in edge mode
                 // the configured transport (if provided) will be forced to it's OverTcp
                 // variant as follows: AmqpOverTcp when Amqp, AmqpOverWebsocket or AmqpOverTcp specified
                 // and MqttOverTcp otherwise. Default is MqttOverTcp
@@ -279,20 +280,30 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             }
 
             /// <inheritdoc />
-            public async Task SendEventAsync(Message message, CancellationToken ct) {
+            public async Task SendEventAsync(string route, Message message, CancellationToken ct) {
                 if (IsClosed) {
                     return;
                 }
-                await _client.SendEventAsync(message, ct);
+                if (route != null) {
+                    await _client.SendEventAsync(route, message, ct);
+                }
+                else {
+                    await _client.SendEventAsync(message, ct);
+                }
             }
 
             /// <inheritdoc />
-            public async Task SendEventBatchAsync(IEnumerable<Message> messages,
+            public async Task SendEventBatchAsync(string route, IEnumerable<Message> messages,
                 CancellationToken ct) {
                 if (IsClosed) {
                     return;
                 }
-                await _client.SendEventBatchAsync(messages, ct);
+                if (route != null) {
+                    await _client.SendEventBatchAsync(route, messages, ct);
+                }
+                else {
+                    await _client.SendEventBatchAsync(messages, ct);
+                }
             }
 
             /// <inheritdoc />
@@ -479,18 +490,27 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
             }
 
             /// <inheritdoc />
-            public async Task SendEventAsync(Message message, CancellationToken ct) {
+            public async Task SendEventAsync(string route, Message message, CancellationToken ct) {
                 if (IsClosed) {
                     return;
+                }
+                if (!string.IsNullOrEmpty(route)) {
+                    message.Properties.Add(SystemProperties.To, route);
                 }
                 await _client.SendEventAsync(message, ct);
             }
 
             /// <inheritdoc />
-            public async Task SendEventBatchAsync(IEnumerable<Message> messages,
+            public async Task SendEventBatchAsync(string route, IEnumerable<Message> messages,
                 CancellationToken ct) {
                 if (IsClosed) {
                     return;
+                }
+                if (!string.IsNullOrEmpty(route)) {
+                    messages = messages.ToList();
+                    foreach (var message in messages) {
+                        message.Properties.Add(SystemProperties.To, route);
+                    }
                 }
                 await _client.SendEventBatchAsync(messages, ct);
             }

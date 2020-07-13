@@ -138,5 +138,12 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
         [DataMember(Name = "keepAliveTime", Order = 17,
             EmitDefaultValue = false)]
         public TimeSpan? KeepAliveTime { get; set; }
+
+        /// <summary>
+        /// State of the writer group
+        /// </summary>
+        [DataMember(Name = "state", Order = 18,
+            EmitDefaultValue = false)]
+        public WriterGroupStateApiModel State { get; set; }
     }
 }
