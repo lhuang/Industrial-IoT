@@ -94,7 +94,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.Null(v1evt.LastResult?.StatusCode);
 
                 // Should get messages
-                var message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                var message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 Assert.NotNull(message.Data);
                 Assert.NotNull(message.ContentEncoding);
@@ -107,7 +107,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.True(value.GetByPath("Messages[0].Status").IsNull());
                 Assert.True(value.GetByPath("Messages[0].Payload.i=2258.Value").IsDateTime);
 
-                message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 Assert.NotNull(message.Data);
                 Assert.NotNull(message.ContentEncoding);
@@ -174,7 +174,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.NotNull(v1evt.LastResult?.ErrorMessage);
 
                 // Should get single message with error
-                var message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                var message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message.Data);
                 Assert.NotNull(message.ContentEncoding);
                 Assert.Equal(ContentMimeType.Json, message.ContentType);
@@ -256,7 +256,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.Null(v2evt.LastResult?.StatusCode);
 
                 // Should get messages
-                var message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                var message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 Assert.NotNull(message.Data);
                 Assert.NotNull(message.ContentEncoding);
@@ -331,7 +331,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.Null(v2evt.LastResult?.StatusCode);
 
                 // Second message should at least be good
-                var message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                var message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message.Data);
                 Assert.Equal(ContentMimeType.Json, message.ContentType);
                 Assert.NotNull(message.ContentEncoding);
@@ -345,7 +345,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.Equal("BadNodeIdUnknown", value.GetByPath("Messages[0].Payload.i=88888.StatusCode.Symbol"));
 
                 // Good
-                message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 Assert.NotNull(message.Data);
                 Assert.NotNull(message.ContentEncoding);
@@ -421,7 +421,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.Null(v1evt.LastResult?.StatusCode);
 
                 // Should get messages
-                var message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                var message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 Assert.NotNull(message.Data);
                 Assert.NotNull(message.ContentEncoding);
@@ -431,14 +431,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
                 Assert.True(value.IsArray);
                 Assert.True(value.Count > 0);
 
-                message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 value = message.Decode();
                 Assert.False(value.IsNull());
                 Assert.True(value.IsArray);
                 Assert.True(value.Count > 0);
 
-                message = events.GetMessages(result1.WriterGroupId).WaitForEvent();
+                message = events.GetMessages(null).WaitForEvent();
                 Assert.NotNull(message);
                 value = message.Decode();
                 Assert.False(value.IsNull());
