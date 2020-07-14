@@ -121,8 +121,7 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Events {
                 .AsImplementedInterfaces().SingleInstance();
 
             // Handle iot hub telemetry events...
-            builder.RegisterType<IoTHubServiceHttpClient>()
-                .AsImplementedInterfaces();
+            builder.RegisterModule<IoTHubModule>();
             builder.RegisterType<IoTHubDeviceEventHandler>()
                 .AsImplementedInterfaces();
             // ... and pass to the following handlers:

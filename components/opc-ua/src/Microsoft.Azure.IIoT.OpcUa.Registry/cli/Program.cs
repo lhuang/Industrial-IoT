@@ -5,11 +5,11 @@
 
 namespace Microsoft.Azure.IIoT.OpcUa.Registry.Cli {
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Client;
     using Microsoft.Azure.IIoT.Hub.Client.Runtime;
     using Microsoft.Azure.IIoT.Hub.Models;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Module;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Net;
@@ -33,7 +33,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Cli {
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Azure.IIoT.Messaging;
 
     /// <summary>
     /// Test client for opc ua services
@@ -213,7 +212,7 @@ Operations (Mutually exclusive):
         private static async Task MakeSupervisorAsync(string deviceId, string moduleId) {
             var logger = ConsoleOutLogger.Create();
             var config = new IoTHubConfig(null);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
 
             await registry.CreateOrUpdateAsync(new DeviceTwinModel {
@@ -237,7 +236,7 @@ Operations (Mutually exclusive):
         private static async Task ClearSupervisorsAsync() {
             var logger = ConsoleOutLogger.Create();
             var config = new IoTHubConfig(null);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
 
             var query = "SELECT * FROM devices.modules WHERE " +
@@ -265,7 +264,7 @@ Operations (Mutually exclusive):
         private static async Task ClearRegistryAsync() {
             var logger = ConsoleOutLogger.Create();
             var config = new IoTHubConfig(null);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
 
             var result = await registry.QueryAllDeviceTwinsAsync(

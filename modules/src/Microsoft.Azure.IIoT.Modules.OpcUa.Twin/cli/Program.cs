@@ -302,7 +302,7 @@ Options:
         private static async Task GetAsync(
             IIoTHubConfig config, string deviceId, string moduleId) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
             var cs = await registry.GetConnectionStringAsync(deviceId, moduleId);
             Console.WriteLine(cs);
@@ -314,7 +314,7 @@ Options:
         private static async Task ResetAsync(IIoTHubConfig config,
             string deviceId, string moduleId) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
             await ResetAsync(registry, await registry.GetAsync(deviceId, moduleId,
                 CancellationToken.None));
@@ -326,7 +326,7 @@ Options:
         private static async Task DeleteAsync(IIoTHubConfig config,
             string deviceId, string moduleId) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
             await registry.DeleteAsync(deviceId, moduleId, null, CancellationToken.None);
         }
@@ -336,7 +336,7 @@ Options:
         /// </summary>
         private static async Task ListAsync(IIoTHubConfig config) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
 
             var query = "SELECT * FROM devices.modules WHERE " +
@@ -352,7 +352,7 @@ Options:
         /// </summary>
         private static async Task ResetAllAsync(IIoTHubConfig config) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
 
             var query = "SELECT * FROM devices.modules WHERE " +
@@ -370,7 +370,7 @@ Options:
         private static async Task CleanupAsync(IIoTHubConfig config,
             bool includeSupervisors) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
             var result = await registry.QueryAllDeviceTwinsAsync(
                 "SELECT * from devices where IS_DEFINED(tags.DeviceType)");
@@ -395,7 +395,7 @@ Options:
         /// <summary>
         /// Reset supervisor
         /// </summary>
-        private static async Task ResetAsync(IoTHubServiceHttpClient registry,
+        private static async Task ResetAsync(IoTHubServiceClient registry,
             DeviceTwinModel item) {
             if (item.Tags != null) {
                 foreach (var tag in item.Tags.Keys.ToList()) {
@@ -429,7 +429,7 @@ Options:
         private static async Task<ConnectionString> AddOrGetAsync(IIoTHubConfig config,
             ILogAnalyticsConfig diagnostics, string deviceId, string moduleId) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
             try {
                 await registry.CreateOrUpdateAsync(new DeviceTwinModel {

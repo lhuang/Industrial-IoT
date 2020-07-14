@@ -26,7 +26,7 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             // Module host
-            builder.RegisterType<ModuleHost>()
+            builder.RegisterType<IoTEdgeModuleHost>()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
             // Auto wire property for circular dependency resolution
             builder.RegisterType<MethodRouter>()

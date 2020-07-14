@@ -28,7 +28,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : DiagnosticsConfig, IWebHostConfig, IServiceBusConfig,
+    public class Config : AppInsightsConfig, IWebHostConfig, IServiceBusConfig,
         ICorsConfig, IOpenApiConfig, ISignalRServiceConfig,
         IEventProcessorConfig, IEventHubConsumerConfig, IForwardedHeadersConfig,
         IEventProcessorHostConfig, IRoleConfig {

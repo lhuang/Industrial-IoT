@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Extensions.DependencyInjection {
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Routing;
     using Microsoft.AspNetCore.SignalR;
@@ -39,11 +39,11 @@ namespace Microsoft.Extensions.DependencyInjection {
         public static void MapHub<THub>(this IEndpointRouteBuilder endpoints)
             where THub : Hub {
             var type = typeof(THub);
-            var results = type.GetCustomAttributes<RouteAttribute>(false)
+            var results = type.GetCustomAttributes<HubRouteAttribute>(false)
                 .Select(m => m.MapTo.TrimStart('/'))
                 .ToList();
             if (!results.Any()) {
-                results.Add(NameAttribute.GetName(type));
+                results.Add(HubNameAttribute.GetName(type));
             }
             foreach (var map in results) {
                 var builder = endpoints.MapHub<THub>("/" + map, options => {

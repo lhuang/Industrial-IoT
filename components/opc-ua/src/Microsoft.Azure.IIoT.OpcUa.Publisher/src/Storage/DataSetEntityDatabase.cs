@@ -172,7 +172,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Storage.Default {
             if (string.IsNullOrEmpty(generationId)) {
                 throw new ArgumentNullException(nameof(generationId));
             }
-            await _documents.DeleteAsync(
+            await _documents.DeleteAsync<DataSetEntityDocument>(
                 DataSetEntityDocumentEx.GetDocumentId(dataSetWriterId), ct, null, generationId);
         }
 
@@ -345,7 +345,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Storage.Default {
             if (string.IsNullOrEmpty(dataSetWriterId)) {
                 throw new ArgumentNullException(nameof(dataSetWriterId));
             }
-            await _documents.DeleteAsync(
+            await _documents.DeleteAsync<DataSetEntityDocument>(
                 DataSetEntityDocumentEx.GetDocumentId(dataSetWriterId, variableId),
                 ct, null, generationId);
         }

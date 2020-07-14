@@ -5,7 +5,7 @@
 
 namespace Microsoft.Azure.IIoT.Modules.Discovery.Controllers {
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Module.Framework;
+    using Microsoft.Azure.IIoT.Module;
     using Serilog;
     using Serilog.Events;
     using System;

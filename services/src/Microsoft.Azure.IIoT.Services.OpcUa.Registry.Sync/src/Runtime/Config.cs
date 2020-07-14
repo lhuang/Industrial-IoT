@@ -20,7 +20,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync.Runtime {
     /// <summary>
     /// Registry sync configuration
     /// </summary>
-    public class Config : DiagnosticsConfig, IIoTHubConfig, IServiceBusConfig,
+    public class Config : AppInsightsConfig, IIoTHubConfig, IServiceBusConfig,
         IActivationSyncConfig, IServiceEndpoint, IOrchestrationConfig, IMetricServerConfig,
         ISettingsSyncConfig {
 

@@ -113,8 +113,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync {
                 .AsImplementedInterfaces().SingleInstance();
 
             // Iot hub services
-            builder.RegisterType<IoTHubServiceHttpClient>()
-                .AsImplementedInterfaces();
+            builder.RegisterModule<IoTHubModule>();
             builder.RegisterType<IoTHubTwinMethodClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<ChunkMethodClient>()

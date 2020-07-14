@@ -15,7 +15,7 @@ namespace Microsoft.Azure.IIoT.Services.All.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : DiagnosticsConfig, IWebHostConfig,
+    public class Config : AppInsightsConfig, IWebHostConfig,
         IForwardedHeadersConfig {
 
         /// <inheritdoc/>

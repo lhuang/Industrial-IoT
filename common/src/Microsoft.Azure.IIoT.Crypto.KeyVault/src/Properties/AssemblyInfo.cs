@@ -5,4 +5,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Crypto.KeyVault.Tests")]
+[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Azure.KeyVault.Tests")]

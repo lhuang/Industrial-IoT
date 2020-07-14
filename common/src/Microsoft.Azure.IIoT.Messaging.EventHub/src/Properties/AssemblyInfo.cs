@@ -5,4 +5,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Messaging.EventHub.Tests")]
+[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Azure.EventHub.Tests")]

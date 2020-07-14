@@ -10,19 +10,16 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
     /// <summary>
     /// Configuration
     /// </summary>
-    [DataContract]
     public class ConfigurationContentModel {
 
         /// <summary>
         /// Gets or sets modules configurations
         /// </summary>
-        [DataMember(Name = "modulesContent")]
         public IDictionary<string, IDictionary<string, object>> ModulesContent { get; set; }
 
         /// <summary>
         /// Gets or sets device configuration
         /// </summary>
-        [DataMember(Name = "deviceContent")]
         public IDictionary<string, object> DeviceContent { get; set; }
     }
 }

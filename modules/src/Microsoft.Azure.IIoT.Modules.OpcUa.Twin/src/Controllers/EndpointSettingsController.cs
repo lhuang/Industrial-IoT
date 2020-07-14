@@ -8,7 +8,8 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Controllers {
     using Microsoft.Azure.IIoT.OpcUa.Core.Models;
     using Microsoft.Azure.IIoT.OpcUa.Edge;
     using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.Hub;
+    using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Module;
     using System;
     using System.Threading.Tasks;
     using System.Collections.Generic;

@@ -141,10 +141,11 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery {
 
             // register logger
             builder.AddDiagnostics(config);
-            builder.RegisterModule<NewtonSoftJsonModule>();
 
             // Register module framework
             builder.RegisterModule<ModuleFramework>();
+            builder.RegisterModule<IoTEdgeHosted>();
+            builder.RegisterModule<NewtonSoftJsonModule>();
 
             // Register opc ua services
             builder.RegisterType<ClientServices>()

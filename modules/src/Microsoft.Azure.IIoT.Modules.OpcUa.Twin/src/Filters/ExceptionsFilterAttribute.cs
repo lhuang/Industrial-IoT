@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Filters {
-    using Microsoft.Azure.IIoT.Module.Framework;
+    using Microsoft.Azure.IIoT.Module;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.OpcUa.Exceptions;
     using System;
@@ -67,7 +67,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Filters {
                 case CommunicationException ce:
                     status = (int)HttpStatusCode.BadGateway;
                     break;
-                case MessageTooLargeException mtl:
+                case MessageSizeLimitException mtl:
                     status = (int)HttpStatusCode.RequestEntityTooLarge;
                     break;
                 case TaskCanceledException tce:

@@ -28,7 +28,7 @@ namespace Microsoft.Azure.IIoT.Messaging.SignalR.Services {
         public SignalRHub(IHubContext<THub> hub, ILogger logger) {
             _hub = hub ?? throw new ArgumentNullException(nameof(hub));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            Resource = NameAttribute.GetName(typeof(THub));
+            Resource = HubNameAttribute.GetName(typeof(THub));
         }
 
         /// <inheritdoc/>

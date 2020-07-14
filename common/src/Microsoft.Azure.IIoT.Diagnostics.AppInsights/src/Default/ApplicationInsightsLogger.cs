@@ -20,7 +20,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         /// <param name="config"></param>
         /// <param name="log"></param>
         /// <param name="addConsole"></param>
-        public ApplicationInsightsLogger(IDiagnosticsConfig config,
+        public ApplicationInsightsLogger(IAppInsightsConfig config,
             LoggerConfiguration log = null, bool addConsole = true) {
             Logger = (log ?? new LoggerConfiguration()).Configure((c, m) => c
                 .WriteTo.ApplicationInsights(config?.InstrumentationKey,

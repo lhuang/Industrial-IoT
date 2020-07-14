@@ -22,7 +22,7 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Events.Runtime {
     /// <summary>
     /// Telemetry processor service configuration
     /// </summary>
-    public class Config : DiagnosticsConfig, IEventProcessorHostConfig,
+    public class Config : AppInsightsConfig, IEventProcessorHostConfig,
         IEventHubConsumerConfig, IServiceBusConfig, IIoTHubConfig,
         IEventProcessorConfig, ICosmosDbConfig, IItemContainerConfig,
         IMetricServerConfig {

@@ -5,7 +5,7 @@
 
 namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
     using Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Filters;
-    using Microsoft.Azure.IIoT.Module.Framework;
+    using Microsoft.Azure.IIoT.Module;
     using System;
 
     /// <summary>

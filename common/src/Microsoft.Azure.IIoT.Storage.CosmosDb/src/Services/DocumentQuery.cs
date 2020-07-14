@@ -84,7 +84,7 @@ namespace Microsoft.Azure.IIoT.Storage.CosmosDb.Services {
         }
 
         /// <inheritdoc/>
-        public async Task DropAsync(string queryString,
+        public async Task DropAsync<T>(string queryString,
             IDictionary<string, object> parameters, string partitionKey,
             CancellationToken ct) {
             var query = new SqlQuerySpec {

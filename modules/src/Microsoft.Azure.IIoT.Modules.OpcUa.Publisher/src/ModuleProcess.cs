@@ -152,6 +152,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher {
 
             // Register module and publisher framework ...
             builder.RegisterModule<ModuleFramework>();
+            builder.RegisterModule<IoTEdgeHosted>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
             if (legacyCliOptions.RunInLegacyMode) {
@@ -250,6 +251,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher {
 
                 // Register module framework
                 builder.RegisterModule<ModuleFramework>();
+                builder.RegisterModule<IoTEdgeHosted>();
                 builder.RegisterModule<NewtonSoftJsonModule>();
 
                 // Register writer group controllers

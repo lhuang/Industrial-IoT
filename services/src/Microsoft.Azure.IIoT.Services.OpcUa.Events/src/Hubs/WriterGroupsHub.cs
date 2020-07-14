@@ -5,14 +5,14 @@
 
 namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
     using Microsoft.Azure.IIoT.Services.OpcUa.Events.Auth;
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// Writer groups hub
     /// </summary>
-    [Route("v2/groups/events")]
+    [HubRoute("v2/groups/events")]
     [Authorize(Policy = Policies.CanRead)]
     public class WriterGroupsHub : Hub {
 

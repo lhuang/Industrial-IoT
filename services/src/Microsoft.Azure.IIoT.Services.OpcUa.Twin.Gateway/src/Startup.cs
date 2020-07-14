@@ -184,8 +184,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway {
                 .AsImplementedInterfaces();
 
             // Iot hub services
-            builder.RegisterType<IoTHubServiceHttpClient>()
-                .AsImplementedInterfaces();
+            builder.RegisterModule<IoTHubModule>();
             builder.RegisterType<IoTHubTwinMethodClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<ChunkMethodClient>()

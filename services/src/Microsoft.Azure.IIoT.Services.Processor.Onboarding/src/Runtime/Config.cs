@@ -22,7 +22,7 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : DiagnosticsConfig, IEventProcessorHostConfig,
+    public class Config : AppInsightsConfig, IEventProcessorHostConfig,
         IEventHubConsumerConfig, IServiceBusConfig, IIoTHubConfig,
         IEventProcessorConfig, ICosmosDbConfig, IItemContainerConfig,
         IMetricServerConfig {

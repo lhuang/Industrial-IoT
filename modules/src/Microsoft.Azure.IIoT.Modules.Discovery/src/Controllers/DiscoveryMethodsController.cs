@@ -9,6 +9,8 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Controllers {
     using Microsoft.Azure.IIoT.Module.Framework;
     using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
     using Microsoft.Azure.IIoT.OpcUa.Registry;
+    using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Module;
     using System;
     using System.Threading.Tasks;
 

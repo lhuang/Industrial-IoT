@@ -24,7 +24,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
+    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, IOpenApiConfig, ICosmosDbConfig,
         IItemContainerConfig, IForwardedHeadersConfig, IRoleConfig {
 

@@ -135,8 +135,8 @@ namespace Microsoft.Azure.IIoT.Storage.CosmosDb.Services {
                     Precision = -1
                 })
             };
-            if (options?.Partitioned ?? false) {
-                container.PartitionKey.Paths.Add("/" + DocumentCollection.PartitionKeyProperty);
+            if (!string.IsNullOrEmpty(options?.PartitionKey)) {
+                container.PartitionKey.Paths.Add("/" + options.PartitionKey);
             }
             var collection = await Client.CreateDocumentCollectionIfNotExistsAsync(
                  UriFactory.CreateDatabaseUri(DatabaseId),

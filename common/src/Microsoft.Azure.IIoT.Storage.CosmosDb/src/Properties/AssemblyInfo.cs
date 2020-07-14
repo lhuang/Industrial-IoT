@@ -5,4 +5,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Storage.CosmosDb.Tests")]
+[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Azure.CosmosDb.Tests")]

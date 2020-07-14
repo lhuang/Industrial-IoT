@@ -23,7 +23,7 @@ namespace Microsoft.Azure.IIoT.Api.Runtime {
     /// <summary>
     /// Complete api configuration
     /// </summary>
-    public class ApiConfig : DiagnosticsConfig, ITwinConfig, IRegistryConfig,
+    public class ApiConfig : AppInsightsConfig, ITwinConfig, IRegistryConfig,
         IVaultConfig, IHistoryConfig, IPublisherConfig, IEventsConfig, ISignalRClientConfig {
 
         /// <inheritdoc/>

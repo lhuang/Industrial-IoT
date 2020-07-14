@@ -150,6 +150,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin {
 
             // Register module framework
             builder.RegisterModule<ModuleFramework>();
+            builder.RegisterModule<IoTEdgeHosted>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
             // Register opc ua services
@@ -235,6 +236,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin {
 
                 // Register module framework
                 builder.RegisterModule<ModuleFramework>();
+                builder.RegisterModule<IoTEdgeHosted>();
                 builder.RegisterModule<NewtonSoftJsonModule>();
 
                 // Register twin controllers

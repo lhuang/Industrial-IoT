@@ -12,7 +12,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
     using Microsoft.Azure.IIoT.Module.Framework.Client;
     using Microsoft.Azure.IIoT.Module.Framework.Services;
     using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.Azure.Devices.Client.Exceptions;
     using Autofac;
     using Serilog;
     using System;
@@ -346,14 +345,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
                     catch (Exception ex) {
                         Status = EntityActivationState.Activated;
 
-                        var notFound = ex.GetFirstOf<DeviceNotFoundException>();
+                        var notFound = ex.GetFirstOf<ResourceNotFoundException>();
                         if (notFound != null) {
                             _logger.Information(notFound,
                                 "Twin was deleted - exit host...");
                             _started.TrySetException(notFound);
                             return;
                         }
-                        var auth = ex.GetFirstOf<UnauthorizedException>();
+                        var auth = ex.GetFirstOf<ResourceUnauthorizedException>();
                         if (auth != null) {
                             _logger.Information(auth,
                                 "Twin not authorized using given secret - exit host...");

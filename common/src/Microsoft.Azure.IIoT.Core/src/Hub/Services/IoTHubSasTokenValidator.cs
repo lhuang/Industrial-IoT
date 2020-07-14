@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.AspNetCore.Auth.Clients {
+namespace Microsoft.Azure.IIoT.Hub.Services {
     using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Storage;

@@ -16,15 +16,9 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         /// <summary>
         /// Configuration keys
         /// </summary>
-        private const string kInstrumentationKeyKey = "Diagnostics:InstrumentationKey";
         private const string kDiagnosticsLevelKey = "Diagnostics:DiagnosticsLevel";
         private const string kMetricsCollectionIntervalKey = "Diagnostics:MetricsCollectionInterval";
 
-        /// <inheritdoc/>
-        public string InstrumentationKey =>
-            GetStringOrDefault(kInstrumentationKeyKey,
-                () => GetStringOrDefault(PcsVariable.PCS_APPINSIGHTS_INSTRUMENTATIONKEY,
-                () => null));
         /// <inheritdoc/>
         public DiagnosticsLevel DiagnosticsLevel => (DiagnosticsLevel)
             GetIntOrDefault(kDiagnosticsLevelKey,

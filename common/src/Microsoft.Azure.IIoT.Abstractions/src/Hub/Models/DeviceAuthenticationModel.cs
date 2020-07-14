@@ -9,21 +9,16 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
     /// <summary>
     /// Authentication information
     /// </summary>
-    [DataContract]
     public class DeviceAuthenticationModel {
 
         /// <summary>
         /// Primary sas key
         /// </summary>
-        [DataMember(Name = "primaryKey",
-            EmitDefaultValue = false)]
         public string PrimaryKey { get; set; }
 
         /// <summary>
         /// Secondary sas key
         /// </summary>
-        [DataMember(Name = "secondaryKey",
-            EmitDefaultValue = false)]
         public string SecondaryKey { get; set; }
     }
 }

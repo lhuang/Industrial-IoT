@@ -9,9 +9,10 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
     using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
     using Microsoft.Azure.IIoT.OpcUa.Registry;
     using Microsoft.Azure.IIoT.OpcUa.Edge;
+    using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Module;
     using System;
     using System.Threading.Tasks;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
 
     /// <summary>
     /// Supervisor controller

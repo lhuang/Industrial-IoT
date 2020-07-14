@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Devices.Common.Exceptions {
                 case UnauthorizedException ue:
                     return new UnauthorizedAccessException(ue.Message, ue);
                 case MessageTooLargeException mtl:
-                    return new IIoT.Exceptions.MessageTooLargeException(mtl.Message);
+                    return new IIoT.Exceptions.MessageSizeLimitException(mtl.Message);
                 case DeviceMessageLockLostException mtl:
                     return new BadRequestException(mtl.Message, mtl);
                 case TooManyModulesOnDeviceException tmd:

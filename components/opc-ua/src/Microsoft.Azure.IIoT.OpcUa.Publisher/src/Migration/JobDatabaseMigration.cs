@@ -61,7 +61,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Migration {
                             await _batch.ImportWriterGroupAsync(group);
                         }
                         // Force delete now
-                        await _documents.DeleteAsync(document.Id);
+                        await _documents.DeleteAsync<JobDocument>(document.Id);
                     }
                     catch (Exception e) {
                         _logger.Error(e, "Error adding {group} - skip migration...",

@@ -26,7 +26,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
+    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, ITcpListenerConfig, IWebListenerConfig,
         ISessionServicesConfig, IRegistryConfig, IForwardedHeadersConfig {
 

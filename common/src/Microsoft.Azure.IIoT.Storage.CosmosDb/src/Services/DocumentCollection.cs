@@ -175,11 +175,11 @@ namespace Microsoft.Azure.IIoT.Storage.CosmosDb.Services {
             }
             options ??= new OperationOptions();
             options.PartitionKey = item.PartitionKey;
-            return DeleteAsync(item.Id, ct, options, item.Etag);
+            return DeleteAsync<T>(item.Id, ct, options, item.Etag);
         }
 
         /// <inheritdoc/>
-        public async Task DeleteAsync(string id, CancellationToken ct,
+        public async Task DeleteAsync<T>(string id, CancellationToken ct,
             OperationOptions options, string etag) {
             if (string.IsNullOrEmpty(id)) {
                 throw new ArgumentNullException(nameof(id));

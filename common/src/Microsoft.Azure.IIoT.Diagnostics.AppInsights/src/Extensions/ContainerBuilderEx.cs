@@ -26,7 +26,7 @@ namespace Autofac {
         /// <param name="addConsole"></param>
         /// <returns></returns>
         public static IModuleRegistrar AddDiagnostics(this ContainerBuilder builder,
-            IDiagnosticsConfig config, LoggerConfiguration log = null, bool addConsole = true) {
+            IAppInsightsConfig config, LoggerConfiguration log = null, bool addConsole = true) {
             if (builder == null) {
                 throw new ArgumentNullException(nameof(builder));
             }
@@ -49,7 +49,7 @@ namespace Autofac {
         /// <param name="processIdentity"></param>
         /// <returns></returns>
         public static ContainerBuilder AddDependencyTracking(this ContainerBuilder builder,
-            IDiagnosticsConfig diagnosticsConfig, IProcessIdentity processIdentity) {
+            IAppInsightsConfig diagnosticsConfig, IProcessIdentity processIdentity) {
             if (builder == null) {
                 throw new ArgumentNullException(nameof(builder));
             }

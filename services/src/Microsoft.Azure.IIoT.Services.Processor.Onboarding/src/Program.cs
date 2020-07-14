@@ -4,10 +4,13 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
-
-    using Autofac;
-    using Autofac.Extensions.DependencyInjection;
+    using Microsoft.Azure.IIoT.Services.Processor.Onboarding.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.Diagnostics.Default;
+    using Microsoft.Azure.IIoT.OpcUa.Registry;
+    using Microsoft.Azure.IIoT.OpcUa.Registry.Clients;
+    using Microsoft.Azure.IIoT.OpcUa.Registry.Handlers;
+    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
+    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
     using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Http.Ssl;
     using Microsoft.Azure.IIoT.Hub.Client;
@@ -18,17 +21,13 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
     using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
     using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
     using Microsoft.Azure.IIoT.Module.Default;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Handlers;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Services.Processor.Onboarding.Runtime;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
     using Serilog;
     using System;
 
@@ -67,21 +66,9 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
                     ConfigureContainer(builder, hostBuilderContext.Configuration);
                 })
                 .ConfigureServices((hostBuilderContext, services) => {
-                    ConfigureServices(services, hostBuilderContext.Configuration);
+                    services.AddHostedService<HostStarterService>();
                 })
                 .UseSerilog();
-        }
-
-        /// <summary>
-        /// This is where you register dependencies, add services to the container.
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        public static void ConfigureServices(
-            IServiceCollection services,
-            IConfiguration configuration
-        ) {
-            services.AddHostedService<HostStarterService>();
         }
 
         /// <summary>
@@ -89,10 +76,8 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="configuration"></param>
-        public static ContainerBuilder ConfigureContainer(
-            ContainerBuilder builder,
-            IConfiguration configuration
-        ) {
+        public static ContainerBuilder ConfigureContainer(ContainerBuilder builder,
+            IConfiguration configuration) {
             var serviceInfo = new ServiceInfo();
             var config = new Config(configuration);
 
@@ -122,8 +107,7 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
             builder.RegisterModule<NewtonSoftJsonModule>();
 
             // and build on Iot hub services
-            builder.RegisterType<IoTHubServiceHttpClient>()
-                .AsImplementedInterfaces();
+            builder.RegisterModule<IoTHubModule>();
             builder.RegisterType<IoTHubTwinMethodClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<ChunkMethodClient>()

@@ -5,14 +5,14 @@
 
 namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
     using Microsoft.Azure.IIoT.Services.OpcUa.Events.Auth;
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// Endpoints hub
     /// </summary>
-    [Route("v2/endpoints/events")]
+    [HubRoute("v2/endpoints/events")]
     [Authorize(Policy = Policies.CanRead)]
     public class EndpointsHub : Hub {
 

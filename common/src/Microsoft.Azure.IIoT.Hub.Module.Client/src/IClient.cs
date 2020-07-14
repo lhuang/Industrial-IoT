@@ -12,7 +12,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
     using System.Threading.Tasks;
 
     /// <summary>
-    /// A hub client
+    /// IoT Hub device client abstraction
     /// </summary>
     public interface IClient : IDisposable {
 

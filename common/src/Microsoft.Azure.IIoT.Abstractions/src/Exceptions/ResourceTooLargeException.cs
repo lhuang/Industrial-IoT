@@ -39,8 +39,26 @@ namespace Microsoft.Azure.IIoT.Exceptions {
         /// Create exception
         /// </summary>
         /// <param name="message"></param>
+        /// <param name="size"></param>
+        /// <param name="maxSize"></param>
+        /// <param name="innerException"></param>
+        public ResourceTooLargeException(string message,
+            int size, int maxSize, Exception innerException) :
+            base(message, innerException) {
+
+            Size = size;
+            MaxSize = maxSize;
+        }
+
+        /// <inheritdoc />
         public ResourceTooLargeException(string message) :
             this(message, -1, -1) {
+        }
+
+        /// <inheritdoc />
+        public ResourceTooLargeException(string message,
+            Exception innerException) :
+            this(message, -1, -1, innerException) {
         }
     }
 }

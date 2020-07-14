@@ -76,8 +76,8 @@ namespace Microsoft.Azure.IIoT.Net {
         public static Task ScanAsync(this IScanServices services, Action<PingReply> replies,
             IEnumerable<AddressRange> addresses, CancellationToken ct) {
             return services.ScanAsync(replies, false, addresses ??
-throw new ArgumentNullException(nameof(addresses)),
-NetworkClass.None, null, null, ct);
+                throw new ArgumentNullException(nameof(addresses)),
+                NetworkClass.None, null, null, ct);
         }
 
         /// <summary>

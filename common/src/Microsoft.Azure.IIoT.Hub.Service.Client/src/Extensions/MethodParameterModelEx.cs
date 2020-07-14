@@ -40,6 +40,5 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
                 Name = method.MethodName
             };
         }
-
     }
 }

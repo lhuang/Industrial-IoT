@@ -22,7 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\src\Microsoft.Azure.IIoT.Diagnostics.Debug\src\Microsoft.Azure.IIoT.Diagnostics.Debug.csproj" />
-  </ItemGroup>
+     <ProjectReference Include="..\..\..\..\common\src\Microsoft.Azure.IIoT.Hub.Module.Client\src\Microsoft.Azure.IIoT.Azure.IoTEdge.csproj" />
+ </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Edge\src\Microsoft.Azure.IIoT.OpcUa.Edge.csproj" />
   </ItemGroup>

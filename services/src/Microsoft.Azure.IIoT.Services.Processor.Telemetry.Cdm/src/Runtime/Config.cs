@@ -18,7 +18,7 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Telemetry.Cdm.Runtime {
     /// <summary>
     /// Cdm processor service configuration
     /// </summary>
-    public class Config : DiagnosticsConfig, IEventProcessorHostConfig,
+    public class Config : AppInsightsConfig, IEventProcessorHostConfig,
         IEventHubConsumerConfig, ICdmFolderConfig, IEventProcessorConfig,
         IMetricServerConfig {
 

@@ -6,7 +6,6 @@
 namespace System.Collections.Generic {
     using Xunit;
     using System.Text;
-
     public class EnumerableExTests {
 
         [Fact]
@@ -17,7 +16,6 @@ namespace System.Collections.Generic {
             var result = test1.SequenceEqualsSafe(test2);
             Assert.False(result);
         }
-
 
         [Fact]
         public void SequenceEqualsReturnsFalseWhenListObjectNull() {

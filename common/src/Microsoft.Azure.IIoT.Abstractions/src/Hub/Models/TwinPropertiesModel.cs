@@ -4,28 +4,22 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Hub.Models {
-    using System.Collections.Generic;
-    using System.Runtime.Serialization;
     using Microsoft.Azure.IIoT.Serializers;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Twin properties
     /// </summary>
-    [DataContract]
     public class TwinPropertiesModel {
 
         /// <summary>
         /// Reported settings
         /// </summary>
-        [DataMember(Name = "reported",
-            EmitDefaultValue = false)]
         public Dictionary<string, VariantValue> Reported { get; set; }
 
         /// <summary>
         /// Desired settings
         /// </summary>
-        [DataMember(Name = "desired",
-            EmitDefaultValue = false)]
         public Dictionary<string, VariantValue> Desired { get; set; }
     }
 }

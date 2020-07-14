@@ -197,7 +197,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Storage.Default {
             if (string.IsNullOrEmpty(generationId)) {
                 throw new ArgumentNullException(nameof(generationId));
             }
-            await _documents.DeleteAsync(writerGroupId, ct, null, generationId);
+            await _documents.DeleteAsync<WriterGroupDocument>(writerGroupId, ct, null, generationId);
         }
 
         /// <summary>

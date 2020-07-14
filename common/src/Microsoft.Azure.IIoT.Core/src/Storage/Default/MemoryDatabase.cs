@@ -115,13 +115,13 @@ namespace Microsoft.Azure.IIoT.Storage.Default {
                 if (item == null) {
                     throw new ArgumentNullException(nameof(item));
                 }
-                return DeleteAsync(item.Id, ct, new OperationOptions {
+                return DeleteAsync<T>(item.Id, ct, new OperationOptions {
                     PartitionKey = item.PartitionKey
                 }, item.Etag);
             }
 
             /// <inheritdoc/>
-            public Task DeleteAsync(string id, CancellationToken ct,
+            public Task DeleteAsync<T>(string id, CancellationToken ct,
                 OperationOptions options, string etag) {
                 if (string.IsNullOrEmpty(id)) {
                     throw new ArgumentNullException(nameof(id));
@@ -132,7 +132,7 @@ namespace Microsoft.Azure.IIoT.Storage.Default {
                             new ResourceNotFoundException(id));
                     }
                     if (!string.IsNullOrEmpty(etag) && etag != doc.Etag) {
-                        return Task.FromException<dynamic>(
+                        return Task.FromException(
                             new ResourceOutOfDateException(etag));
                     }
                     _data.Remove(id);
@@ -237,20 +237,6 @@ namespace Microsoft.Azure.IIoT.Storage.Default {
             }
 
             /// <inheritdoc/>
-            public IResultFeed<T> Submit<T>(string gremlin, int? pageSize,
-                string partitionKey ) {
-                var documents = _outer._queryEngine?.ExecuteGremlin(_data.Values, gremlin);
-                if (documents == null) {
-                    throw new NotSupportedException("Query not supported");
-                }
-                var results = documents
-                    .Select(d => d.Value.ConvertTo<T>());
-                var feed = (pageSize == null) ?
-                    results.YieldReturn() : results.Batch(pageSize.Value);
-                return new MemoryFeed<T>(this, new Queue<IEnumerable<T>>(feed));
-            }
-
-            /// <inheritdoc/>
             public IResultFeed<IDocumentInfo<T>> Continue<T>(string continuationToken,
                 int? pageSize, string partitionKey) {
                 if (_queryStore.TryGetValue(continuationToken, out var feed)) {
@@ -267,7 +253,7 @@ namespace Microsoft.Azure.IIoT.Storage.Default {
             }
 
             /// <inheritdoc/>
-            public Task DropAsync(string queryString,
+            public Task DropAsync<T>(string queryString,
                 IDictionary<string, object> parameters, string partitionKey,
                 CancellationToken ct) {
                 queryString = FormatQueryString(queryString, parameters);

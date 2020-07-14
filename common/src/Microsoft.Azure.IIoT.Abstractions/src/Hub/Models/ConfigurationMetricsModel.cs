@@ -10,19 +10,16 @@ namespace Microsoft.Azure.IIoT.Hub.Models {
     /// <summary>
     /// Azure IOT Configuration Metrics
     /// </summary>
-    [DataContract]
     public class ConfigurationMetricsModel {
 
         /// <summary>
         /// Results of the metrics collection queries
         /// </summary>
-        [DataMember(Name = "results")]
         public IDictionary<string, long> Results { get; set; }
 
         /// <summary>
         /// Queries used for metrics collection
         /// </summary>
-        [DataMember(Name = "queries")]
         public IDictionary<string, string> Queries { get; set; }
     }
 

@@ -270,7 +270,7 @@ Options:
         private static async Task<ConnectionString> AddOrGetAsync(IIoTHubConfig config,
             ILogAnalyticsConfig diagnostics, string deviceId, string moduleId) {
             var logger = ConsoleLogger.Create(LogEventLevel.Error);
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
+            var registry = new IoTHubServiceClient(
                 config, new NewtonSoftJsonSerializer(), logger);
             try {
                 await registry.CreateOrUpdateAsync(new DeviceTwinModel {
@@ -303,16 +303,6 @@ Options:
             }
             var cs = await registry.GetConnectionStringAsync(deviceId, moduleId);
             return cs;
-        }
-
-        /// <summary>
-        /// Create client
-        /// </summary>
-        private static IoTHubServiceHttpClient CreateClient(IIoTHubConfig config,
-            ILogger logger) {
-            var registry = new IoTHubServiceHttpClient(new HttpClient(logger),
-                config, new NewtonSoftJsonSerializer(), logger);
-            return registry;
         }
 
         /// <summary>
