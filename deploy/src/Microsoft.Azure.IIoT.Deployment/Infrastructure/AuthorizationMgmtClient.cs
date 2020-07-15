@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure {
 
     using System;
     using System.Diagnostics;
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
         protected string GetRoleDefinitionId(
             string roleId
         ) {
-            var networkContributorRoleDefinitionId = 
+            var networkContributorRoleDefinitionId =
                 $"/subscriptions/{_subscriptionId}/providers" +
                 $"/Microsoft.Authorization/roleDefinitions/{roleId}";
 

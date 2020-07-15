@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Deployment {
-    using Microsoft.Azure.IIoT.Deployment.Infrastructure;
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Deployment {
+    using Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure;
     using Microsoft.Graph;
     using Microsoft.Rest;
     using Serilog;

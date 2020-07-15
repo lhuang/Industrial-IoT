@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Authentication {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Authentication {
 
     using System;
     using System.Threading;
@@ -42,7 +42,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Authentication {
         ) {
             var azureManagementAuthenticationResult = await authenticationManager
                 .AcquireAzureManagementAuthenticationResultAsync(cancellationToken);
-            
+
             var azureManagementTokenCredentials = authenticationManager
                 .GenerateTokenCredentials(azureManagementAuthenticationResult);
             return azureManagementTokenCredentials;
@@ -64,7 +64,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Authentication {
         ) {
             var keyVaultAuthenticationResult = await authenticationManager
                 .AcquireKeyVaultAuthenticationResultAsync(cancellationToken);
-            
+
             var keyVaultTokenCredentials = authenticationManager
                 .GenerateTokenCredentials(keyVaultAuthenticationResult);
             return keyVaultTokenCredentials;

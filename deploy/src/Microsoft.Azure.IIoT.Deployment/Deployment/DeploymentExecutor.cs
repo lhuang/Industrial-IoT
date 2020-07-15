@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Deployment {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Deployment {
 
     using Serilog;
     using System;
@@ -242,7 +242,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Deployment {
         /// </summary>
         /// <param name="owner"></param>
         protected void InitializeDefaultTags(string owner = null) {
-            var valueIotSuiteType = 
+            var valueIotSuiteType =
                 $"{Resources.IIoTDeploymentTags.VALUE_APPLICATION_IIOT}-" +
                 $"{Resources.IIoTDeploymentTags.VALUE_VERSION_IIOT}-" +
                 $"{Resources.IIoTDeploymentTags.VALUE_IOT_SUITE_TYPE_SUF}";
@@ -1411,7 +1411,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Deployment {
             // enable scraping of Prometheus metrics
             await iiotK8SClient.EnablePrometheusMetricsScrapingAsync(cancellationToken);
 
-            // Create a ClusterIssuer that uses Let's Encrypt 
+            // Create a ClusterIssuer that uses Let's Encrypt
             await iiotK8SClient.CreateLetsencryptClusterIssuerAsync(cancellationToken);
 
             // industrial-iot namespace

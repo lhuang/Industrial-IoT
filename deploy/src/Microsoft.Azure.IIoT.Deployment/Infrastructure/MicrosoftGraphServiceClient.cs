@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure {
 
     using System;
     using System.Collections.Generic;
@@ -159,7 +159,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
         }
 
         /// <summary>
-        /// Update service application to include client application 
+        /// Update service application to include client application
         /// as knownClientApplications.
         /// </summary>
         /// <param name="serviceApplication"></param>

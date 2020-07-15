@@ -3,15 +3,15 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment {
+namespace Microsoft.Azure.IIoT.Azure.Deployment {
 
     using Serilog;
     using System;
     using System.Threading;
     using System.IO;
     using Microsoft.Extensions.Configuration;
-    using Microsoft.Azure.IIoT.Deployment.Configuration;
-    using Microsoft.Azure.IIoT.Deployment.Deployment;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Configuration;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Deployment;
 
     class Program {
 

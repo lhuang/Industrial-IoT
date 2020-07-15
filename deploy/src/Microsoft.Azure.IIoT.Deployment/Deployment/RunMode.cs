@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Deployment {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Deployment {
 
     public enum RunMode {
         Full,

@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Authentication {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Authentication {
 
     using System;
     using System.Threading;
@@ -30,7 +30,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Authentication {
         public AzureEnvironment GetAzureEnvironment();
 
         /// <summary>
-        /// Get TenantId that has been used. 
+        /// Get TenantId that has been used.
         /// </summary>
         /// <returns></returns>
         public Guid GetTenantId();

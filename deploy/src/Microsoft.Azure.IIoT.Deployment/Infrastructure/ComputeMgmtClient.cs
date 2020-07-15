@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure {
 
     using Microsoft.Azure.Management.Compute.Fluent;
     using Microsoft.Azure.Management.Compute.Fluent.Models;
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
                     resourceGroup.Name,
                     vm.Name,
                     cancellationToken: cancellationToken
-                );  
+                );
         }
 
         /// <summary>

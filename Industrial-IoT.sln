@@ -87,7 +87,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.OpcUa.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Core.Tests", "common\src\Microsoft.Azure.IIoT.Core\tests\Microsoft.Azure.IIoT.Core.Tests.csproj", "{C093A5D1-56DB-4A54-9E81-4A644B6238EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{DF41A1FC-41C0-4E95-BC73-60BDF16C2D37}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{DF41A1FC-41C0-4E95-BC73-60BDF16C2D37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FEE95825-2E34-45AF-BDED-52F9C7412BF5}"
 EndProject
@@ -97,9 +97,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{C8D79D8A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{72646716-073F-4D6F-9ECD-52311A2BA140}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{ECAAA1FA-0A5C-4D41-8E39-E2E296BE8F1B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{ECAAA1FA-0A5C-4D41-8E39-E2E296BE8F1B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "platform", "platform", "{00D499F1-0262-4C1B-9702-F40960EDA2D4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{00D499F1-0262-4C1B-9702-F40960EDA2D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3A2DB744-69F3-488E-8CD5-45B921385B76}"
 EndProject
@@ -156,11 +156,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.App", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Subscriber.Core", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Subscriber\src\Microsoft.Azure.IIoT.Platform.Subscriber.Core.csproj", "{CD2F90BC-0FA9-4737-9F15-47EF06489423}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy", "deploy", "{8D316DA2-FC23-4F5A-ABE0-725C6E9653EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Azure.Deployment", "deploy\src\Microsoft.Azure.IIoT.Deployment\Microsoft.Azure.IIoT.Azure.Deployment.csproj", "{4676D2B5-492B-47FF-9AD8-CB546CA0CEEF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Deployment", "deploy\src\Microsoft.Azure.IIoT.Deployment\Microsoft.Azure.IIoT.Deployment.csproj", "{4676D2B5-492B-47FF-9AD8-CB546CA0CEEF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{24CC83C2-F144-4EB9-9C7E-48406B1E2932}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{24CC83C2-F144-4EB9-9C7E-48406B1E2932}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Registry.Core.Cli", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Registry\cli\Microsoft.Azure.IIoT.Platform.Registry.Core.Cli.csproj", "{D026C33E-F595-4B36-AB29-FD39AA3C18A2}"
 EndProject
@@ -202,17 +200,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Publisher.Core.Tests", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Publisher\tests\Microsoft.Azure.IIoT.Platform.Publisher.Core.Tests.csproj", "{262ECCD0-BFD0-4425-BC54-00D5E0673C35}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure", "azure", "{0169C791-7984-4DC1-8325-E9B9604CC3DE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{0169C791-7984-4DC1-8325-E9B9604CC3DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1185F94F-1DD9-4ECA-80D0-D194B73D2366}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0CA8F8B9-566E-47F2-B821-8DF4F28F044A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publisher", "publisher", "{7B890A92-5267-41FA-A14C-5CF3092481D5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publisher", "Publisher", "{7B890A92-5267-41FA-A14C-5CF3092481D5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "twin", "twin", "{2182E02C-C9E5-4E8E-9E25-6F3119D25F93}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Twin", "Twin", "{2182E02C-C9E5-4E8E-9E25-6F3119D25F93}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "registry", "registry", "{D94F1F2C-23D7-44A1-85FA-DED4139F633C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Registry", "Registry", "{D94F1F2C-23D7-44A1-85FA-DED4139F633C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F11F0639-CBB3-4D59-9B45-C69D3AFA1FCA}"
 EndProject
@@ -224,29 +222,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ADE562B1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{21A9E998-0C68-4B5E-99FD-B8792169CC81}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "subscriber", "subscriber", "{D325B0A5-9147-45D4-A49B-8C7E84568476}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscriber", "Subscriber", "{D325B0A5-9147-45D4-A49B-8C7E84568476}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10235691-2874-4AF5-A158-AE0003360E44}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vault", "vault", "{EF8DFAF5-BDC8-4805-87CC-D3BDDE1AB8EF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vault", "Vault", "{EF8DFAF5-BDC8-4805-87CC-D3BDDE1AB8EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4DC1DBBB-6825-46BE-A1F5-3DC55209CDF0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{40930DCF-E786-4330-A2F0-430AE618C919}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{DF50D3A4-D0D9-4057-9D49-BB26F94143F1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DF50D3A4-D0D9-4057-9D49-BB26F94143F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDC413E0-BE91-477B-8A16-B20BBBB35933}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ADA1CE90-5727-4D1E-8544-50C19B09D3A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connectivity", "connectivity", "{6F45B94C-8142-4451-A400-4364A49CB0F6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Edge", "Edge", "{6F45B94C-8142-4451-A400-4364A49CB0F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2FD2EC9A-B81B-4CD0-BB93-378C7F10AAC9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{5649EF9B-C14E-4C9D-AEFF-22C7D8814462}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "discovery", "discovery", "{4AB1B1A6-25F6-49DB-8558-9CC5C92A7A68}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discovery", "Discovery", "{4AB1B1A6-25F6-49DB-8558-9CC5C92A7A68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{83574215-2928-4D27-9A0E-3987C07F9A80}"
 EndProject
@@ -267,6 +265,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Discovery.Edge.Cli", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Edge.Discovery\cli\Microsoft.Azure.IIoT.Platform.Discovery.Edge.Cli.csproj", "{8F8CB6AE-2E90-4418-8602-B9A0BDF8D890}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{35093E45-F95E-47BD-8335-F61E23781A20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{E0D2A67B-D727-4677-B8C9-B8C51E11993A}"
+	ProjectSection(SolutionItems) = preProject
+		deploy\templates\azuredeploy.configuration.json = deploy\templates\azuredeploy.configuration.json
+		deploy\templates\azuredeploy.edge.json = deploy\templates\azuredeploy.edge.json
+		deploy\templates\azuredeploy.json = deploy\templates\azuredeploy.json
+		deploy\templates\azuredeploy.minimum.json = deploy\templates\azuredeploy.minimum.json
+		deploy\templates\azuredeploy.platform.json = deploy\templates\azuredeploy.platform.json
+		deploy\templates\azuredeploy.simulation.json = deploy\templates\azuredeploy.simulation.json
+		deploy\templates\azuredeploy.standard.json = deploy\templates\azuredeploy.standard.json
+		deploy\templates\azuredeploy.workbook.json = deploy\templates\azuredeploy.workbook.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1098,7 +1108,7 @@ Global
 		{52663E78-E255-4263-B4D9-84B06AA8241E} = {ECAAA1FA-0A5C-4D41-8E39-E2E296BE8F1B}
 		{CD2F90BC-0FA9-4737-9F15-47EF06489423} = {10235691-2874-4AF5-A158-AE0003360E44}
 		{4676D2B5-492B-47FF-9AD8-CB546CA0CEEF} = {24CC83C2-F144-4EB9-9C7E-48406B1E2932}
-		{24CC83C2-F144-4EB9-9C7E-48406B1E2932} = {8D316DA2-FC23-4F5A-ABE0-725C6E9653EC}
+		{24CC83C2-F144-4EB9-9C7E-48406B1E2932} = {0169C791-7984-4DC1-8325-E9B9604CC3DE}
 		{D026C33E-F595-4B36-AB29-FD39AA3C18A2} = {21A9E998-0C68-4B5E-99FD-B8792169CC81}
 		{BD256FCA-20DB-4FE4-8664-DAE7E0883C69} = {2FD2EC9A-B81B-4CD0-BB93-378C7F10AAC9}
 		{1BC793A2-7035-4B4B-AF31-983AD756EEFB} = {10235691-2874-4AF5-A158-AE0003360E44}
@@ -1150,6 +1160,7 @@ Global
 		{846C5DC2-9EC8-4D26-A289-34A4A04C6A77} = {5649EF9B-C14E-4C9D-AEFF-22C7D8814462}
 		{8F8CB6AE-2E90-4418-8602-B9A0BDF8D890} = {5287338D-F507-410D-AABD-79C8D9D5BF07}
 		{35093E45-F95E-47BD-8335-F61E23781A20} = {DF41A1FC-41C0-4E95-BC73-60BDF16C2D37}
+		{E0D2A67B-D727-4677-B8C9-B8C51E11993A} = {0169C791-7984-4DC1-8325-E9B9604CC3DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F09EFCEA-59F6-4A16-9CB6-7E865A3F62D8}

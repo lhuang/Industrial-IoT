@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Authentication {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Authentication {
 
     using System;
     using System.Threading;
@@ -12,7 +12,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Authentication {
     using Microsoft.Azure.Management.ResourceManager.Fluent;
     using Microsoft.Identity.Client;
 
-    using Microsoft.Azure.IIoT.Deployment.Infrastructure.Extensions;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure.Extensions;
 
     class InteractiveAuthenticationManager : IAuthenticationManager {
 

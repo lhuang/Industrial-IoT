@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Resources {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Azure.IIoT.Deployment.Resources.IIoTDeploymentTags", typeof(IIoTDeploymentTags).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Azure.IIoT.Azure.Deployment.Resources.IIoTDeploymentTags", typeof(IIoTDeploymentTags).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -124,7 +124,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Microsoft.Azure.IIoT.Deployment.
+        ///   Looks up a localized string similar to Microsoft.Azure.IIoT.Azure.Deployment.
         /// </summary>
         internal static string VALUE_MANAGED_BY_IIOT {
             get {

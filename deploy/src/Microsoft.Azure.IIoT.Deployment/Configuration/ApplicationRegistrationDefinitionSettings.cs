@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Configuration {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Configuration {
 
     using System;
-    using Microsoft.Azure.IIoT.Deployment.Deployment;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Deployment;
 
     class ApplicationRegistrationDefinitionSettings {
 

@@ -3,21 +3,21 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Infrastructure.Extensions {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure.Extensions {
 
     using Microsoft.Azure.Management.ResourceManager.Fluent;
 
     public static class ResourceExtensions {
 
         /// <summary>
-        /// Checks whether Azure resource is managed by Microsoft.Azure.IIoT.Deployment application.
-        /// 
+        /// Checks whether Azure resource is managed by Microsoft.Azure.IIoT.Azure.Deployment application.
+        ///
         /// This will be done by checking value of "managed-by" tag if it is present.
         /// </summary>
         /// <param name="resource"></param>
-        /// <returns>True if resource is managed by Microsoft.Azure.IIoT.Deployment, False otherwise.</returns>
+        /// <returns>True if resource is managed by Microsoft.Azure.IIoT.Azure.Deployment, False otherwise.</returns>
         public static bool ManagedByIIoTDeployment(this Resource resource) {
-            // Check if resource tags indicate that it is managed by Microsoft.Azure.IIoT.Deployment.
+            // Check if resource tags indicate that it is managed by Microsoft.Azure.IIoT.Azure.Deployment.
             if (null != resource.Tags
                 && resource.Tags.ContainsKey(Resources.IIoTDeploymentTags.KEY_MANAGED_BY)
                 && resource.Tags[Resources.IIoTDeploymentTags.KEY_MANAGED_BY] == Resources.IIoTDeploymentTags.VALUE_MANAGED_BY_IIOT
@@ -30,7 +30,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Infrastructure.Extensions {
 
         /// <summary>
         /// Check whether Azure resource part of "industrial-iot" application.
-        /// 
+        ///
         /// This will be done by checking value of "application" tag if it is present.
         /// </summary>
         /// <param name="resource"></param>

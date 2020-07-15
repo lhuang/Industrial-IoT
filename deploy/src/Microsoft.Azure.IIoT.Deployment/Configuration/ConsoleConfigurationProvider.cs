@@ -3,17 +3,17 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Configuration {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Configuration {
 
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using Microsoft.Azure.IIoT.Deployment.Deployment;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Deployment;
     using Microsoft.Azure.Management.ResourceManager.Fluent;
     using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
     using Serilog;
-    using Microsoft.Azure.IIoT.Deployment.Configuration.Extension;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Configuration.Extension;
 
     class ConsoleConfigurationProvider : ConfigurationProviderWithSettings {
 

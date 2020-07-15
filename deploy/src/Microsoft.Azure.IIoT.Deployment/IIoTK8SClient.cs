@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment {
+namespace Microsoft.Azure.IIoT.Azure.Deployment {
 
     using System;
     using System.Collections.Generic;
@@ -560,7 +560,7 @@ namespace Microsoft.Azure.IIoT.Deployment {
         }
 
         /// <summary>
-        /// Create Ingress for Azure Industrial IoT components. 
+        /// Create Ingress for Azure Industrial IoT components.
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -847,7 +847,7 @@ namespace Microsoft.Azure.IIoT.Deployment {
                         SecretName = secretName
                     };
                     if (networkingv1beta1IngressDefinition.Spec.Tls is null) {
-                        networkingv1beta1IngressDefinition.Spec.Tls = 
+                        networkingv1beta1IngressDefinition.Spec.Tls =
                             new List<Networkingv1beta1IngressTLS> { tls };
                     } else {
                         networkingv1beta1IngressDefinition.Spec.Tls.Add(tls);

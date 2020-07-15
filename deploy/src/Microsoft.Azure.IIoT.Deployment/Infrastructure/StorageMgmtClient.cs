@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure {
 
     using System;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Infrastructure {
 
         public const string POWERBI_ROOT_FOLDER = "IIoTDataFlow";
 
-        private const string kSTORAGE_ACCOUNT_CONECTION_STRING_FORMAT = 
+        private const string kSTORAGE_ACCOUNT_CONECTION_STRING_FORMAT =
             "DefaultEndpointsProtocol=https;AccountName={0};AccountKey={1};EndpointSuffix={2}";
 
         private readonly StorageManagementClient _storageManagementClient;

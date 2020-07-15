@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Authentication {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Authentication {
 
     using System;
     using System.Threading;
@@ -12,7 +12,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Authentication {
     using Microsoft.Azure.Management.ResourceManager.Fluent;
     using Microsoft.Identity.Client;
 
-    using Microsoft.Azure.IIoT.Deployment.Infrastructure.Extensions;
+    using Microsoft.Azure.IIoT.Azure.Deployment.Infrastructure.Extensions;
 
     class ClientCredentialsAuthenticationManager : IAuthenticationManager {
 
@@ -59,7 +59,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Authentication {
             // We will use client credential authentication flow.
             // https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/Client-credential-flows
 
-            var microsoftGraphAuthenticationResult = 
+            var microsoftGraphAuthenticationResult =
                 await AcquireMicrosoftGraphAuthenticationResultAsync(cancellationToken);
 
             // Extract account from microsoftGraphAuthenticationResult

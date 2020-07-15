@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Deployment.Resources {
+namespace Microsoft.Azure.IIoT.Azure.Deployment.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.IIoT.Deployment.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Azure.IIoT.Deployment.Resources.ArmTemplates", typeof(ArmTemplates).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.Azure.IIoT.Azure.Deployment.Resources.ArmTemplates", typeof(ArmTemplates).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
