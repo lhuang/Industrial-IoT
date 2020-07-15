@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Cli", "modules\src\Microsoft.Azure.IIoT.Modules.OpcUa.Publisher\cli\Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Cli.csproj", "{7FEE3528-FE99-4F1A-91C0-DCFBC9236871}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Cli", "api\src\Microsoft.Azure.IIoT.Api\cli\Microsoft.Azure.IIoT.Cli.csproj", "{D14C979A-E41B-459B-97CE-E3DA62E02369}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api.Cli", "api\src\Microsoft.Azure.IIoT.Api\cli\Microsoft.Azure.IIoT.Platform.Api.Cli.csproj", "{D14C979A-E41B-459B-97CE-E3DA62E02369}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Cli", "modules\src\Microsoft.Azure.IIoT.Modules.OpcUa.Twin\cli\Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Cli.csproj", "{42B6F4CC-01B0-496B-A8FB-69908691DBEF}"
 EndProject
@@ -240,7 +240,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EDC413E0-BE9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{ADA1CE90-5727-4D1E-8544-50C19B09D3A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "edge", "edge", "{6F45B94C-8142-4451-A400-4364A49CB0F6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connectivity", "connectivity", "{6F45B94C-8142-4451-A400-4364A49CB0F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2FD2EC9A-B81B-4CD0-BB93-378C7F10AAC9}"
 EndProject
@@ -264,7 +264,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Twin.Edge.Cli", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Edge.Twin\cli\Microsoft.Azure.IIoT.Platform.Twin.Edge.Cli.csproj", "{846C5DC2-9EC8-4D26-A289-34A4A04C6A77}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Discovery,Edge.Cli", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Edge.Discovery\cli\Microsoft.Azure.IIoT.Platform.Discovery,Edge.Cli.csproj", "{8F8CB6AE-2E90-4418-8602-B9A0BDF8D890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Discovery.Edge.Cli", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Edge.Discovery\cli\Microsoft.Azure.IIoT.Platform.Discovery.Edge.Cli.csproj", "{8F8CB6AE-2E90-4418-8602-B9A0BDF8D890}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{35093E45-F95E-47BD-8335-F61E23781A20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1026,7 +1028,7 @@ Global
 		{F0B9B85E-9D2E-46B2-9986-5D98B21904EE} = {3A2DB744-69F3-488E-8CD5-45B921385B76}
 		{4073F4E2-FAA8-4509-A47A-855D527588FC} = {2FD2EC9A-B81B-4CD0-BB93-378C7F10AAC9}
 		{7FEE3528-FE99-4F1A-91C0-DCFBC9236871} = {C8D79D8A-D92E-4AE3-BA54-0C927BEBCEBF}
-		{D14C979A-E41B-459B-97CE-E3DA62E02369} = {ECAAA1FA-0A5C-4D41-8E39-E2E296BE8F1B}
+		{D14C979A-E41B-459B-97CE-E3DA62E02369} = {35093E45-F95E-47BD-8335-F61E23781A20}
 		{42B6F4CC-01B0-496B-A8FB-69908691DBEF} = {5649EF9B-C14E-4C9D-AEFF-22C7D8814462}
 		{7840E38C-D435-432B-A5B4-2393D1A5D21A} = {46A6F910-C5A6-4A0D-9E95-63287156EC56}
 		{34BF73AA-89A3-4E10-A1AC-2360A93143FE} = {F11F0639-CBB3-4D59-9B45-C69D3AFA1FCA}
@@ -1147,6 +1149,7 @@ Global
 		{4BCEEE83-39F1-4280-8DE2-B7DDAB95AAB1} = {46A6F910-C5A6-4A0D-9E95-63287156EC56}
 		{846C5DC2-9EC8-4D26-A289-34A4A04C6A77} = {5649EF9B-C14E-4C9D-AEFF-22C7D8814462}
 		{8F8CB6AE-2E90-4418-8602-B9A0BDF8D890} = {5287338D-F507-410D-AABD-79C8D9D5BF07}
+		{35093E45-F95E-47BD-8335-F61E23781A20} = {DF41A1FC-41C0-4E95-BC73-60BDF16C2D37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F09EFCEA-59F6-4A16-9CB6-7E865A3F62D8}
