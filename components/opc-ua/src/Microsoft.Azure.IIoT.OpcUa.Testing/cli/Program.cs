@@ -5,35 +5,17 @@
 
 namespace Microsoft.Azure.IIoT.OpcUa.Cli {
     using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services;
     using Microsoft.Azure.IIoT.OpcUa.Protocol;
     using Microsoft.Azure.IIoT.OpcUa.Protocol.Sample;
     using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
     using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Models;
-    using Microsoft.Azure.IIoT.Storage;
-    using Microsoft.Azure.IIoT.Storage.Default;
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Module;
-    using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
-    using Newtonsoft.Json;
     using Opc.Ua;
-    using Opc.Ua.Design;
-    using Opc.Ua.Design.Resolver;
-    using Opc.Ua.Encoders;
     using Serilog;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
-    using System.IO.Compression;
-    using System.Linq;
-    using System.Net;
     using System.Runtime.Loader;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -44,13 +26,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Cli {
         private enum Op {
             None,
             RunSampleServer,
-            TestOpcUaServerClient,
-            TestOpcUaModelBrowseEncoder,
-            TestOpcUaModelBrowseFile,
-            TestOpcUaModelArchiver,
-            TestOpcUaModelWriter,
-            TestOpcUaModelDesign,
-            TestBrowseServer,
+            TestOpcUaServerClient
         }
 
         /// <summary>
@@ -61,7 +37,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Cli {
                 (s, e) => Console.WriteLine("unhandled: " + e.ExceptionObject);
             var op = Op.None;
             var endpoint = new EndpointModel();
-            string fileName = null;
             var host = Utils.GetHostName();
             var ports = new List<int>();
             try {
@@ -88,66 +63,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Cli {
                             i++;
                             if (i < args.Length) {
                                 endpoint.Url = args[i];
-                            }
-                            break;
-                        case "--test-browse":
-                            if (op != Op.None) {
-                                throw new ArgumentException("Operations are mutually exclusive");
-                            }
-                            op = Op.TestBrowseServer;
-                            i++;
-                            if (i < args.Length) {
-                                endpoint.Url = args[i];
-                            }
-                            break;
-                        case "--test-archive":
-                            if (op != Op.None) {
-                                throw new ArgumentException("Operations are mutually exclusive");
-                            }
-                            op = Op.TestOpcUaModelArchiver;
-                            i++;
-                            if (i < args.Length) {
-                                endpoint.Url = args[i];
-                            }
-                            break;
-                        case "--test-export":
-                            if (op != Op.None) {
-                                throw new ArgumentException("Operations are mutually exclusive");
-                            }
-                            op = Op.TestOpcUaModelBrowseEncoder;
-                            i++;
-                            if (i < args.Length) {
-                                endpoint.Url = args[i];
-                            }
-                            break;
-                        case "--test-file":
-                            if (op != Op.None) {
-                                throw new ArgumentException("Operations are mutually exclusive");
-                            }
-                            op = Op.TestOpcUaModelBrowseFile;
-                            i++;
-                            if (i < args.Length) {
-                                endpoint.Url = args[i];
-                            }
-                            break;
-                        case "--test-writer":
-                            if (op != Op.None) {
-                                throw new ArgumentException("Operations are mutually exclusive");
-                            }
-                            op = Op.TestOpcUaModelWriter;
-                            i++;
-                            if (i < args.Length) {
-                                endpoint.Url = args[i];
-                            }
-                            break;
-                        case "--test-design":
-                            if (op != Op.None) {
-                                throw new ArgumentException("Operations are mutually exclusive");
-                            }
-                            op = Op.TestOpcUaModelDesign;
-                            i++;
-                            if (i < args.Length) {
-                                fileName = args[i];
                             }
                             break;
                         case "-?":
@@ -189,12 +104,6 @@ Operations (Mutually exclusive):
     --sample / -s           Run sample server and wait for cancellation.
                             Default if port is specified.
 
-    --test-browse           Tests server browsing.
-    --test_export           Tests server model export with passed endpoint url.
-    --test-design           Test model design import
-    --test-file             Tests server model export several files for perf.
-    --test-writer           Tests server model import.
-    --test-archive          Tests server model archiving to file.
     --test-client           Tests server stuff with passed endpoint url.
 "
                     );
@@ -212,24 +121,6 @@ Operations (Mutually exclusive):
                         return;
                     case Op.TestOpcUaServerClient:
                         TestOpcUaServerClientAsync(endpoint).Wait();
-                        break;
-                    case Op.TestOpcUaModelBrowseEncoder:
-                        TestOpcUaModelExportServiceAsync(endpoint).Wait();
-                        break;
-                    case Op.TestOpcUaModelBrowseFile:
-                        TestOpcUaModelExportToFileAsync(endpoint).Wait();
-                        break;
-                    case Op.TestOpcUaModelArchiver:
-                        TestOpcUaModelArchiveAsync(endpoint).Wait();
-                        break;
-                    case Op.TestOpcUaModelWriter:
-                        TestOpcUaModelWriterAsync(endpoint).Wait();
-                        break;
-                    case Op.TestOpcUaModelDesign:
-                        TestOpcUaModelDesignAsync(fileName).Wait();
-                        break;
-                    case Op.TestBrowseServer:
-                        TestBrowseServerAsync(endpoint).Wait();
                         break;
                     default:
                         throw new ArgumentException("Unknown.");
@@ -270,209 +161,6 @@ Operations (Mutually exclusive):
             }
         }
 
-        /// <inheritdoc/>
-        private class ModelWriter : IPropertyReporter {
-
-            public ModelWriter(ClientServices client, ILogger logger) {
-                _logger = logger;
-                _client = client;
-            }
-
-            /// <inheritdoc/>
-            public string Gateway => Utils.GetHostName();
-
-            /// <inheritdoc/>
-            public string DeviceId => Gateway;
-
-            /// <inheritdoc/>
-            public string ModuleId { get; } = "";
-
-            /// <inheritdoc/>
-            public async Task SendEventAsync(byte[] data, string contentType,
-                string eventSchema, string contentEncoding, CancellationToken ct) {
-                var ev = JsonConvert.DeserializeObject<DiscoveryEventModel>(
-                    Encoding.UTF8.GetString(data));
-                var endpoint = ev.Registration?.Endpoint;
-                if (endpoint == null) {
-                    return;
-                }
-                try {
-                    var id = endpoint.Url.ToSha1Hash();
-                    _logger.Information("Writing {id}.json for {@ev}", id, ev);
-                    using (var writer = File.CreateText($"iop_{id}.json"))
-                    using (var json = new JsonTextWriter(writer) {
-                        AutoCompleteOnClose = true,
-                        Formatting = Formatting.Indented,
-                        DateFormatHandling = DateFormatHandling.IsoDateFormat
-                    })
-                    using (var encoder = new JsonEncoderEx(json, null,
-                        JsonEncoderEx.JsonEncoding.Array) {
-                        IgnoreDefaultValues = true,
-                        UseAdvancedEncoding = true
-                    })
-                    using (var browser = new BrowsedNodeStreamEncoder(_client, endpoint, encoder,
-                        null, _logger, null)) {
-                        await browser.EncodeAsync(CancellationToken.None);
-                    }
-                }
-                catch (Exception ex) {
-                    _logger.Error(ex, "Failed to browse");
-                }
-            }
-
-            /// <inheritdoc/>
-            public async Task SendEventAsync(IEnumerable<byte[]> batch, string contentType,
-                string eventSchema, string contentEncoding, CancellationToken ct) {
-                foreach (var item in batch) {
-                    await SendEventAsync(item, contentType, eventSchema, contentEncoding, ct);
-                }
-            }
-
-            /// <inheritdoc/>
-            public Task ReportAsync(string propertyId, VariantValue value, CancellationToken ct) {
-                return Task.CompletedTask;
-            }
-
-            /// <inheritdoc/>
-            public Task ReportAsync(IEnumerable<KeyValuePair<string, VariantValue>> properties,
-                CancellationToken ct) {
-                return Task.CompletedTask;
-            }
-
-            private readonly ILogger _logger;
-            private readonly ClientServices _client;
-        }
-
-        /// <summary>
-        /// Test model browse encoder
-        /// </summary>
-        private static async Task TestOpcUaModelExportServiceAsync(EndpointModel endpoint) {
-            using (var logger = StackLogger.Create(ConsoleLogger.Create()))
-            using (var client = new ClientServices(logger.Logger, new TestClientServicesConfig()))
-            using (var server = new ServerWrapper(endpoint, logger))
-            using (var stream = Console.OpenStandardOutput())
-            using (var writer = new StreamWriter(stream))
-            using (var json = new JsonTextWriter(writer) {
-                AutoCompleteOnClose = true,
-                Formatting = Formatting.Indented,
-                DateFormatHandling = DateFormatHandling.IsoDateFormat
-            })
-            using (var encoder = new JsonEncoderEx(json, null,
-                JsonEncoderEx.JsonEncoding.Array) {
-                IgnoreDefaultValues = true,
-                UseAdvancedEncoding = true
-            })
-            using (var browser = new BrowsedNodeStreamEncoder(client, endpoint, encoder,
-                null, logger.Logger, null)) {
-                await browser.EncodeAsync(CancellationToken.None);
-            }
-        }
-
-        /// <summary>
-        /// Test model archiver
-        /// </summary>
-        private static async Task TestOpcUaModelArchiveAsync(EndpointModel endpoint) {
-            using (var logger = StackLogger.Create(ConsoleLogger.Create())) {
-                var storage = new ZipArchiveStorage();
-                var fileName = "tmp.zip";
-                using (var client = new ClientServices(logger.Logger, new TestClientServicesConfig()))
-                using (var server = new ServerWrapper(endpoint, logger)) {
-                    var sw = Stopwatch.StartNew();
-                    using (var archive = await storage.OpenAsync(fileName, FileMode.Create, FileAccess.Write))
-                    using (var archiver = new AddressSpaceArchiver(client, endpoint, archive, logger.Logger)) {
-                        await archiver.ArchiveAsync(CancellationToken.None);
-                    }
-                    var elapsed = sw.Elapsed;
-                    using (var file = File.Open(fileName, FileMode.OpenOrCreate)) {
-                        Console.WriteLine($"Encode as to {fileName} took " +
-                            $"{elapsed}, and produced {file.Length} bytes.");
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Test model browse encoder to file
-        /// </summary>
-        private static async Task TestOpcUaModelExportToFileAsync(EndpointModel endpoint) {
-            using (var logger = StackLogger.Create(ConsoleLogger.Create())) {
-                // Run both encodings twice to prime server and get realistic timings the
-                // second time around
-                var runs = new Dictionary<string, string> {
-                    ["json1.zip"] = ContentMimeType.UaJson,
-                    //  ["bin1.zip"] = ContentEncodings.MimeTypeUaBinary,
-                    ["json2.zip"] = ContentMimeType.UaJson,
-                    //  ["bin2.zip"] = ContentEncodings.MimeTypeUaBinary,
-                    ["json1.gzip"] = ContentMimeType.UaJson,
-                    //  ["bin1.gzip"] = ContentEncodings.MimeTypeUaBinary,
-                    ["json2.gzip"] = ContentMimeType.UaJson,
-                    // ["bin2.gzip"] = ContentEncodings.MimeTypeUaBinary
-                };
-
-                using (var client = new ClientServices(logger.Logger, new TestClientServicesConfig()))
-                using (var server = new ServerWrapper(endpoint, logger)) {
-                    foreach (var run in runs) {
-                        var zip = Path.GetExtension(run.Key) == ".zip";
-                        Console.WriteLine($"Writing {run.Key}...");
-                        var sw = Stopwatch.StartNew();
-                        using (var stream = new FileStream(run.Key, FileMode.Create)) {
-                            using (var zipped = zip ?
-                                new DeflateStream(stream, CompressionLevel.Optimal) :
-                                (Stream)new GZipStream(stream, CompressionLevel.Optimal))
-                            using (var browser = new BrowsedNodeStreamEncoder(client, endpoint, zipped,
-                                run.Value, null, logger.Logger, null)) {
-                                await browser.EncodeAsync(CancellationToken.None);
-                            }
-                        }
-                        var elapsed = sw.Elapsed;
-                        using (var file = File.Open(run.Key, FileMode.OpenOrCreate)) {
-                            Console.WriteLine($"Encode as {run.Value} to {run.Key} took " +
-                                $"{elapsed}, and produced {file.Length} bytes.");
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Test model export and import
-        /// </summary>
-        private static async Task TestOpcUaModelWriterAsync(EndpointModel endpoint) {
-            using (var logger = StackLogger.Create(ConsoleLogger.Create())) {
-                var filename = "model.zip";
-                using (var server = new ServerWrapper(endpoint, logger)) {
-                    using (var client = new ClientServices(logger.Logger, new TestClientServicesConfig())) {
-                        Console.WriteLine($"Reading into {filename}...");
-                        using (var stream = new FileStream(filename, FileMode.Create)) {
-                            using (var zipped = new DeflateStream(stream, CompressionLevel.Optimal))
-                            using (var browser = new BrowsedNodeStreamEncoder(client, endpoint, zipped,
-                                ContentMimeType.UaJson, null, logger.Logger, null)) {
-                                await browser.EncodeAsync(CancellationToken.None);
-                            }
-                        }
-                    }
-                }
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                var serializer = new NewtonSoftJsonSerializer();
-                IDatabaseServer database = new MemoryDatabase(logger.Logger, serializer);
-                for (var i = 0; ; i++) {
-                    Console.WriteLine($"{i}: Writing from {filename}...");
-                    var sw = Stopwatch.StartNew();
-                    using (var file = File.Open(filename, FileMode.OpenOrCreate)) {
-                        using (var unzipped = new DeflateStream(file, CompressionMode.Decompress)) {
-                            // TODO
-                            // var writer = new SourceStreamImporter(new ItemContainerFactory(database),
-                            //     new VariantEncoderFactory(), logger.Logger);
-                            // await writer.ImportAsync(unzipped, Path.GetFullPath(filename + i),
-                            //     ContentMimeType.UaJson, null, CancellationToken.None);
-                        }
-                    }
-                    var elapsed = sw.Elapsed;
-                    Console.WriteLine($"{i}: Writing took {elapsed}.");
-                }
-            }
-        }
 
         /// <summary>
         /// Test client
@@ -509,104 +197,6 @@ Operations (Mutually exclusive):
                     Console.WriteLine($"   ....        took {w.ElapsedMilliseconds} ms...");
                     return Task.FromResult(true);
                 });
-            }
-        }
-
-        /// <summary>
-        /// Test model design import
-        /// </summary>
-        /// <param name="designFile"></param>
-        /// <returns></returns>
-        private static Task TestOpcUaModelDesignAsync(string designFile) {
-            if (string.IsNullOrEmpty(designFile)) {
-                throw new ArgumentException(nameof(designFile));
-            }
-            var design = Model.Load(designFile, new CompositeModelResolver());
-            design.Save(Path.GetDirectoryName(designFile));
-            return Task.CompletedTask;
-        }
-
-        /// <summary>
-        /// Test address space control
-        /// </summary>
-        private static async Task TestBrowseServerAsync(EndpointModel endpoint, bool silent = false) {
-
-            using (var logger = StackLogger.Create(ConsoleLogger.Create())) {
-
-                var request = new BrowseRequestModel {
-                    TargetNodesOnly = false
-                };
-                var nodes = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-                    ObjectIds.RootFolder.ToString()
-                };
-
-                using (var client = new ClientServices(logger.Logger, new TestClientServicesConfig())) {
-                    var service = new AddressSpaceServices(client, new VariantEncoderFactory(), logger.Logger);
-                    using (var server = new ServerWrapper(endpoint, logger)) {
-                        var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                        var nodesRead = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                        var errors = 0;
-                        var sw = Stopwatch.StartNew();
-                        while (nodes.Count > 0) {
-                            request.NodeId = nodes.First();
-                            nodes.Remove(request.NodeId);
-                            try {
-                                if (!silent) {
-                                    Console.WriteLine($"Browsing {request.NodeId}");
-                                    Console.WriteLine($"====================");
-                                }
-                                var result = await service.NodeBrowseAsync(endpoint, request);
-                                visited.Add(request.NodeId);
-                                if (!silent) {
-                                    Console.WriteLine(JsonConvert.SerializeObject(result,
-                                        Formatting.Indented));
-                                }
-
-                                // Do recursive browse
-                                foreach (var r in result.References) {
-                                    if (!visited.Contains(r.ReferenceTypeId)) {
-                                        nodes.Add(r.ReferenceTypeId);
-                                    }
-                                    if (!visited.Contains(r.Target.NodeId)) {
-                                        nodes.Add(r.Target.NodeId);
-                                    }
-                                    if (nodesRead.Contains(r.Target.NodeId)) {
-                                        continue; // We have read this one already
-                                    }
-                                    if (!r.Target.NodeClass.HasValue ||
-                                        r.Target.NodeClass.Value != Core.Models.NodeClass.Variable) {
-                                        continue;
-                                    }
-                                    if (!silent) {
-                                        Console.WriteLine($"Reading {r.Target.NodeId}");
-                                        Console.WriteLine($"====================");
-                                    }
-                                    try {
-                                        nodesRead.Add(r.Target.NodeId);
-                                        var read = await service.NodeValueReadAsync(endpoint,
-                                            new ValueReadRequestModel {
-                                                NodeId = r.Target.NodeId
-                                            });
-                                        if (!silent) {
-                                            Console.WriteLine(JsonConvert.SerializeObject(result,
-                                                Formatting.Indented));
-                                        }
-                                    }
-                                    catch (Exception ex) {
-                                        Console.WriteLine($"Reading {r.Target.NodeId} resulted in {ex}");
-                                        errors++;
-                                    }
-                                }
-                            }
-                            catch (Exception e) {
-                                Console.WriteLine($"Browse {request.NodeId} resulted in {e}");
-                                errors++;
-                            }
-                        }
-                        Console.WriteLine($"Browse took {sw.Elapsed}. Visited " +
-                            $"{visited.Count} nodes and read {nodesRead.Count} of them with {errors} errors.");
-                    }
-                }
             }
         }
 

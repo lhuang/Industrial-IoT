@@ -7,6 +7,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Auth.ActiveDirectory\src\Microsoft.Azure.IIoT.Azure.ActiveDirectory.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Crypto\src\Microsoft.Azure.IIoT.Crypto.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Crypto\src\Microsoft.Azure.IIoT.Cryptography.csproj" />
   </ItemGroup>
 </Project>

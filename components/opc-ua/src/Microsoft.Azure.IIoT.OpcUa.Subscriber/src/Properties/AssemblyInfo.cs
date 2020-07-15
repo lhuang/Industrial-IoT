@@ -5,4 +5,4 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.OpcUa.Subscriber.Tests")]
+[assembly: InternalsVisibleTo("Microsoft.Azure.IIoT.Platform.Subscriber.Core.Tests")]
