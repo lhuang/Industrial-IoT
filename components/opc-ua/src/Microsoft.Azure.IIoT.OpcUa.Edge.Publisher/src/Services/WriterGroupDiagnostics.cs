@@ -171,11 +171,11 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Services {
 
             var diagInfo = new StringBuilder();
             diagInfo.AppendLine();
-            diagInfo.AppendLine("  DIAGNOSTICS INFORMATION for          : {host}");
+            diagInfo.AppendLine("  DIAGNOSTICS INFORMATION for          : {deviceId} {moduleId}");
             diagInfo.AppendLine("  # Ingestion duration                 : {duration,14:dd\\:hh\\:mm\\:ss} (dd:hh:mm:ss)");
-            var dataChangesPerSecFormatted = _dataChangesCount > 0 && totalDuration > 0 ? $"({dataChangesPerSec:0.##}/s)" : "";
+            var dataChangesPerSecFormatted = _dataChangesCount > 0 && totalDuration > 0 ? $"({dataChangesPerSec:#,0.##}/s)" : "";
             diagInfo.AppendLine("  # Ingress DataChanges (from OPC)     : {dataChangesCount,14:n0} {dataChangesPerSecFormatted}");
-            var valueChangesPerSecFormatted = _valueChangesCount > 0 && totalDuration > 0 ? $"({valueChangesPerSec:0.##}/s)" : "";
+            var valueChangesPerSecFormatted = _valueChangesCount > 0 && totalDuration > 0 ? $"({valueChangesPerSec:#,0.##}/s)" : "";
             diagInfo.AppendLine("  # Ingress ValueChanges (from OPC)    : {valueChangesCount,14:n0} {valueChangesPerSecFormatted}");
 
             diagInfo.AppendLine("  # Ingress BatchBlock buffer size     : {batchDataSetMessageBlockOutputCount,14:0}");
