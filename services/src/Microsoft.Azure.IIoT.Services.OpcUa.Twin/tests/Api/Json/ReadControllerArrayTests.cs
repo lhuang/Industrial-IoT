@@ -3,14 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Api.Json {
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service.Api.Json {
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Tests;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Utils;
     using Opc.Ua;

@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 namespace Opc.Ua.Extensions {
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
 
     /// <summary>
     /// Endpoint description extensions

@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Runtime {
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi;
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
@@ -11,16 +11,16 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
-    using Microsoft.Azure.IIoT.Messaging.SignalR.Runtime;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Runtime;
-    using Microsoft.Azure.IIoT.Messaging.EventHub;
-    using Microsoft.Azure.IIoT.Messaging.EventHub.Runtime;
-    using Microsoft.Azure.IIoT.Hub.Processor;
-    using Microsoft.Azure.IIoT.Hub.Processor.Runtime;
+    using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
+    using Microsoft.Azure.IIoT.Azure.SignalR;
+    using Microsoft.Azure.IIoT.Azure.SignalR.Runtime;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus.Runtime;
+    using Microsoft.Azure.IIoT.Azure.EventHub;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Runtime;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor.Runtime;
     using Microsoft.Azure.IIoT.Auth.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Extensions.Configuration;
     using System;

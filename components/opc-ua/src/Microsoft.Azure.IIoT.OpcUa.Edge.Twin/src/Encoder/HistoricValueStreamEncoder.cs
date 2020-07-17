@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Services {
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Serilog;
     using Opc.Ua;
     using Opc.Ua.Encoders;

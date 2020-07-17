@@ -3,29 +3,26 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Deploy;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Clients;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb.Services;
-    using Microsoft.Azure.IIoT.Messaging.Default;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
-    using Microsoft.Azure.IIoT.Http.Ssl;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Service {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Publisher;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Deploy;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Migration;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Clients;
+    using Microsoft.Azure.IIoT.Azure.CosmosDb;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Clients;
+    using Microsoft.Azure.IIoT.Storage.Default;
     using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
-    using Microsoft.Azure.IIoT.Hub.Client;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -38,8 +35,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher {
     using Prometheus;
     using System;
     using ILogger = Serilog.ILogger;
-    using Microsoft.Azure.IIoT.Storage.Default;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Migration;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics.Runtime;
 
     /// <summary>
     /// Webservice startup
@@ -120,8 +116,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
         /// <summary>
@@ -177,38 +172,20 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
 
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
 
-            // Register event bus for event publishing
-            builder.RegisterType<EventBusHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ServiceBusClientFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ServiceBusEventBus>()
-                .AsImplementedInterfaces().SingleInstance();
+            // --- Logic ---
 
             // ... Publisher services
             builder.RegisterModule<PublisherServices>();
-            builder.RegisterType<CosmosDbServiceClient>()
-                .AsImplementedInterfaces();
 
             // ... migrate from job database on startup
             builder.RegisterType<StartupMigration>()
@@ -226,8 +203,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher {
             // Auto Deploy publisher module
             builder.RegisterType<IoTHubConfigurationClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<LogAnalyticsConfig>()
-                .AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<IoTHubPublisherDeployment>()
                 .AsImplementedInterfaces().SingleInstance();
 
@@ -235,6 +210,19 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher {
             builder.RegisterType<HostAutoStart>()
                 .AutoActivate()
                 .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
+            builder.RegisterType<LogAnalyticsConfig>()
+                .AsImplementedInterfaces().SingleInstance();
+            // Add diagnostics
+            builder.AddDiagnostics(Config);
+            // Register event bus for integration events
+            builder.RegisterModule<ServiceBusModule>();
+            // Register Cosmos db for publisher storage
+            builder.RegisterModule<CosmosDbModule>();
         }
     }
 }

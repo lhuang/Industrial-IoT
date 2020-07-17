@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Controllers {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Events.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Events.Filters;
-    using Microsoft.Azure.IIoT.Messaging;
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Api.Events.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Api.Events.Service.Filters;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;

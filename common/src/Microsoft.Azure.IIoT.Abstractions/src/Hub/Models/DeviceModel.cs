@@ -4,8 +4,6 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Hub.Models {
-    using System.Runtime.Serialization;
-
     /// <summary>
     /// Model of device registry document
     /// </summary>

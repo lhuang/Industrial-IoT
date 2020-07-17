@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Cdm.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Cdm;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber.Models;
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Services {
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Cdm;
+    using Microsoft.Azure.IIoT.Platform.Subscriber;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Models;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.CommonDataModel.ObjectModel.Cdm;

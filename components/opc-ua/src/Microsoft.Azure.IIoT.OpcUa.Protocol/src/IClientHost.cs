@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol {
+namespace Microsoft.Azure.IIoT.Platform.OpcUa {
     using System.Threading.Tasks;
 
     /// <summary>
@@ -12,7 +12,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Protocol {
     public interface IClientHost {
 
         /// <summary>
-        /// initializes the client configuration 
+        /// initializes the client configuration
         /// </summary>
         /// <returns></returns>
         Task InitializeAsync();

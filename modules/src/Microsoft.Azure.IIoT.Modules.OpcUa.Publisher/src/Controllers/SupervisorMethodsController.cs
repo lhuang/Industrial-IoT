@@ -3,14 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Filters;
-    using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
-    using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.Azure.IIoT.Module;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Filters;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Edge;
+    using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Rpc;
     using System;
     using System.Threading.Tasks;
 

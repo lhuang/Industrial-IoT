@@ -3,30 +3,28 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.History {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.History.Runtime;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.History.Auth;
+namespace Microsoft.Azure.IIoT.Platform.History.Service {
+    using Microsoft.Azure.IIoT.Platform.History.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.History.Service.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.History.Clients;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.History.Clients;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Module.Default;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.OpenApi.Models;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -115,8 +113,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.History {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
 
@@ -178,27 +175,15 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.History {
 
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
 
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
 
-            // Iot hub services
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubTwinMethodClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ChunkMethodClient>()
-                .AsImplementedInterfaces();
+            // --- Logic ---
 
             // Adapters and corresponding edge client
             builder.RegisterType<TwinModuleControlClient>()
@@ -209,6 +194,15 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.History {
               .AsImplementedInterfaces();
             builder.RegisterType<HistoricAccessAdapter<EndpointRegistrationModel>>()
                 .AsImplementedInterfaces();
+            builder.RegisterType<ChunkMethodClient>()
+                .AsImplementedInterfaces();
+
+            // --- Dependencies ---
+
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
+            // Iot hub services
+            builder.RegisterModule<IoTHubModule>();
         }
     }
 }

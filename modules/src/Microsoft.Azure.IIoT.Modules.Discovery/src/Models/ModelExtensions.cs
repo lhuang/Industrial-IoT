@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.Discovery.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module.Models {
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
 
     /// <summary>
     /// Discovery model extensionis
@@ -102,7 +102,7 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Models {
             return new DiscoveryRequestInternalApiModel {
                 Id = model.Id,
                 Configuration = model.Configuration.ToApiModel(),
-                Discovery = (IIoT.OpcUa.Api.Registry.Models.DiscoveryMode?)model.Discovery,
+                Discovery = (IIoT.Platform.Registry.Api.Models.DiscoveryMode?)model.Discovery,
                 Context = model.Context.ToApiModel()
             };
         }
@@ -119,7 +119,7 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Models {
             return new DiscoveryRequestModel {
                 Id = model.Id,
                 Configuration = model.Configuration.ToServiceModel(),
-                Discovery = (IIoT.OpcUa.Registry.Models.DiscoveryMode?)model.Discovery,
+                Discovery = (IIoT.Platform.Registry.Models.DiscoveryMode?)model.Discovery,
                 Context = model.Context.ToServiceModel()
             };
         }
@@ -136,7 +136,7 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Models {
             return new EndpointActivationFilterApiModel {
                 TrustLists = model.TrustLists,
                 SecurityPolicies = model.SecurityPolicies,
-                SecurityMode = (IIoT.OpcUa.Api.Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (IIoT.Platform.Core.Api.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -152,7 +152,7 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Models {
             return new EndpointActivationFilterModel {
                 TrustLists= model.TrustLists,
                 SecurityPolicies= model.SecurityPolicies,
-                SecurityMode= (IIoT.OpcUa.Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode= (IIoT.Platform.Core.Models.SecurityMode?)model.SecurityMode
             };
         }
 

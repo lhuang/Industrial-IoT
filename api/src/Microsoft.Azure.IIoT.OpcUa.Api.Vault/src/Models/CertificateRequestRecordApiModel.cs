@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Vault.Models {
+namespace Microsoft.Azure.IIoT.Platform.Vault.Api.Models {
     using Microsoft.Azure.IIoT.Serializers;
     using System.Runtime.Serialization;
 

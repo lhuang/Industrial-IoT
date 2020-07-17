@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.History.Models;
+namespace Microsoft.Azure.IIoT.Platform.History.Api.Models {
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.History.Models;
     using Microsoft.Azure.IIoT.Serializers;
     using System;
     using System.Linq;
@@ -92,7 +92,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
                 FilterOperands = model.FilterOperands?
                     .Select(f => f.ToApiModel())
                     .ToList(),
-                FilterOperator = (Core.Models.FilterOperatorType)model.FilterOperator
+                FilterOperator = (Core.Api.Models.FilterOperatorType)model.FilterOperator
             };
         }
 
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
                 FilterOperands = model.FilterOperands?
                     .Select(f => f.ToServiceModel())
                     .ToList(),
-                FilterOperator = (OpcUa.Core.Models.FilterOperatorType)model.FilterOperator
+                FilterOperator = (Platform.Core.Models.FilterOperatorType)model.FilterOperator
             };
         }
 
@@ -122,7 +122,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new CredentialModel {
                 Value = model.Value?.Copy(),
-                Type = (OpcUa.Core.Models.CredentialType?)model.Type
+                Type = (Platform.Core.Models.CredentialType?)model.Type
             };
         }
 
@@ -136,7 +136,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new CredentialApiModel {
                 Value = model.Value?.Copy(),
-                Type = (Core.Models.CredentialType?)model.Type
+                Type = (Core.Api.Models.CredentialType?)model.Type
             };
         }
 
@@ -258,7 +258,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new DiagnosticsApiModel {
                 AuditId = model.AuditId,
-                Level = (Core.Models.DiagnosticsLevel)model.Level,
+                Level = (Core.Api.Models.DiagnosticsLevel)model.Level,
                 TimeStamp = model.TimeStamp
             };
         }
@@ -273,7 +273,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new DiagnosticsModel {
                 AuditId = model.AuditId,
-                Level = (OpcUa.Core.Models.DiagnosticsLevel)model.Level,
+                Level = (Platform.Core.Models.DiagnosticsLevel)model.Level,
                 TimeStamp = model.TimeStamp
             };
         }
@@ -323,7 +323,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
                 Alias = model.Alias,
                 Value = model.Value,
                 NodeId = model.NodeId,
-                AttributeId = (Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Core.Api.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -342,7 +342,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
                 Alias = model.Alias,
                 Value = model.Value,
                 NodeId = model.NodeId,
-                AttributeId = (OpcUa.Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Platform.Core.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -864,7 +864,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new ModificationInfoModel {
                 ModificationTime = model.ModificationTime,
-                UpdateType = (OpcUa.History.Models.HistoryUpdateOperation?)model.UpdateType,
+                UpdateType = (Platform.History.Models.HistoryUpdateOperation?)model.UpdateType,
                 UserName = model.UserName
             };
         }
@@ -1161,7 +1161,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new SimpleAttributeOperandModel {
                 NodeId = model.NodeId,
-                AttributeId = (OpcUa.Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Platform.Core.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -1177,7 +1177,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.History.Models {
             }
             return new SimpleAttributeOperandApiModel {
                 NodeId = model.NodeId,
-                AttributeId = (Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Core.Api.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };

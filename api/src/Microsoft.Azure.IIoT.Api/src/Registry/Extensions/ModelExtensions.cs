@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Api.Models {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
     using System.Linq;
     using System.Collections.Generic;
 
@@ -27,7 +27,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new ApplicationInfoApiModel {
                 ApplicationId = model.ApplicationId,
-                ApplicationType = (Core.Models.ApplicationType)model.ApplicationType,
+                ApplicationType = (Core.Api.Models.ApplicationType)model.ApplicationType,
                 ApplicationUri = model.ApplicationUri,
                 ApplicationName = model.ApplicationName,
                 Locale = model.Locale,
@@ -58,7 +58,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new ApplicationInfoModel {
                 ApplicationId = model.ApplicationId,
-                ApplicationType = (OpcUa.Core.Models.ApplicationType)model.ApplicationType,
+                ApplicationType = (Core.Models.ApplicationType)model.ApplicationType,
                 ApplicationUri = model.ApplicationUri,
                 ApplicationName = model.ApplicationName,
                 Locale = model.Locale,
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new ApplicationRegistrationQueryApiModel {
-                ApplicationType = (Core.Models.ApplicationType?)model.ApplicationType,
+                ApplicationType = (Core.Api.Models.ApplicationType?)model.ApplicationType,
                 ApplicationUri = model.ApplicationUri,
                 ProductUri = model.ProductUri,
                 ApplicationName = model.ApplicationName,
@@ -185,7 +185,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new ApplicationRegistrationQueryModel {
-                ApplicationType = (OpcUa.Core.Models.ApplicationType?)model.ApplicationType,
+                ApplicationType = (Core.Models.ApplicationType?)model.ApplicationType,
                 ApplicationUri = model.ApplicationUri,
                 ProductUri = model.ProductUri,
                 ApplicationName = model.ApplicationName,
@@ -210,7 +210,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new ApplicationRegistrationRequestApiModel {
-                ApplicationType = (Core.Models.ApplicationType?)model.ApplicationType,
+                ApplicationType = (Core.Api.Models.ApplicationType?)model.ApplicationType,
                 ApplicationUri = model.ApplicationUri,
                 ApplicationName = model.ApplicationName,
                 Locale = model.Locale,
@@ -236,7 +236,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new ApplicationRegistrationRequestModel {
-                ApplicationType = (OpcUa.Core.Models.ApplicationType?)model.ApplicationType,
+                ApplicationType = (Core.Models.ApplicationType?)model.ApplicationType,
                 ApplicationUri = model.ApplicationUri,
                 ApplicationName = model.ApplicationName,
                 Locale = model.Locale,
@@ -373,8 +373,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 Id = model.Id,
                 SecurityPolicy = model.SecurityPolicy,
                 Configuration = model.Configuration,
-                CredentialType = (Core.Models.CredentialType?)model.CredentialType ??
-                    Core.Models.CredentialType.None
+                CredentialType = (Core.Api.Models.CredentialType?)model.CredentialType ??
+                    Core.Api.Models.CredentialType.None
             };
         }
 
@@ -392,8 +392,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 Id = model.Id,
                 SecurityPolicy = model.SecurityPolicy,
                 Configuration = model.Configuration,
-                CredentialType = (OpcUa.Core.Models.CredentialType?)model.CredentialType ??
-                   OpcUa.Core.Models.CredentialType.None
+                CredentialType = (Core.Models.CredentialType?)model.CredentialType ??
+                   Core.Models.CredentialType.None
             };
         }
 
@@ -432,10 +432,10 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new DiscovererModel {
                 Id = model.Id,
-                LogLevel = (OpcUa.Registry.Models.TraceLogLevel?)model.LogLevel,
-                RequestedMode = (OpcUa.Registry.Models.DiscoveryMode?)model.RequestedMode,
+                LogLevel = (Registry.Models.TraceLogLevel?)model.LogLevel,
+                RequestedMode = (Registry.Models.DiscoveryMode?)model.RequestedMode,
                 RequestedConfig = model.RequestedConfig.ToServiceModel(),
-                Discovery = (OpcUa.Registry.Models.DiscoveryMode?)model.Discovery,
+                Discovery = (Registry.Models.DiscoveryMode?)model.Discovery,
                 DiscoveryConfig = model.DiscoveryConfig.ToServiceModel(),
                 OutOfSync = model.OutOfSync,
                 Version = model.Version,
@@ -472,7 +472,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new DiscovererQueryModel {
                 Connected = model.Connected,
-                Discovery = (OpcUa.Registry.Models.DiscoveryMode?)model.Discovery
+                Discovery = (Registry.Models.DiscoveryMode?)model.Discovery
             };
         }
 
@@ -486,8 +486,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new DiscovererUpdateModel {
-                LogLevel = (OpcUa.Registry.Models.TraceLogLevel?)model.LogLevel,
-                Discovery = (OpcUa.Registry.Models.DiscoveryMode?)model.Discovery,
+                LogLevel = (Registry.Models.TraceLogLevel?)model.LogLevel,
+                Discovery = (Registry.Models.DiscoveryMode?)model.Discovery,
                 DiscoveryConfig = model.DiscoveryConfig.ToServiceModel()
             };
         }
@@ -597,7 +597,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             return new DiscoveryRequestModel {
                 Id = model.Id,
                 Configuration = model.Configuration.ToServiceModel(),
-                Discovery = (OpcUa.Registry.Models.DiscoveryMode?)model.Discovery
+                Discovery = (Registry.Models.DiscoveryMode?)model.Discovery
             };
         }
 
@@ -614,7 +614,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             return new EndpointActivationFilterApiModel {
                 TrustLists = model.TrustLists,
                 SecurityPolicies = model.SecurityPolicies,
-                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (Core.Api.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -630,7 +630,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             return new EndpointActivationFilterModel {
                 TrustLists = model.TrustLists,
                 SecurityPolicies = model.SecurityPolicies,
-                SecurityMode = (OpcUa.Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -662,7 +662,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new EntityActivationStatusModel {
                 Id = model.Id,
-                ActivationState = (OpcUa.Registry.Models.EntityActivationState?)model.ActivationState
+                ActivationState = (Registry.Models.EntityActivationState?)model.ActivationState
             };
         }
 
@@ -679,7 +679,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             return new EndpointApiModel {
                 Url = model.Url,
                 AlternativeUrls = model.AlternativeUrls,
-                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode,
+                SecurityMode = (Core.Api.Models.SecurityMode?)model.SecurityMode,
                 SecurityPolicy = model.SecurityPolicy,
                 Certificate = model.Certificate,
             };
@@ -698,7 +698,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             return new EndpointModel {
                 Url = model.Url,
                 AlternativeUrls = model.AlternativeUrls,
-                SecurityMode = (OpcUa.Core.Models.SecurityMode?)model.SecurityMode,
+                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode,
                 SecurityPolicy = model.SecurityPolicy,
                 Certificate = model.Certificate,
             };
@@ -719,7 +719,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 NotSeenSince = model.NotSeenSince,
                 Registration = model.Registration.ToApiModel(),
                 ActivationState = (EntityActivationState?)model.ActivationState,
-                EndpointState = (Core.Models.EndpointConnectivityState?)model.EndpointState,
+                EndpointState = (Core.Api.Models.EndpointConnectivityState?)model.EndpointState,
                 OutOfSync = model.OutOfSync
             };
         }
@@ -738,8 +738,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 ApplicationId = model.ApplicationId,
                 NotSeenSince = model.NotSeenSince,
                 Registration = model.Registration.ToServiceModel(),
-                ActivationState = (OpcUa.Registry.Models.EntityActivationState?)model.ActivationState,
-                EndpointState = (OpcUa.Core.Models.EndpointConnectivityState?)model.EndpointState,
+                ActivationState = (Registry.Models.EntityActivationState?)model.ActivationState,
+                EndpointState = (Core.Models.EndpointConnectivityState?)model.EndpointState,
                 OutOfSync = model.OutOfSync
             };
         }
@@ -842,10 +842,10 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 Url = model.Url,
                 Connected = model.Connected,
                 Activated = model.Activated,
-                EndpointState = (Core.Models.EndpointConnectivityState?)model.EndpointState,
+                EndpointState = (Core.Api.Models.EndpointConnectivityState?)model.EndpointState,
                 Certificate = model.Certificate,
                 SecurityPolicy = model.SecurityPolicy,
-                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode,
+                SecurityMode = (Core.Api.Models.SecurityMode?)model.SecurityMode,
                 ApplicationId = model.ApplicationId,
                 DiscovererId = model.DiscovererId,
                 SiteOrGatewayId = model.SiteOrGatewayId,
@@ -868,10 +868,10 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 Url = model.Url,
                 Connected = model.Connected,
                 Activated = model.Activated,
-                EndpointState = (OpcUa.Core.Models.EndpointConnectivityState?)model.EndpointState,
+                EndpointState = (Core.Models.EndpointConnectivityState?)model.EndpointState,
                 Certificate = model.Certificate,
                 SecurityPolicy = model.SecurityPolicy,
-                SecurityMode = (OpcUa.Core.Models.SecurityMode?)model.SecurityMode,
+                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode,
                 ApplicationId = model.ApplicationId,
                 DiscovererId = model.DiscovererId,
                 SiteOrGatewayId = model.SiteOrGatewayId,
@@ -1010,7 +1010,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new PublisherModel {
                 Id = model.Id,
-                LogLevel = (OpcUa.Registry.Models.TraceLogLevel?)model.LogLevel,
+                LogLevel = (Registry.Models.TraceLogLevel?)model.LogLevel,
                 OutOfSync = model.OutOfSync,
                 Version = model.Version,
                 Connected = model.Connected
@@ -1109,7 +1109,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new PublisherUpdateModel {
-                LogLevel = (OpcUa.Registry.Models.TraceLogLevel?)model.LogLevel,
+                LogLevel = (Registry.Models.TraceLogLevel?)model.LogLevel,
             };
         }
 
@@ -1193,7 +1193,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new SupervisorModel {
                 Id = model.Id,
-                LogLevel = (OpcUa.Registry.Models.TraceLogLevel?)model.LogLevel,
+                LogLevel = (Registry.Models.TraceLogLevel?)model.LogLevel,
                 OutOfSync = model.OutOfSync,
                 Version = model.Version,
                 Connected = model.Connected
@@ -1332,7 +1332,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
                 return null;
             }
             return new SupervisorUpdateModel {
-                LogLevel = (OpcUa.Registry.Models.TraceLogLevel?)model.LogLevel
+                LogLevel = (Registry.Models.TraceLogLevel?)model.LogLevel
             };
         }
 
@@ -1387,7 +1387,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new X509CertificateChainApiModel {
                 Status = model.Status?
-                    .Select(s => (Core.Models.X509ChainStatus)s)
+                    .Select(s => (Core.Api.Models.X509ChainStatus)s)
                     .ToList(),
                 Chain = model.Chain?
                     .Select(c => c.ToApiModel())
@@ -1406,7 +1406,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models {
             }
             return new X509CertificateChainModel {
                 Status = model.Status?
-                    .Select(s => (OpcUa.Core.Models.X509ChainStatus)s)
+                    .Select(s => (Core.Models.X509ChainStatus)s)
                     .ToList(),
                 Chain = model.Chain?
                     .Select(c => c.ToServiceModel())

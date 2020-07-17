@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Supervisor {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Supervisor {
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Tests;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Hub;
@@ -84,7 +84,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Supervisor {
                     // Setup
                     var supervisorId = SupervisorModelEx.CreateSupervisorId(device, module);
                     var activation = services.Resolve<IEndpointActivation>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = new EndpointInfoModel {
                         Registration = new EndpointRegistrationModel {
                             Endpoint = new EndpointModel {
@@ -129,7 +129,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Supervisor {
                     // Setup
                     var supervisorId = SupervisorModelEx.CreateSupervisorId(device, module);
                     var activation = services.Resolve<IEndpointActivation>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = new EndpointInfoModel {
                         Registration = new EndpointRegistrationModel {
                             Endpoint = new EndpointModel {
@@ -174,7 +174,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Supervisor {
                     // Setup
                     var supervisorId = SupervisorModelEx.CreateSupervisorId(device, module);
                     var activation = services.Resolve<IEndpointActivation>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = new EndpointInfoModel {
                         Registration = new EndpointRegistrationModel {
                             Endpoint = new EndpointModel {
@@ -220,7 +220,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Supervisor {
                     // Setup
                     var supervisorId = SupervisorModelEx.CreateSupervisorId(device, module);
                     var activation = services.Resolve<IEndpointActivation>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
 
                     for (var i = 0; i < 20; i++) {
                         var twin = new EndpointInfoModel {

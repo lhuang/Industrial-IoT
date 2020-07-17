@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service {
     using Microsoft.Azure.IIoT.Messaging;
     using System.Threading.Tasks;
     using System.Collections.Generic;

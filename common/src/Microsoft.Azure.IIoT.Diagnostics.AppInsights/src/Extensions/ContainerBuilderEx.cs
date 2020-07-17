@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Autofac {
-    using Autofac.Core.Registration;
+namespace Microsoft.Azure.IIoT.Azure.AppInsights {
+    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.ApplicationInsights.DependencyCollector;
     using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
+    using Autofac;
+    using Autofac.Core.Registration;
     using Serilog;
     using System;
 
@@ -41,7 +41,7 @@ namespace Autofac {
 
         /// <summary>
         /// Add dependency tracking for Application Insights. This method should be used for .NET
-        /// Core applications. ASP.NET Core applicatoins should rely on AddApplicationInsightsTelemetry()
+        /// Core applications. ASP.NET Core applicatoins should rely on AddAppInsightsTelemetry()
         /// extension method for IServiceCollection.
         /// </summary>
         /// <param name="builder"></param>
@@ -76,7 +76,7 @@ namespace Autofac {
             depModule.ExcludeComponentCorrelationHttpHeadersOnDomains.Add("localhost");
             depModule.ExcludeComponentCorrelationHttpHeadersOnDomains.Add("127.0.0.1");
 
-            // Enable known dependency tracking, note that in future versions, we will extend this list. 
+            // Enable known dependency tracking, note that in future versions, we will extend this list.
             // Please check default settings in https://github.com/microsoft/ApplicationInsights-dotnet-server/blob/develop/WEB/Src/DependencyCollector/DependencyCollector/ApplicationInsights.config.install.xdt
 
             depModule.IncludeDiagnosticSourceActivities.Add("Microsoft.Azure.ServiceBus");

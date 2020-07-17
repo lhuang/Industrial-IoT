@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Vault.Models {
+namespace Microsoft.Azure.IIoT.Platform.Vault.Api.Models {
     using System.Runtime.Serialization;
     using System;
 

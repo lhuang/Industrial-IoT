@@ -3,13 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Deploy {
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Deploy {
     using Microsoft.Azure.IIoT.Deploy;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Hub.Services;
     using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
     using Serilog;
     using System;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Deploy {
         /// <param name="diagnostics"></param>
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
-        public IoTHubPublisherDeployment(IIoTHubConfigurationServices service,
+        public IoTHubPublisherDeployment(IDeviceDeploymentServices service,
             IContainerRegistryConfig config, ILogAnalyticsConfig diagnostics,
             IJsonSerializer serializer, ILogger logger) {
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
@@ -46,7 +46,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Deploy {
                     ModulesContent = CreateLayeredDeployment()
                 },
                 SchemaVersion = kDefaultSchemaVersion,
-                TargetCondition = IoTHubEdgeBaseDeployment.TargetCondition,
+                TargetCondition = IoTEdgeBaseDeployment.TargetCondition,
                 Priority = 1
             }, true);
         }
@@ -116,7 +116,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Deploy {
 
         private const string kDefaultSchemaVersion = "1.0";
         private readonly IJsonSerializer _serializer;
-        private readonly IIoTHubConfigurationServices _service;
+        private readonly IDeviceDeploymentServices _service;
         private readonly IContainerRegistryConfig _config;
         private readonly ILogAnalyticsConfig _diagnostics;
         private readonly ILogger _logger;

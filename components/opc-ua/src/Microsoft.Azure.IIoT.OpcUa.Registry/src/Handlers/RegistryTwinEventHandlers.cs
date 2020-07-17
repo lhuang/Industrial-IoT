@@ -3,10 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Handlers;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Default;
-    using Microsoft.Azure.IIoT.Hub.Services;
+namespace Microsoft.Azure.IIoT.Platform.Registry {
+    using Microsoft.Azure.IIoT.Platform.Registry.Handlers;
+    using Microsoft.Azure.IIoT.Platform.Registry.Default;
     using Autofac;
 
     /// <summary>
@@ -19,11 +18,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry {
         /// </summary>
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder) {
-
-            builder.RegisterType<IoTHubTwinChangeEventHandler>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<IoTHubDeviceLifecycleEventHandler>()
-                .AsImplementedInterfaces();
 
             builder.RegisterType<SupervisorTwinEventHandler>()
                 .AsImplementedInterfaces();

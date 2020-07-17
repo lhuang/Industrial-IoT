@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge {
+namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service {
     using Microsoft.Azure.IIoT.Diagnostics;
 
     /// <summary>

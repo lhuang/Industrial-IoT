@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Models {
+    using Microsoft.Azure.IIoT.Platform.Vault.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
     using System.Linq;
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
             }
             return new CertificateRequestQueryRequestModel {
                 EntityId = model.EntityId,
-                State = (IIoT.OpcUa.Vault.Models.CertificateRequestState?)model.State
+                State = (IIoT.Platform.Vault.Models.CertificateRequestState?)model.State
             };
         }
 
@@ -62,7 +62,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
                 DQ = model.DQ,
                 E = model.E,
                 K = model.K,
-                Kty = (IIoT.OpcUa.Api.Vault.Models.PrivateKeyType)model.Kty,
+                Kty = (IIoT.Platform.Vault.Api.Models.PrivateKeyType)model.Kty,
                 N = model.N,
                 P = model.P,
                 Q = model.Q,
@@ -116,8 +116,8 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
             return new CertificateRequestRecordApiModel {
                 RequestId = model.RequestId,
                 EntityId = model.EntityId,
-                Type = (IIoT.OpcUa.Api.Vault.Models.CertificateRequestType)model.Type,
-                State = (IIoT.OpcUa.Api.Vault.Models.CertificateRequestState)model.State,
+                Type = (IIoT.Platform.Vault.Api.Models.CertificateRequestType)model.Type,
+                State = (IIoT.Platform.Vault.Api.Models.CertificateRequestState)model.State,
                 GroupId = model.GroupId,
                 Submitted = model.Submitted.ToApiModel(),
                 Accepted = model.Accepted.ToApiModel(),
@@ -198,16 +198,16 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
             return new TrustGroupApiModel {
                 Name = model.Name,
                 ParentId = model.ParentId,
-                Type = (IIoT.OpcUa.Api.Vault.Models.TrustGroupType)model.Type,
+                Type = (IIoT.Platform.Vault.Api.Models.TrustGroupType)model.Type,
                 SubjectName = model.SubjectName,
                 IssuedKeySize = model.IssuedKeySize,
                 IssuedLifetime = model.IssuedLifetime,
                 IssuedSignatureAlgorithm =
-                    (IIoT.OpcUa.Api.Vault.Models.SignatureAlgorithm)model.IssuedSignatureAlgorithm,
+                    (IIoT.Platform.Vault.Api.Models.SignatureAlgorithm)model.IssuedSignatureAlgorithm,
                 KeySize = model.KeySize,
                 Lifetime = model.Lifetime,
                 SignatureAlgorithm =
-                    (IIoT.OpcUa.Api.Vault.Models.SignatureAlgorithm)model.SignatureAlgorithm
+                    (IIoT.Platform.Vault.Api.Models.SignatureAlgorithm)model.SignatureAlgorithm
             };
         }
 
@@ -259,7 +259,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
                 IssuedKeySize = model.IssuedKeySize,
                 IssuedLifetime = model.IssuedLifetime,
                 IssuedSignatureAlgorithm =
-                    (IIoT.OpcUa.Vault.Models.SignatureAlgorithm?)model.IssuedSignatureAlgorithm,
+                    (IIoT.Platform.Vault.Models.SignatureAlgorithm?)model.IssuedSignatureAlgorithm,
             };
         }
 
@@ -288,16 +288,16 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
             }
             return new TrustGroupRootCreateRequestModel {
                 Name = model.Name,
-                Type = (IIoT.OpcUa.Vault.Models.TrustGroupType)model.Type,
+                Type = (IIoT.Platform.Vault.Models.TrustGroupType)model.Type,
                 SubjectName = model.SubjectName,
                 IssuedKeySize = model.IssuedKeySize,
                 IssuedLifetime = model.IssuedLifetime,
                 IssuedSignatureAlgorithm =
-                    (IIoT.OpcUa.Vault.Models.SignatureAlgorithm?)model.IssuedSignatureAlgorithm,
+                    (IIoT.Platform.Vault.Models.SignatureAlgorithm?)model.IssuedSignatureAlgorithm,
                 KeySize = model.KeySize,
                 Lifetime = model.Lifetime,
                 SignatureAlgorithm =
-                    (IIoT.OpcUa.Vault.Models.SignatureAlgorithm?)model.SignatureAlgorithm
+                    (IIoT.Platform.Vault.Models.SignatureAlgorithm?)model.SignatureAlgorithm
             };
         }
 
@@ -315,7 +315,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
                 IssuedKeySize = model.IssuedKeySize,
                 IssuedLifetime = model.IssuedLifetime,
                 IssuedSignatureAlgorithm =
-                    (IIoT.OpcUa.Vault.Models.SignatureAlgorithm?)model.IssuedSignatureAlgorithm,
+                    (IIoT.Platform.Vault.Models.SignatureAlgorithm?)model.IssuedSignatureAlgorithm,
             };
         }
 
@@ -365,7 +365,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models {
             }
             return new X509CertificateChainApiModel {
                 Status = model.Status?
-                    .Select(s => (IIoT.OpcUa.Api.Core.Models.X509ChainStatus)s)
+                    .Select(s => (IIoT.Platform.Core.Api.Models.X509ChainStatus)s)
                     .ToList(),
                 Chain = model.Chain?
                     .Select(c => c.ToApiModel())

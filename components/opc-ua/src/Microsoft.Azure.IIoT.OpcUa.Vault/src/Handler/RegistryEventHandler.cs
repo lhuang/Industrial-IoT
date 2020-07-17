@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault.Handler {
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Handler {
+    using Microsoft.Azure.IIoT.Platform.Vault.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Utils;
     using System;
     using System.Threading.Tasks;

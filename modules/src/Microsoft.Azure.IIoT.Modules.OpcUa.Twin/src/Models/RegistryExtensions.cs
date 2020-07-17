@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Models {
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
 
     /// <summary>
     /// Model extensions for twin module
@@ -27,8 +27,8 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
                 Id = model.Id,
                 SecurityPolicy = model.SecurityPolicy,
                 Configuration = model.Configuration,
-                CredentialType = (IIoT.OpcUa.Api.Core.Models.CredentialType?)model.CredentialType ??
-                    IIoT.OpcUa.Api.Core.Models.CredentialType.None
+                CredentialType = (IIoT.Platform.Core.Api.Models.CredentialType?)model.CredentialType ??
+                    IIoT.Platform.Core.Api.Models.CredentialType.None
             };
         }
 
@@ -44,8 +44,8 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
                 Id = model.Id,
                 SecurityPolicy = model.SecurityPolicy,
                 Configuration = model.Configuration,
-                CredentialType = (IIoT.OpcUa.Core.Models.CredentialType?)model.CredentialType ??
-                    IIoT.OpcUa.Core.Models.CredentialType.None
+                CredentialType = (IIoT.Platform.Core.Models.CredentialType?)model.CredentialType ??
+                    IIoT.Platform.Core.Models.CredentialType.None
             };
         }
 
@@ -60,7 +60,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
             }
             return new EntityActivationStatusApiModel {
                 Id = model.Id,
-                ActivationState = (IIoT.OpcUa.Api.Registry.Models.EntityActivationState?)model.ActivationState
+                ActivationState = (IIoT.Platform.Registry.Api.Models.EntityActivationState?)model.ActivationState
             };
         }
 
@@ -75,7 +75,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
             }
             return new EntityActivationStatusModel {
                 Id = model.Id,
-                ActivationState = (IIoT.OpcUa.Registry.Models.EntityActivationState?)model.ActivationState
+                ActivationState = (IIoT.Platform.Registry.Models.EntityActivationState?)model.ActivationState
             };
         }
     }

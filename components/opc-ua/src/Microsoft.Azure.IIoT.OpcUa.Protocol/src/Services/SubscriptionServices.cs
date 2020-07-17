@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Services {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Microsoft.Azure.IIoT.Utils;
     using Opc.Ua;
     using Opc.Ua.Client;
@@ -437,7 +437,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
                     foreach (var toAdd in toAddList) {
                         // Create monitored item
                         if (!activate) {
-                            toAdd.Template.MonitoringMode = Publisher.Models.MonitoringMode.Disabled;
+                            toAdd.Template.MonitoringMode = Platform.Publisher.Models.MonitoringMode.Disabled;
                         }
                         try {
                             toAdd.Create(rawSubscription.Session, codec, activate);
@@ -516,7 +516,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
                                 _logger.Warning("Error monitoring node {id} due to {code} in subscription " +
                                     "{subscription}", monitoredItem.Item.StartNodeId,
                                     monitoredItem.Item.Status.Error.StatusCode, rawSubscription.DisplayName);
-                                monitoredItem.Template.MonitoringMode = Publisher.Models.MonitoringMode.Disabled;
+                                monitoredItem.Template.MonitoringMode = Platform.Publisher.Models.MonitoringMode.Disabled;
                                 noErrorFound = false;
                             }
                         }
@@ -542,7 +542,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
                     foreach (var monitoredItem in _currentlyMonitored) {
                         if (monitoredItem.Item.Status.Error != null &&
                             StatusCode.IsNotGood(monitoredItem.Item.Status.Error.StatusCode)) {
-                            monitoredItem.Template.MonitoringMode = Publisher.Models.MonitoringMode.Disabled;
+                            monitoredItem.Template.MonitoringMode = Platform.Publisher.Models.MonitoringMode.Disabled;
                             noErrorFound = false;
                             applyChanges = true;
                         }
@@ -1077,13 +1077,13 @@ namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
                     Item.QueueSize = Template.QueueSize.GetValueOrDefault(1);
                     changes = true;
                 }
-                if (Template.MonitoringMode.GetValueOrDefault(Publisher.Models.MonitoringMode.Reporting) !=
-                    model.Template.MonitoringMode.GetValueOrDefault(Publisher.Models.MonitoringMode.Reporting)) {
+                if (Template.MonitoringMode.GetValueOrDefault(Platform.Publisher.Models.MonitoringMode.Reporting) !=
+                    model.Template.MonitoringMode.GetValueOrDefault(Platform.Publisher.Models.MonitoringMode.Reporting)) {
                     _logger.Debug("{item}: Changing monitoring mode from {old} to {new}",
-                        this, Template.MonitoringMode.GetValueOrDefault(Publisher.Models.MonitoringMode.Reporting),
-                        model.Template.MonitoringMode.GetValueOrDefault(Publisher.Models.MonitoringMode.Reporting));
+                        this, Template.MonitoringMode.GetValueOrDefault(Platform.Publisher.Models.MonitoringMode.Reporting),
+                        model.Template.MonitoringMode.GetValueOrDefault(Platform.Publisher.Models.MonitoringMode.Reporting));
                     Template.MonitoringMode = model.Template.MonitoringMode;
-                    _modeChange = Template.MonitoringMode.GetValueOrDefault(Publisher.Models.MonitoringMode.Reporting);
+                    _modeChange = Template.MonitoringMode.GetValueOrDefault(Platform.Publisher.Models.MonitoringMode.Reporting);
                 }
                 if (Template.DisplayName != model.Template.DisplayName) {
                     Template.DisplayName = model.Template.DisplayName;
@@ -1147,7 +1147,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
 
             private HashSet<uint> _newTriggers = new HashSet<uint>();
             private HashSet<uint> _triggers = new HashSet<uint>();
-            private Publisher.Models.MonitoringMode? _modeChange;
+            private Platform.Publisher.Models.MonitoringMode? _modeChange;
             private readonly ILogger _logger;
         }
 

@@ -9,7 +9,7 @@ namespace Microsoft.Azure.IIoT.App.Pages {
     using Microsoft.AspNetCore.Components;
     using Microsoft.Azure.IIoT.App.Data;
     using Microsoft.Azure.IIoT.App.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
 
     public partial class PublishedNodes {
         [Parameter]

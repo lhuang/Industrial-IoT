@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Events.v2.Models {
+namespace Microsoft.Azure.IIoT.Platform.Registry.Events.v2.Models {
 
     /// <summary>
     /// Application event type

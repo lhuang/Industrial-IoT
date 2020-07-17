@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Services {
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Opc.Ua;
     using Opc.Ua.Nodeset;
     using System.Threading.Tasks;

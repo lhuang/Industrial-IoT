@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Controllers {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Registry.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Registry.Filters;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Registry.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Registry.Service.Filters;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi;
     using Microsoft.AspNetCore.Authorization;

@@ -3,15 +3,15 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.Processor.Telemetry.Cdm.Runtime {
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service.Runtime {
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Cdm;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Runtime;
+    using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor.Runtime;
+    using Microsoft.Azure.IIoT.Azure.EventHub;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.Diagnostics;
-    using Microsoft.Azure.IIoT.OpcUa.Cdm;
-    using Microsoft.Azure.IIoT.OpcUa.Cdm.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Hub.Processor;
-    using Microsoft.Azure.IIoT.Hub.Processor.Runtime;
-    using Microsoft.Azure.IIoT.Messaging.EventHub;
-    using Microsoft.Azure.IIoT.Messaging.EventHub.Runtime;
     using Microsoft.Extensions.Configuration;
     using System;
 

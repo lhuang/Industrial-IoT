@@ -4,15 +4,16 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Platform.Discovery.Edge.Cli {
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Discovery.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Transport.Probe;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Discovery.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Transport.Probe;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Runtime;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Messaging;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.IIoT.Net;
     using Microsoft.Azure.IIoT.Net.Models;
     using Microsoft.Azure.IIoT.Net.Scanner;
@@ -223,7 +224,7 @@ Operations (Mutually exclusive):
         }
 
         /// <inheritdoc/>
-        private class ConsoleEmitter : IPropertyReporter, IEventClient, IIdentity {
+        private class ConsoleEmitter : ISettingsReporter, IEventClient, IIdentity {
 
             /// <inheritdoc/>
             public string Gateway => Utils.GetHostName();

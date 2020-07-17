@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.History {
-    using Microsoft.Azure.IIoT.OpcUa.Api.History;
+namespace Microsoft.Azure.IIoT.Platform.History.Service {
+    using Microsoft.Azure.IIoT.Platform.History.Api;
     using System;
 
     /// <inheritdoc/>

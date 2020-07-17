@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Models {
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Models;
     using System.Linq;
 
     /// <summary>
@@ -101,13 +101,13 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models {
                 NodeIdsOnly = model.NodeIdsOnly,
                 NodeId = model.NodeId,
                 MaxReferencesToReturn = model.MaxReferencesToReturn,
-                Direction = (IIoT.OpcUa.Api.Core.Models.BrowseDirection?)model.Direction,
+                Direction = (IIoT.Platform.Core.Api.Models.BrowseDirection?)model.Direction,
                 View = model.View.ToApiModel(),
                 ReferenceTypeId = model.ReferenceTypeId,
                 TargetNodesOnly = model.TargetNodesOnly,
                 ReadVariableValues = model.ReadVariableValues,
                 NodeClassFilter = model.NodeClassFilter?
-                    .Select(f => (IIoT.OpcUa.Api.Core.Models.NodeClass)f)
+                    .Select(f => (IIoT.Platform.Core.Api.Models.NodeClass)f)
                     .ToList(),
                 NoSubtypes = model.NoSubtypes,
                 Header = model.Header.ToApiModel()

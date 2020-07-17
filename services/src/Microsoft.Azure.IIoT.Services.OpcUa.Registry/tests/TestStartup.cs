@@ -3,9 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime;
-    using Microsoft.Azure.IIoT.Storage.Default;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Service {
+    using Microsoft.Azure.IIoT.Platform.Registry.Service.Runtime;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Testing;
@@ -36,9 +35,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
                 .AsImplementedInterfaces();
 
             // Add diagnostics and auth providers
-            builder.AddDiagnostics(Config);
-            builder.RegisterType<MemoryDatabase>()
-               .AsImplementedInterfaces().SingleInstance();
+            builder.AddDebugDiagnostics(Config);
         }
     }
 

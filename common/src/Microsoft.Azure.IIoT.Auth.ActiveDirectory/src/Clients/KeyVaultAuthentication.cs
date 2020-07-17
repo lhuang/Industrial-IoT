@@ -3,10 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Auth.Clients.Default {
+namespace Microsoft.Azure.IIoT.Azure.ActiveDirectory.Clients {
+    using Microsoft.Azure.IIoT.Azure.ActiveDirectory.Runtime;
+    using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Auth.Clients;
     using Microsoft.Azure.IIoT.Auth.Runtime;
-    using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Storage.Default;
     using System.Collections.Generic;
     using Autofac;

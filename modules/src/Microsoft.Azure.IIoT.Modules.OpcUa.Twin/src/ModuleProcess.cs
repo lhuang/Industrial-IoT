@@ -3,22 +3,22 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Runtime;
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Controllers;
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.Module;
-    using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.Module.Framework.Services;
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module {
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Controllers;
+    using Microsoft.Azure.IIoT.Platform.Edge;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Rpc.Framework;
+    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Extensions.Configuration;
     using Autofac;
     using System;
@@ -146,7 +146,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin {
                 .AsImplementedInterfaces();
 
             // register logger
-            builder.AddDiagnostics(config);
+            builder.AddDebugDiagnostics(config);
 
             // Register module framework
             builder.RegisterModule<ModuleFramework>();

@@ -15,16 +15,16 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Edge\src\Microsoft.Azure.IIoT.Platform.Edge.Service.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Edge\src\Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync\src\Microsoft.Azure.IIoT.Platform.Registry.Sync.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.Processor.Events\src\Microsoft.Azure.IIoT.Platform.Edge.Events.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.Processor.Onboarding\src\Microsoft.Azure.IIoT.Platform.Discovery.Service.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.Processor.Telemetry.Cdm\src\Microsoft.Azure.IIoT.Platform.Subscriber.Telemetry.Cdm.Service.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.Processor.Telemetry\src\Microsoft.Azure.IIoT.Platform.Subscriber.Telemetry.Service.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.Processor.Telemetry.Cdm\src\Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.Processor.Telemetry\src\Microsoft.Azure.IIoT.Platform.Subscriber.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Registry\src\Microsoft.Azure.IIoT.Platform.Registry.Service.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Events\src\Microsoft.Azure.IIoT.Platform.Core.Events.Service.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Events\src\Microsoft.Azure.IIoT.Platform.Api.Events.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Publisher\src\Microsoft.Azure.IIoT.Platform.Publisher.Service.csproj" />
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway\src\Microsoft.Azure.IIoT.Platform.Twin.Gateway.Service.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway\src\Microsoft.Azure.IIoT.Platform.Twin.Ua.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Twin.History\src\Microsoft.Azure.IIoT.Platform.History.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Twin\src\Microsoft.Azure.IIoT.Platform.Twin.Service.csproj" />
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.Services.OpcUa.Vault\src\Microsoft.Azure.IIoT.Platform.Vault.Service.csproj" />

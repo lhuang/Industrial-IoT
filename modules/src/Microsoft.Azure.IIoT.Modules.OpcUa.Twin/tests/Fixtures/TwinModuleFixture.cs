@@ -3,28 +3,28 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests {
-    using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
-    using Microsoft.Azure.IIoT.OpcUa.History.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History;
-    using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Mock;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Tests {
+    using Microsoft.Azure.IIoT.Platform.History.Clients;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.History.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.History.Api;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Mock;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Http.Default;
+    using Microsoft.Azure.IIoT.Messaging;
+    using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Extensions.Configuration;
@@ -34,7 +34,6 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests {
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Text;
     using System.Threading.Tasks;
     using Xunit;
@@ -89,7 +88,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests {
                 })
                 .Build();
             HubContainer = CreateHubContainer();
-            _hub = HubContainer.Resolve<IIoTHubTwinServices>();
+            _hub = HubContainer.Resolve<IDeviceTwinServices>();
 
             // Create gateway identitity
             var gw = _hub.CreateOrUpdateAsync(new DeviceTwinModel {
@@ -299,7 +298,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests {
             builder.RegisterModule<NewtonSoftJsonModule>();
             builder.RegisterInstance(this).AsImplementedInterfaces();
             builder.RegisterInstance(_config).AsImplementedInterfaces();
-            builder.AddDiagnostics();
+            builder.AddDebugDiagnostics();
             builder.RegisterModule<IoTHubMockService>();
             builder.RegisterType<TestIoTHubConfig>()
                 .AsImplementedInterfaces();
@@ -350,7 +349,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests {
             return builder.Build();
         }
 
-        private readonly IIoTHubTwinServices _hub;
+        private readonly IDeviceTwinServices _hub;
         private readonly string _etag;
         private readonly DeviceModel _device;
         private bool _running;

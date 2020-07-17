@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
+namespace Microsoft.Azure.IIoT.Platform.Registry.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi;
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
@@ -11,15 +11,12 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.Cors.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Client.Runtime;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Runtime;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb.Runtime;
-    using Microsoft.Azure.IIoT.Storage;
+    using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus.Runtime;
     using Microsoft.Azure.IIoT.Auth.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Deploy;
     using Microsoft.Azure.IIoT.Deploy.Runtime;
@@ -30,8 +27,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
     /// </summary>
     public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, IOpenApiConfig, IServiceBusConfig,
-        ICosmosDbConfig, IItemContainerConfig, IForwardedHeadersConfig,
-        IContainerRegistryConfig, IRoleConfig {
+        IForwardedHeadersConfig, IContainerRegistryConfig, IRoleConfig {
 
         /// <inheritdoc/>
         public bool UseRoles => GetBoolOrDefault(PcsVariable.PCS_AUTH_ROLES);
@@ -51,7 +47,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
             PcsVariable.PCS_TWIN_REGISTRY_SERVICE_PATH_BASE,
             () => _host.ServicePathBase);
 
-
         /// <inheritdoc/>
         public bool UIEnabled => _openApi.UIEnabled;
         /// <inheritdoc/>
@@ -69,15 +64,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
 
         /// <inheritdoc/>
         public string ServiceBusConnString => _sb.ServiceBusConnString;
-
-        /// <inheritdoc/>
-        public string DbConnectionString => _cosmos.DbConnectionString;
-        /// <inheritdoc/>
-        public int? ThroughputUnits => _cosmos.ThroughputUnits;
-        /// <inheritdoc/>
-        public string ContainerName => "iiot_opc";
-        /// <inheritdoc/>
-        public string DatabaseName => "iiot_opc";
 
         /// <inheritdoc/>
         public string DockerServer => _cr.DockerServer;
@@ -109,7 +95,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
             _hub = new IoTHubConfig(configuration);
             _cors = new CorsConfig(configuration);
             _sb = new ServiceBusConfig(configuration);
-            _cosmos = new CosmosDbConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
             _cr = new ContainerRegistryConfig(configuration);
         }
@@ -119,7 +104,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime {
         private readonly WebHostConfig _host;
         private readonly CorsConfig _cors;
         private readonly ServiceBusConfig _sb;
-        private readonly CosmosDbConfig _cosmos;
         private readonly IoTHubConfig _hub;
         private readonly ForwardedHeadersConfig _fh;
     }

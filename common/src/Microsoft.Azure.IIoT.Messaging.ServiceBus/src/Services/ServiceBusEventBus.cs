@@ -3,7 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Messaging.ServiceBus.Services {
+namespace Microsoft.Azure.IIoT.Azure.ServiceBus.Services {
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Utils;
@@ -28,17 +29,19 @@ namespace Microsoft.Azure.IIoT.Messaging.ServiceBus.Services {
         /// <param name="logger"></param>
         /// <param name="process"></param>
         public ServiceBusEventBus(IServiceBusClientFactory factory, IJsonSerializer serializer,
-            ILogger logger, IProcessIdentity process = null) {
+            ILogger logger, IProcessIdentity process) {
 
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
             _factory = factory ?? throw new ArgumentNullException(nameof(factory));
 
-            // TODO: If scaled out we need subscription ids for every instance!
+            if (string.IsNullOrEmpty(process?.ServiceId)) {
+                throw new ArgumentNullException(nameof(process));
+            }
 
             // Create subscription client
             _subscriptionClient = _factory.CreateOrGetSubscriptionClientAsync(
-                ProcessEventAsync, ExceptionReceivedHandler, process?.ServiceId).Result;
+                ProcessEventAsync, ExceptionReceivedHandler, process.ServiceId).Result;
             Try.Async(() => _subscriptionClient.RemoveRuleAsync(
                 RuleDescription.DefaultRuleName)).Wait();
         }

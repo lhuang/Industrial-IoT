@@ -4,7 +4,6 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Hub.Models {
-    using System.Runtime.Serialization;
     using System;
 
     /// <summary>

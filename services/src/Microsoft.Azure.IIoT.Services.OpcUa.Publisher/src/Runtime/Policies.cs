@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Auth {
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Service.Auth {
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.AspNetCore.Authorization;
     using System;

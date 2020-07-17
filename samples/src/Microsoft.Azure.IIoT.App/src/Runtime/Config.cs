@@ -7,16 +7,20 @@ namespace Microsoft.Azure.IIoT.App.Runtime {
     using Microsoft.Azure.IIoT.Auth.Runtime;
     using Microsoft.Azure.IIoT.Api.Runtime;
     using Microsoft.Azure.IIoT.Hosting;
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
-    using Microsoft.Azure.IIoT.Messaging.SignalR.Runtime;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Azure.SignalR;
+    using Microsoft.Azure.IIoT.Azure.SignalR.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using System;
 
     /// <summary>
     /// Configuration aggregation
     /// </summary>
-    public class Config : ApiConfig, ISignalRServiceConfig,
+    public class Config : ApiConfig, IAppInsightsConfig, ISignalRServiceConfig,
         IWebHostConfig, IForwardedHeadersConfig {
 
         /// <summary>Url</summary>
@@ -58,6 +62,13 @@ namespace Microsoft.Azure.IIoT.App.Runtime {
         public int AspNetCoreForwardedHeadersForwardLimit =>
             _fh.AspNetCoreForwardedHeadersForwardLimit;
 
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
+        /// <inheritdoc/>
+        public DiagnosticsLevel DiagnosticsLevel => _ai.DiagnosticsLevel;
+        /// <inheritdoc/>
+        public TimeSpan? MetricsCollectionInterval => _ai.MetricsCollectionInterval;
+
         /// <summary>
         /// Configuration constructor
         /// </summary>
@@ -68,9 +79,11 @@ namespace Microsoft.Azure.IIoT.App.Runtime {
             _host = new WebHostConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
             _sr = new SignalRServiceConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
         private readonly SignalRServiceConfig _sr;
+        private readonly AppInsightsConfig _ai;
         private readonly WebHostConfig _host;
         private readonly ForwardedHeadersConfig _fh;
     }

@@ -3,11 +3,14 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Client {
+namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Clients {
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Hub;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Azure.Devices.Client.Transport.Mqtt;
     using Microsoft.Azure.Devices.Client.Exceptions;
@@ -269,7 +272,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return adapter;
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -285,7 +288,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.CloseAsync();
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -303,7 +306,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     }
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -322,7 +325,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     }
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -333,7 +336,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SetMethodHandlerAsync(methodName, methodHandler, userContext);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -344,7 +347,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SetMethodDefaultHandlerAsync(methodHandler, userContext);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -355,7 +358,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SetDesiredPropertyUpdateCallbackAsync(callback, userContext);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -365,7 +368,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return await _client.GetTwinAsync(ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -379,7 +382,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.UpdateReportedPropertiesAsync(reportedProperties, ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -390,7 +393,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return await _client.InvokeMethodAsync(deviceId, moduleId, methodRequest, ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -401,7 +404,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return await _client.InvokeMethodAsync(deviceId, methodRequest, ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -469,7 +472,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return ModuleClient.CreateFromConnectionString(cs.ToString(), ts);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -538,7 +541,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return adapter;
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -565,7 +568,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SendEventAsync(message, ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -585,7 +588,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SendEventBatchAsync(messages, ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -596,7 +599,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SetMethodHandlerAsync(methodName, methodHandler, userContext);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -607,7 +610,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SetMethodDefaultHandlerAsync(methodHandler, userContext);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -618,7 +621,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.SetDesiredPropertyUpdateCallbackAsync(callback, userContext);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -628,7 +631,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return await _client.GetTwinAsync(ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -642,7 +645,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     await _client.UpdateReportedPropertiesAsync(reportedProperties, ct);
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -720,7 +723,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     return DeviceClient.CreateFromConnectionString(cs.ToString());
                 }
                 catch (Exception ex) {
-                    throw Transform(ex);
+                    throw ex.Translate();
                 }
             }
 
@@ -736,37 +739,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
                     new GaugeConfiguration {
                         LabelNames = new[] { "device", "timestamp_utc" }
                     });
-        }
-
-        /// <summary>
-        /// Transform sdk exceptions
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
-        internal static Exception Transform(Exception ex) {
-            switch (ex) {
-                case DeviceNotFoundException dnf:
-                    return new ResourceNotFoundException(dnf.Message, dnf);
-                case UnauthorizedException ua:
-                    return new ResourceUnauthorizedException(ua.Message, ua);
-                case DeviceMaximumQueueDepthExceededException dm:
-                    return new ResourceTooLargeException(dm.Message, dm); // TODO: Revisit
-                case DeviceAlreadyExistsException dae:
-                    return new ConflictingResourceException(dae.Message, dae);
-                case QuotaExceededException qee:
-                    return new ResourceExhaustionException(qee.Message, qee);
-                case DeviceMessageLockLostException dle:
-                    return new ResourceInvalidStateException(dle.Message, dle);
-                case MessageTooLargeException mtl:
-                    return new MessageSizeLimitException(mtl.Message, mtl);
-                case ServerBusyException sb:
-                    return new TemporarilyBusyException(sb.Message, sb);
-                case IotHubThrottledException te:
-                    return new TemporarilyBusyException(te.Message, te);
-                case DeviceDisabledException dd:
-                    return new ResourceUnauthorizedException(dd.Message, dd);
-            }
-            return ex;
         }
 
         /// <summary>

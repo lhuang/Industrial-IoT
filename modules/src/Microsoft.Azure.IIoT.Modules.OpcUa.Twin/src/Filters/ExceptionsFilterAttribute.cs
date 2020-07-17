@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Filters {
-    using Microsoft.Azure.IIoT.Module;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Filters {
+    using Microsoft.Azure.IIoT.Platform.Exceptions;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Exceptions;
-    using Microsoft.Azure.IIoT.OpcUa.Exceptions;
     using System;
     using System.Net;
     using System.Net.Sockets;

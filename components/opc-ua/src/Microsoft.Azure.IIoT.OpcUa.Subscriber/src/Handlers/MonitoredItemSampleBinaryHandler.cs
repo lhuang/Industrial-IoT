@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Handlers {
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Handlers {
+    using Microsoft.Azure.IIoT.Platform.Subscriber;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Microsoft.Azure.IIoT.Hub;
     using Opc.Ua;
     using Opc.Ua.Extensions;
@@ -21,7 +21,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Handlers {
     /// <summary>
     /// Publisher message handling
     /// </summary>
-    public sealed class MonitoredItemSampleBinaryHandler : IDeviceTelemetryHandler {
+    public sealed class MonitoredItemSampleBinaryHandler : ITelemetryHandler {
 
         /// <inheritdoc/>
         public string MessageSchema => Core.MessageSchemaTypes.MonitoredItemMessageBinary;
@@ -47,7 +47,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Handlers {
                 var context = new ServiceMessageContext();
                 var decoder = new BinaryDecoder(new MemoryStream(payload), context);
                 var messages = decoder.ReadBoolean(null) // is Batch?
-                    ? decoder.ReadEncodeableArray(null, typeof(MonitoredItemMessage)) 
+                    ? decoder.ReadEncodeableArray(null, typeof(MonitoredItemMessage))
                         as MonitoredItemMessage[]
                      : (decoder.ReadEncodeable(null, typeof(MonitoredItemMessage))
                         as MonitoredItemMessage).YieldReturn();

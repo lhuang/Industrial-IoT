@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Events.v2.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Api {
+    using Microsoft.Azure.IIoT.Platform.Registry.Api;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Events.v2.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Messaging;
     using System.Threading.Tasks;
     using Xunit;
@@ -32,7 +32,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new PublisherEventModel {
                 Publisher = new PublisherModel {
                     Connected = null,
-                    LogLevel = IIoT.OpcUa.Registry.Models.TraceLogLevel.Verbose
+                    LogLevel = IIoT.Platform.Registry.Models.TraceLogLevel.Verbose
                 }
             };
             var result = new TaskCompletionSource<PublisherEventApiModel>();
@@ -48,7 +48,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 var received = result.Task.Result;
                 Assert.Null(received?.Publisher?.Connected);
                 Assert.Equal(expected.Publisher.LogLevel,
-                    (IIoT.OpcUa.Registry.Models.TraceLogLevel)received.Publisher.LogLevel);
+                    (IIoT.Platform.Registry.Models.TraceLogLevel)received.Publisher.LogLevel);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
 
             var expected = new PublisherEventModel {
                 Publisher = new PublisherModel {
-                    LogLevel = IIoT.OpcUa.Registry.Models.TraceLogLevel.Verbose
+                    LogLevel = IIoT.Platform.Registry.Models.TraceLogLevel.Verbose
                 }
             };
             var result = new TaskCompletionSource<bool>();
@@ -94,11 +94,11 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new DiscovererEventModel {
                 Discoverer = new DiscovererModel {
                     Connected = true,
-                    Discovery = IIoT.OpcUa.Registry.Models.DiscoveryMode.Local,
+                    Discovery = IIoT.Platform.Registry.Models.DiscoveryMode.Local,
                     DiscoveryConfig = new DiscoveryConfigModel {
                         IdleTimeBetweenScans = TimeSpan.FromSeconds(5)
                     },
-                    LogLevel = IIoT.OpcUa.Registry.Models.TraceLogLevel.Verbose
+                    LogLevel = IIoT.Platform.Registry.Models.TraceLogLevel.Verbose
                 }
             };
             var result = new TaskCompletionSource<DiscovererEventApiModel>();
@@ -117,7 +117,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 Assert.Equal(TimeSpan.FromSeconds(5),
                     expected.Discoverer.DiscoveryConfig.IdleTimeBetweenScans);
                 Assert.Equal(expected.Discoverer.LogLevel,
-                    (IIoT.OpcUa.Registry.Models.TraceLogLevel)received.Discoverer.LogLevel);
+                    (IIoT.Platform.Registry.Models.TraceLogLevel)received.Discoverer.LogLevel);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
 
             var expected = new DiscovererEventModel {
                 Discoverer = new DiscovererModel {
-                    LogLevel = IIoT.OpcUa.Registry.Models.TraceLogLevel.Verbose
+                    LogLevel = IIoT.Platform.Registry.Models.TraceLogLevel.Verbose
                 }
             };
             var result = new TaskCompletionSource<bool>();
@@ -164,7 +164,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new SupervisorEventModel {
                 Supervisor = new SupervisorModel {
                     Connected = true,
-                    LogLevel = IIoT.OpcUa.Registry.Models.TraceLogLevel.Verbose
+                    LogLevel = IIoT.Platform.Registry.Models.TraceLogLevel.Verbose
                 }
             };
             var result = new TaskCompletionSource<SupervisorEventApiModel>();
@@ -181,7 +181,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 Assert.NotNull(received?.Supervisor);
                 Assert.Equal(true, received?.Supervisor?.Connected);
                 Assert.Equal(expected.Supervisor.LogLevel,
-                    (IIoT.OpcUa.Registry.Models.TraceLogLevel)received.Supervisor.LogLevel);
+                    (IIoT.Platform.Registry.Models.TraceLogLevel)received.Supervisor.LogLevel);
             }
         }
 
@@ -196,7 +196,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
 
             var expected = new SupervisorEventModel {
                 Supervisor = new SupervisorModel {
-                    LogLevel = IIoT.OpcUa.Registry.Models.TraceLogLevel.Verbose
+                    LogLevel = IIoT.Platform.Registry.Models.TraceLogLevel.Verbose
                 }
             };
             var result = new TaskCompletionSource<bool>();
@@ -228,7 +228,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new ApplicationEventModel {
                 Application = new ApplicationInfoModel {
                     SiteId = "TestSigfsdfg  ff",
-                    ApplicationType = IIoT.OpcUa.Core.Models.ApplicationType.Client,
+                    ApplicationType = IIoT.Platform.Core.Models.ApplicationType.Client,
                     NotSeenSince = DateTime.UtcNow,
                     Capabilities = new HashSet<string>{ "ag", "sadf", "" },
                 }
@@ -250,7 +250,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 Assert.True(expected.Application.Capabilities
                     .SequenceEqualsSafe(received.Application.Capabilities));
                 Assert.Equal(expected.Application.ApplicationType,
-                    (IIoT.OpcUa.Core.Models.ApplicationType)received.Application.ApplicationType);
+                    (IIoT.Platform.Core.Models.ApplicationType)received.Application.ApplicationType);
             }
         }
 
@@ -266,7 +266,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new ApplicationEventModel {
                 Application = new ApplicationInfoModel {
                     SiteId = "TestSigfsdfg  ff",
-                    ApplicationType = IIoT.OpcUa.Core.Models.ApplicationType.Client,
+                    ApplicationType = IIoT.Platform.Core.Models.ApplicationType.Client,
                     NotSeenSince = DateTime.UtcNow,
                     Capabilities = new HashSet<string> { "ag", "sadf", "" },
                 }
@@ -299,7 +299,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new EndpointEventModel {
                 Endpoint = new EndpointInfoModel {
                     ApplicationId = "TestSigfsdfg  ff",
-                    ActivationState = IIoT.OpcUa.Registry.Models.EntityActivationState.ActivatedAndConnected,
+                    ActivationState = IIoT.Platform.Registry.Models.EntityActivationState.ActivatedAndConnected,
                     NotSeenSince = DateTime.UtcNow
                 }
             };
@@ -318,7 +318,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 Assert.Equal(expected.Endpoint.NotSeenSince, received.Endpoint.NotSeenSince);
                 Assert.Equal(expected.Endpoint.ApplicationId, received.Endpoint.ApplicationId);
                 Assert.Equal(expected.Endpoint.ActivationState,
-                    (IIoT.OpcUa.Registry.Models.EntityActivationState)received.Endpoint.ActivationState);
+                    (IIoT.Platform.Registry.Models.EntityActivationState)received.Endpoint.ActivationState);
             }
         }
 
@@ -334,7 +334,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new EndpointEventModel {
                 Endpoint = new EndpointInfoModel {
                     ApplicationId = "TestSigfsdfg  ff",
-                    ActivationState = IIoT.OpcUa.Registry.Models.EntityActivationState.ActivatedAndConnected,
+                    ActivationState = IIoT.Platform.Registry.Models.EntityActivationState.ActivatedAndConnected,
                     NotSeenSince = DateTime.UtcNow
                 }
             };
@@ -364,7 +364,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var client = _factory.Resolve<IRegistryServiceEvents>();
 
             var expected = new GatewayEventModel {
-                EventType = IIoT.OpcUa.Registry.Events.v2.Models.GatewayEventType.Deleted,
+                EventType = IIoT.Platform.Registry.Events.v2.Models.GatewayEventType.Deleted,
                 Gateway = new GatewayModel {
                     SiteId = "TestSigfsdfg  ff",
                 }
@@ -382,7 +382,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 var received = result.Task.Result;
                 Assert.NotNull(received?.Gateway);
                 Assert.Equal(expected.Gateway.SiteId, received.Gateway.SiteId);
-                Assert.Equal(IIoT.OpcUa.Api.Registry.Models.GatewayEventType.Deleted,
+                Assert.Equal(IIoT.Platform.Registry.Api.Models.GatewayEventType.Deleted,
                     received.EventType);
             }
         }
@@ -430,7 +430,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 DiscovererId = discovererId,
                 Discovered = 55,
                 ResultDetails = new Dictionary<string, string> { ["test"] = "test" },
-                EventType = IIoT.OpcUa.Registry.Models.DiscoveryProgressType.NetworkScanFinished,
+                EventType = IIoT.Platform.Registry.Models.DiscoveryProgressType.NetworkScanFinished,
                 TimeStamp = DateTime.UtcNow
             };
             var result = new TaskCompletionSource<DiscoveryProgressApiModel>();
@@ -450,7 +450,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 Assert.Equal(expected.TimeStamp, received.TimeStamp);
                 Assert.Equal(expected.Discovered, received.Discovered);
                 Assert.Equal(expected.EventType,
-                    (IIoT.OpcUa.Registry.Models.DiscoveryProgressType)received.EventType);
+                    (IIoT.Platform.Registry.Models.DiscoveryProgressType)received.EventType);
                 Assert.Equal(expected.ResultDetails, received.ResultDetails);
             }
         }
@@ -472,7 +472,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 DiscovererId = "testetests",
                 Discovered = 55,
                 ResultDetails = new Dictionary<string, string> { ["test"] = "test" },
-                EventType = IIoT.OpcUa.Registry.Models.DiscoveryProgressType.NetworkScanFinished,
+                EventType = IIoT.Platform.Registry.Models.DiscoveryProgressType.NetworkScanFinished,
                 TimeStamp = DateTime.UtcNow
             };
             var result = new TaskCompletionSource<DiscoveryProgressApiModel>();
@@ -492,7 +492,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
                 Assert.Equal(expected.TimeStamp, received.TimeStamp);
                 Assert.Equal(expected.Discovered, received.Discovered);
                 Assert.Equal(expected.EventType,
-                    (IIoT.OpcUa.Registry.Models.DiscoveryProgressType)received.EventType);
+                    (IIoT.Platform.Registry.Models.DiscoveryProgressType)received.EventType);
                 Assert.Equal(expected.ResultDetails, received.ResultDetails);
             }
         }
@@ -510,7 +510,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Api {
             var expected = new DiscoveryProgressModel {
                 DiscovererId = discovererId,
                 Discovered = 55,
-                EventType = IIoT.OpcUa.Registry.Models.DiscoveryProgressType.NetworkScanFinished,
+                EventType = IIoT.Platform.Registry.Models.DiscoveryProgressType.NetworkScanFinished,
                 TimeStamp = DateTime.UtcNow
             };
             var result = new TaskCompletionSource<bool>();

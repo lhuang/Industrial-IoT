@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Migration {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Migration {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Services;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Storage;
@@ -26,7 +26,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Migration {
         /// <param name="repo"></param>
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
-        public ApplicationTwinsMigration(IIoTHubTwinServices source, IApplicationRepository repo,
+        public ApplicationTwinsMigration(IDeviceTwinServices source, IApplicationRepository repo,
             IJsonSerializer serializer, ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _repo = repo ?? throw new ArgumentNullException(nameof(repo));

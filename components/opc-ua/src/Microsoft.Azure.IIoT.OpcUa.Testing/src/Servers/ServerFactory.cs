@@ -3,15 +3,15 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Sample {
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Sample {
     using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Serilog;
     using Opc.Ua;
     using Opc.Ua.Server;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Xml;

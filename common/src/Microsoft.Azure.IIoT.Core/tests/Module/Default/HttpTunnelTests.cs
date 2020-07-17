@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Default {
+namespace Microsoft.Azure.IIoT.Rpc.Default {
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Serializers;
@@ -276,7 +276,7 @@ namespace Microsoft.Azure.IIoT.Module.Default {
             /// <summary>
             /// Handler
             /// </summary>
-            public IDeviceTelemetryHandler Handler { get; set; }
+            public ITelemetryHandler Handler { get; set; }
 
             public Task SendEventAsync(string target, byte[] data, string contentType,
                 string eventSchema, string contentEncoding, CancellationToken ct) {

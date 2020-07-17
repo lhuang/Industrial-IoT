@@ -3,15 +3,15 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Services {
+    using Microsoft.Azure.IIoT.Platform.Registry;
     using Serilog;
     using System;
     using System.Threading.Tasks;
     using System.Threading;
 
     /// <summary>
-    /// Performs continous endpoint placement of writer groups
+    /// Performs continous publisher placement of writer groups
     /// </summary>
     public sealed class OrchestrationHost : AbstractRunHost {
 
@@ -21,9 +21,9 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="orchestrator"></param>
         /// <param name="config"></param>
         /// <param name="logger"></param>
-        public OrchestrationHost(IPublisherOrchestration orchestrator,
-            ILogger logger, IOrchestrationConfig config = null) :
-            base(logger, "Service Endpoint Update",
+        public OrchestrationHost(IWriterGroupOrchestration orchestrator,
+            ILogger logger, IWriterGroupOrchestrationConfig config = null) :
+            base(logger, "Publisher Orchestration",
                 config?.UpdatePlacementInterval ?? TimeSpan.FromMinutes(3)) {
             _orchestrator = orchestrator ??
                 throw new ArgumentNullException(nameof(orchestrator));
@@ -34,6 +34,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
             return _orchestrator.SynchronizeWriterGroupPlacementsAsync(token);
         }
 
-        private readonly IPublisherOrchestration _orchestrator;
+        private readonly IWriterGroupOrchestration _orchestrator;
     }
 }

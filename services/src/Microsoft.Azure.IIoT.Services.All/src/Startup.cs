@@ -3,18 +3,17 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.All {
-    using Microsoft.Azure.IIoT.Services.All.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Service {
+    using Microsoft.Azure.IIoT.Platform.Service.Runtime;
+    using Microsoft.Azure.IIoT.Azure.ActiveDirectory;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.Azure.IIoT.Auth.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Autofac.Extensions.DependencyInjection;
     using Autofac;
     using System;
@@ -76,10 +75,7 @@ namespace Microsoft.Azure.IIoT.Services.All {
             services.AddHealthChecks();
             services.AddDistributedMemoryCache();
             services.AddApiVersioning();
-
-            // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
         /// <summary>
@@ -98,16 +94,16 @@ namespace Microsoft.Azure.IIoT.Services.All {
             app.UseWelcomePage("/");
 
             // Minimal API surface
-            app.AddStartupBranch<OpcUa.Registry.Startup>("/registry");
-            app.AddStartupBranch<OpcUa.Vault.Startup>("/vault");
-            app.AddStartupBranch<OpcUa.Twin.Startup>("/twin");
-            app.AddStartupBranch<OpcUa.Publisher.Startup>("/publisher");
-            app.AddStartupBranch<OpcUa.Publisher.Edge.Startup>("/edge");
-            app.AddStartupBranch<OpcUa.Events.Startup>("/events");
+            app.AddStartupBranch<Registry.Service.Startup>("/registry");
+            app.AddStartupBranch<Vault.Service.Startup>("/vault");
+            app.AddStartupBranch<Twin.Service.Startup>("/twin");
+            app.AddStartupBranch<Publisher.Service.Startup>("/publisher");
+            app.AddStartupBranch<Edge.Gateway.Service.Startup>("/edge");
+            app.AddStartupBranch<Api.Events.Service.Startup>("/events");
 
             if (!Config.IsMinimumDeployment) {
-                app.AddStartupBranch<OpcUa.Twin.Gateway.Startup>("/ua");
-                app.AddStartupBranch<OpcUa.Twin.History.Startup>("/history");
+                app.AddStartupBranch<Twin.Ua.Service.Startup>("/ua");
+                app.AddStartupBranch<History.Service.Startup>("/history");
             }
 
             app.UseHealthChecks("/healthz");
@@ -158,15 +154,15 @@ namespace Microsoft.Azure.IIoT.Services.All {
 
                 // Minimal processes
                 var processes = new List<Task> {
-                    Task.Run(() => OpcUa.Registry.Sync.Program.Main(args), _cts.Token),
-                    Task.Run(() => Processor.Onboarding.Program.Main(args), _cts.Token),
-                    Task.Run(() => Processor.Tunnel.Program.Main(args), _cts.Token),
-                    Task.Run(() => Processor.Events.Program.Main(args), _cts.Token),
-                    Task.Run(() => Processor.Telemetry.Program.Main(args), _cts.Token),
+                    Task.Run(() => Registry.Sync.Service.Program.Main(args), _cts.Token),
+                    Task.Run(() => Discovery.Service.Program.Main(args), _cts.Token),
+                    Task.Run(() => Subscriber.Service.Program.Main(args), _cts.Token),
+                    Task.Run(() => Edge.Events.Service.Program.Main(args), _cts.Token),
+                    Task.Run(() => Edge.Tunnel.Service.Program.Main(args), _cts.Token),
                 };
 
                 if (!_config.IsMinimumDeployment) {
-                    processes.Add(Task.Run(() => Processor.Telemetry.Cdm.Program.Main(args),
+                    processes.Add(Task.Run(() => Subscriber.Cdm.Service.Program.Main(args),
                         _cts.Token));
                 }
                 _runner = Task.WhenAll(processes.ToArray());

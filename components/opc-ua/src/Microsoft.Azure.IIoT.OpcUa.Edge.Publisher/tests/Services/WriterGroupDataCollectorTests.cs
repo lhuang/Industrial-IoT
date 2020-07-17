@@ -3,19 +3,19 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Storage.Default;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Default;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Services {
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Services;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Storage.Default;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Default;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Runtime;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Storage;

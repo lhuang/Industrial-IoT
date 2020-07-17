@@ -8,8 +8,8 @@ namespace Microsoft.Azure.IIoT.App.Pages {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
     using Microsoft.Azure.IIoT.App.Data;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api;
     using Microsoft.Azure.IIoT.App.Models;
 
     public partial class Publishers {

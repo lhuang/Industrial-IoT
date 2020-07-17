@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Handlers {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Serializers;
     using Serilog;
@@ -17,7 +17,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
     /// <summary>
     /// Writer group state event handling
     /// </summary>
-    public sealed class WriterGroupEventHandler : IDeviceTelemetryHandler {
+    public sealed class WriterGroupEventHandler : ITelemetryHandler {
 
         /// <inheritdoc/>
         public string MessageSchema => Models.MessageSchemaTypes.WriterGroupEvents;

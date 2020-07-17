@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Transport.Probe {
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Transport.Probe {
     using Serilog;
     using Microsoft.Azure.IIoT.Net;
     using Opc.Ua;

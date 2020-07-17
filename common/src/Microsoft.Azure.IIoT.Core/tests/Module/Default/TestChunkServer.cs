@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module {
-    using Microsoft.Azure.IIoT.Module.Default;
+namespace Microsoft.Azure.IIoT.Rpc {
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Hub;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Serializers;
     using System;
     using System.Threading.Tasks;

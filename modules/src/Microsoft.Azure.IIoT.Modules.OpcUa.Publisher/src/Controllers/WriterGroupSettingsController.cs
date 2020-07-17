@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher;
-    using Microsoft.Azure.IIoT.Module;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Utils;
     using System;
     using System.Collections.Generic;
@@ -40,7 +40,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
         public MessageSchema? Schema {
             get => (MessageSchema?)_emitter.Schema;
             set => _emitter.Schema =
-                (IIoT.OpcUa.Publisher.Models.MessageSchema?)value;
+                (IIoT.Platform.Publisher.Models.MessageSchema?)value;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
         public MessageEncoding? Encoding {
             get => (MessageEncoding?)_emitter.Encoding;
             set => _emitter.Encoding =
-                (IIoT.OpcUa.Publisher.Models.MessageEncoding?)value;
+                (IIoT.Platform.Publisher.Models.MessageEncoding?)value;
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
         public DataSetOrderingType? DataSetOrdering {
             get => (DataSetOrderingType?)_emitter.DataSetOrdering;
             set => _emitter.DataSetOrdering =
-                (IIoT.OpcUa.Publisher.Models.DataSetOrderingType?)value;
+                (IIoT.Platform.Publisher.Models.DataSetOrderingType?)value;
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
         public NetworkMessageContentMask? NetworkMessageContentMask {
             get => (NetworkMessageContentMask?)_emitter.MessageContentMask;
             set => _emitter.MessageContentMask =
-                (IIoT.OpcUa.Publisher.Models.NetworkMessageContentMask?)value;
+                (IIoT.Platform.Publisher.Models.NetworkMessageContentMask?)value;
         }
 
         /// <summary>

@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Runtime {
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Runtime {
+    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
     using System;

@@ -3,44 +3,37 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
-    using Autofac;
-    using Autofac.Extensions.DependencyInjection;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Service {
+    using Microsoft.Azure.IIoT.Platform.Vault.Events;
+    using Microsoft.Azure.IIoT.Platform.Vault.Handler;
+    using Microsoft.Azure.IIoT.Platform.Vault.Services;
+    using Microsoft.Azure.IIoT.Platform.Vault.Storage;
+    using Microsoft.Azure.IIoT.Platform.Vault.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Vault.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Registry.Events.v2;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.CosmosDb;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
     using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Crypto.Default;
-    using Microsoft.Azure.IIoT.Crypto.KeyVault.Clients;
-    using Microsoft.Azure.IIoT.Crypto.Storage;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
+    using Microsoft.Azure.IIoT.Cryptography.Default;
+    using Microsoft.Azure.IIoT.Cryptography.Storage;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Messaging.Default;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Events.v2;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Events;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Handler;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Storage;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Vault.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Vault.Runtime;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb.Services;
-    using Microsoft.Azure.IIoT.Storage.Default;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
     using Prometheus;
     using System;
     using ILogger = Serilog.ILogger;
@@ -125,8 +118,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
 
@@ -188,10 +180,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
 
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
@@ -203,8 +191,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
 
-            // Add key vault
-            builder.RegisterModule<KeyVaultClientModule>();
+             // --- Logic ---
 
             // Crypto services
             builder.RegisterType<CertificateDatabase>()
@@ -219,22 +206,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
                 .AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<KeyHandleSerializer>()
                 .AsImplementedInterfaces().SingleInstance();
-
-            // TODO: Add keyvault here to override ....
-
-            // Register event bus ...
-            builder.RegisterType<EventBusHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ServiceBusClientFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ServiceBusEventBus>()
-                .AsImplementedInterfaces().SingleInstance();
-
-            // ... subscribe to application events ...
-            builder.RegisterType<ApplicationEventBusSubscriber>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<RegistryEventHandler>()
-                .AsImplementedInterfaces();
 
             // Register registry micro services adapters
             builder.RegisterType<RegistryServiceClient>()
@@ -262,6 +233,12 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
             builder.RegisterType<SigningRequestProcessor>()
                 .AsImplementedInterfaces().SingleInstance();
 
+            // ... subscribe to application events ...
+            builder.RegisterType<ApplicationEventBusSubscriber>()
+                .AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<RegistryEventHandler>()
+                .AsImplementedInterfaces();
+
             // Vault handler
             builder.RegisterType<AutoApproveHandler>()
                 .AsImplementedInterfaces();
@@ -270,16 +247,20 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
             builder.RegisterType<SigningRequestHandler>()
                 .AsImplementedInterfaces();
 
-            // ... with cosmos db collection as storage
-            builder.RegisterType<ItemContainerFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<CosmosDbServiceClient>()
-                .AsImplementedInterfaces();
-
             // ... and auto start
             builder.RegisterType<HostAutoStart>()
                 .AutoActivate()
                 .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // Register event bus for integration events
+            builder.RegisterModule<ServiceBusModule>();
+            // ... with cosmos db collection as storage
+            builder.RegisterModule<CosmosDbModule>();
+            // Add key vault  - TODO - enable
+            // builder.RegisterModule<KeyVaultAuthentication>();
+            // builder.RegisterModule<KeyVaultClientModule>();
         }
     }
 }

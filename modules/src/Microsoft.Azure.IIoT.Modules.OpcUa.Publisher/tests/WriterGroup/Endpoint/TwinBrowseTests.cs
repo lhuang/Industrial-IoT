@@ -3,16 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Twin.Endpoint {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Twin;
-    using System.Net;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Twin.Endpoint {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Tests;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
     using Xunit;
-    using Autofac;
 
     [Collection(PublishCollection.Name)]
     public class TwinBrowseTests : IClassFixture<PublisherModuleFixture> {

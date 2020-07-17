@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Handlers {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Serializers;
@@ -17,7 +17,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
     /// <summary>
     /// Endpoint event handler
     /// </summary>
-    public sealed class EndpointTwinEventHandler : IIoTHubDeviceTwinEventHandler {
+    public sealed class EndpointTwinEventHandler : IDeviceTwinEventHandler {
 
         /// <summary>
         /// Create handler
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
         /// <param name="iothub"></param>
         /// <param name="broker"></param>
         /// <param name="logger"></param>
-        public EndpointTwinEventHandler(IIoTHubTwinServices iothub,
+        public EndpointTwinEventHandler(IDeviceTwinServices iothub,
             IRegistryEventBroker<IEndpointRegistryListener> broker, ILogger logger) {
             _iothub = iothub ?? throw new ArgumentNullException(nameof(iothub));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -80,7 +80,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
         }
 
         private readonly IRegistryEventBroker<IEndpointRegistryListener> _broker;
-        private readonly IIoTHubTwinServices _iothub;
+        private readonly IDeviceTwinServices _iothub;
         private readonly ILogger _logger;
     }
 }

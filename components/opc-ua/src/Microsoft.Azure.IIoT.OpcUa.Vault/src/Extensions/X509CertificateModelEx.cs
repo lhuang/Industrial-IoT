@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.Crypto;
-    using Microsoft.Azure.IIoT.Crypto.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Models {
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Cryptography;
+    using Microsoft.Azure.IIoT.Cryptography.Models;
     using Opc.Ua;
     using System;
     using System.Linq;

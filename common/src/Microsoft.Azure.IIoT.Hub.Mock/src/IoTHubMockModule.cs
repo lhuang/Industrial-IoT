@@ -3,8 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Hub.Mock {
-    using Microsoft.Azure.IIoT.Module.Framework.Hosting;
+namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock {
+    using Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting;
+    using Microsoft.Azure.IIoT.Rpc.Framework.Hosting;
     using Microsoft.Azure.IIoT.Tasks;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Serializers;

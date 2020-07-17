@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Auth.Storage {
+namespace Microsoft.Azure.IIoT.Azure.ActiveDirectory.Utils {
     using Microsoft.Azure.IIoT.Storage;
     using Microsoft.Identity.Client;
     using System.Threading.Tasks;

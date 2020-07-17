@@ -3,10 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Handlers {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Serializers;
@@ -16,7 +15,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Handlers {
     /// <summary>
     /// Writer group event handler.
     /// </summary>
-    public sealed class WriterGroupTwinEventHandler : IIoTHubDeviceTwinEventHandler {
+    public sealed class WriterGroupTwinEventHandler : IDeviceTwinEventHandler {
 
         /// <summary>
         /// Create handler

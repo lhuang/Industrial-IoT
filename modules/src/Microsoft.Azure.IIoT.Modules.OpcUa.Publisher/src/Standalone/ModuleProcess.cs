@@ -3,13 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Standalone {
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Standalone.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Engine;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Triggering;
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Publisher.Standalone {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Publisher.Standalone.Runtime;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Protocol.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Edge.Publisher;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Edge.Publisher.Engine;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Edge.Publisher.Triggering;
     using Microsoft.Azure.IIoT.Agent.Framework;
     using Microsoft.Azure.IIoT.Agent.Framework.Agent;
     using Microsoft.Azure.IIoT.Diagnostics;

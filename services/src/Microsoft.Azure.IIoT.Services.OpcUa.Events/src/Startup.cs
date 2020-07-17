@@ -3,37 +3,31 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Events.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Events.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service {
+    using Microsoft.Azure.IIoT.Platform.Api.Events.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Api.Events.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Handlers;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor.Handlers;
+    using Microsoft.Azure.IIoT.Messaging.SignalR.Services;
+    using Microsoft.Azure.IIoT.Auth;
+    using Microsoft.Azure.IIoT.Http.Default;
+    using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
-    using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Core.Messaging.EventHub;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
-    using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Processor.EventHub;
-    using Microsoft.Azure.IIoT.Hub.Processor.Services;
-    using Microsoft.Azure.IIoT.Messaging;
-    using Microsoft.Azure.IIoT.Messaging.Default;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
-    using Microsoft.Azure.IIoT.Messaging.SignalR.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber.Handlers;
-    using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.OpenApi.Models;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -124,8 +118,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
         /// <summary>
@@ -182,20 +175,15 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
 
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
-
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
+
+            // --- Logic ---
 
             // Application event hub
             builder.RegisterType<SignalRHub<ApplicationsHub>>()
@@ -265,24 +253,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
                 DiscovererEventForwarder<DiscoverersHub>>()
                 .AsImplementedInterfaces().SingleInstance();
 
-            // Register event bus for integration events
-            builder.RegisterType<EventBusHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ServiceBusClientFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ServiceBusEventBus>()
-                .AsImplementedInterfaces().SingleInstance()
-                .IfNotRegistered(typeof(IEventBus));
-
-            // Register event processor host for telemetry
-            builder.RegisterType<EventProcessorHost>()
-                .AsImplementedInterfaces().SingleInstance()
-                .IfNotRegistered(typeof(IEventProcessingHost));
-            builder.RegisterType<EventProcessorFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<EventHubDeviceEventHandler>()
-                .AsImplementedInterfaces();
-
             // Handle opc-ua pub/sub telemetry subscriptions ...
             builder.RegisterType<MonitoredItemSampleModelHandler>()
                 .AsImplementedInterfaces();
@@ -293,6 +263,17 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
             builder.RegisterType<HostAutoStart>()
                 .AutoActivate()
                 .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
+            // Register event bus for integration events
+            builder.RegisterModule<ServiceBusModule>();
+            // Register event processor host for telemetry
+            builder.RegisterModule<EventHubProcessorModule>();
+            builder.RegisterType<EventHubDeviceEventHandler>()
+                .AsImplementedInterfaces();
         }
     }
 }

@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Api.Models {
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
     using System.Linq;
 
     /// <summary>
@@ -147,7 +147,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 FilterOperands = model.FilterOperands?
                     .Select(f => f.ToApiModel())
                     .ToList(),
-                FilterOperator = (Core.Models.FilterOperatorType)model.FilterOperator
+                FilterOperator = (Core.Api.Models.FilterOperatorType)model.FilterOperator
             };
         }
 
@@ -163,7 +163,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 FilterOperands = model.FilterOperands?
                     .Select(f => f.ToServiceModel())
                     .ToList(),
-                FilterOperator = (OpcUa.Core.Models.FilterOperatorType)model.FilterOperator
+                FilterOperator = (Platform.Core.Models.FilterOperatorType)model.FilterOperator
             };
         }
 
@@ -178,7 +178,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new CredentialApiModel {
                 Value = model.Value,
-                Type = (Core.Models.CredentialType?)model.Type
+                Type = (Core.Api.Models.CredentialType?)model.Type
             };
         }
 
@@ -192,7 +192,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new CredentialModel {
                 Value = model.Value,
-                Type = (OpcUa.Core.Models.CredentialType?)model.Type
+                Type = (Platform.Core.Models.CredentialType?)model.Type
             };
         }
 
@@ -288,7 +288,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 GenerationId = model.GenerationId,
                 DataSetWriterId = model.DataSetWriterId,
                 DataSet = model.DataSet.ToServiceModel(),
-                DataSetFieldContentMask = (OpcUa.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
+                DataSetFieldContentMask = (Platform.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
                 DataSetMetaDataSendInterval = model.DataSetMetaDataSendInterval,
                 KeyFrameCount = model.KeyFrameCount,
                 KeyFrameInterval = model.KeyFrameInterval,
@@ -323,7 +323,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new DataSetWriterMessageSettingsModel {
                 ConfiguredSize = model.ConfiguredSize,
-                DataSetMessageContentMask = (OpcUa.Publisher.Models.DataSetContentMask?)model.DataSetMessageContentMask,
+                DataSetMessageContentMask = (Platform.Publisher.Models.DataSetContentMask?)model.DataSetMessageContentMask,
                 DataSetOffset = model.DataSetOffset,
                 NetworkMessageNumber = model.NetworkMessageNumber
             };
@@ -340,7 +340,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new DiagnosticsApiModel {
                 AuditId = model.AuditId,
-                Level = (Core.Models.DiagnosticsLevel?)model.Level,
+                Level = (Core.Api.Models.DiagnosticsLevel?)model.Level,
                 TimeStamp = model.TimeStamp
             };
         }
@@ -355,7 +355,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new DiagnosticsModel {
                 AuditId = model.AuditId,
-                Level = (OpcUa.Core.Models.DiagnosticsLevel?)model.Level,
+                Level = (Platform.Core.Models.DiagnosticsLevel?)model.Level,
                 TimeStamp = model.TimeStamp
             };
         }
@@ -373,7 +373,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Url = model.Url,
                 AlternativeUrls = model.AlternativeUrls,
                 Certificate = model.Certificate,
-                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode,
+                SecurityMode = (Core.Api.Models.SecurityMode?)model.SecurityMode,
                 SecurityPolicy = model.SecurityPolicy
             };
         }
@@ -390,7 +390,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Url = model.Url,
                 AlternativeUrls = model.AlternativeUrls,
                 Certificate = model.Certificate,
-                SecurityMode = (OpcUa.Core.Models.SecurityMode?)model.SecurityMode,
+                SecurityMode = (Platform.Core.Models.SecurityMode?)model.SecurityMode,
                 SecurityPolicy = model.SecurityPolicy
             };
         }
@@ -553,7 +553,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Alias = model.Alias,
                 Value = model.Value,
                 NodeId = model.NodeId,
-                AttributeId = (Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Core.Api.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -572,7 +572,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Alias = model.Alias,
                 Value = model.Value,
                 NodeId = model.NodeId,
-                AttributeId = (OpcUa.Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Platform.Core.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -754,7 +754,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 BrowsePath = model.BrowsePath,
                 Filter = model.Filter.ToServiceModel(),
                 QueueSize = model.QueueSize,
-                MonitoringMode = (OpcUa.Publisher.Models.MonitoringMode?)model.MonitoringMode,
+                MonitoringMode = (Platform.Publisher.Models.MonitoringMode?)model.MonitoringMode,
                 TriggerId = model.TriggerId,
                 SelectedFields = model.SelectedFields?
                     .Select(f => f.ToServiceModel())
@@ -852,7 +852,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Updated = model.Updated.ToApiModel(),
                 Order = model.Order,
                 PublishedVariableNodeId = model.PublishedVariableNodeId,
-                Attribute = (Core.Models.NodeAttribute?)model.Attribute,
+                Attribute = (Core.Api.Models.NodeAttribute?)model.Attribute,
                 DataChangeFilter = (DataChangeTriggerType?)model.DataChangeFilter,
                 DeadbandType = (DeadbandType?)model.DeadbandType,
                 DeadbandValue = model.DeadbandValue,
@@ -886,14 +886,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Updated = model.Updated.ToServiceModel(),
                 Order = model.Order,
                 PublishedVariableNodeId = model.PublishedVariableNodeId,
-                Attribute = (OpcUa.Core.Models.NodeAttribute?)model.Attribute,
-                DataChangeFilter = (OpcUa.Publisher.Models.DataChangeTriggerType?)model.DataChangeFilter,
-                DeadbandType = (OpcUa.Publisher.Models.DeadbandType?)model.DeadbandType,
+                Attribute = (Platform.Core.Models.NodeAttribute?)model.Attribute,
+                DataChangeFilter = (Platform.Publisher.Models.DataChangeTriggerType?)model.DataChangeFilter,
+                DeadbandType = (Platform.Publisher.Models.DeadbandType?)model.DeadbandType,
                 DeadbandValue = model.DeadbandValue,
                 DiscardNew = model.DiscardNew,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange,
-                MonitoringMode = (OpcUa.Publisher.Models.MonitoringMode?)model.MonitoringMode,
+                MonitoringMode = (Platform.Publisher.Models.MonitoringMode?)model.MonitoringMode,
                 MetaDataProperties = model.MetaDataProperties?
                     .ToList(),
                 QueueSize = model.QueueSize,
@@ -916,7 +916,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new SimpleAttributeOperandApiModel {
                 NodeId = model.NodeId,
-                AttributeId = (Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Core.Api.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -932,7 +932,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new SimpleAttributeOperandModel {
                 NodeId = model.NodeId,
-                AttributeId = (OpcUa.Core.Models.NodeAttribute?)model.AttributeId,
+                AttributeId = (Platform.Core.Models.NodeAttribute?)model.AttributeId,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange
             };
@@ -986,7 +986,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Fields = model.Fields?
                     .Select(f => f.ToApiModel())
                     .ToList(),
-                StructureType = (Core.Models.StructureType)model.StructureType
+                StructureType = (Core.Api.Models.StructureType)model.StructureType
             };
         }
 
@@ -1003,7 +1003,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Fields = model.Fields?
                     .Select(f => f.ToServiceModel())
                     .ToList(),
-                StructureType = (OpcUa.Core.Models.StructureType)model.StructureType
+                StructureType = (Platform.Core.Models.StructureType)model.StructureType
             };
         }
 
@@ -1054,7 +1054,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 IsOptional = model.IsOptional,
                 MaxStringLength = model.MaxStringLength,
                 Name = model.Name,
-                ValueRank = (Core.Models.NodeValueRank?)model.ValueRank
+                ValueRank = (Core.Api.Models.NodeValueRank?)model.ValueRank
             };
         }
 
@@ -1073,7 +1073,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 IsOptional = model.IsOptional,
                 MaxStringLength = model.MaxStringLength,
                 Name = model.Name,
-                ValueRank = (OpcUa.Core.Models.NodeValueRank?)model.ValueRank
+                ValueRank = (Platform.Core.Models.NodeValueRank?)model.ValueRank
             };
         }
 
@@ -1109,7 +1109,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                     .Select(s => s.ToApiModel())
                     .ToList(),
                 PublishingInterval = model.PublishingInterval,
-                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (Core.Api.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -1132,8 +1132,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 State = model.State.ToServiceModel(),
                 MaxNetworkMessageSize = model.MaxNetworkMessageSize,
                 MessageSettings = model.MessageSettings.ToServiceModel(),
-                Encoding = (OpcUa.Publisher.Models.MessageEncoding?)model.Encoding,
-                Schema = (OpcUa.Publisher.Models.MessageSchema?)model.Schema,
+                Encoding = (Platform.Publisher.Models.MessageEncoding?)model.Encoding,
+                Schema = (Platform.Publisher.Models.MessageSchema?)model.Schema,
                 Name = model.Name,
                 Priority = model.Priority,
                 SecurityGroupId = model.SecurityGroupId,
@@ -1144,7 +1144,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                     .Select(s => s.ToServiceModel())
                     .ToList(),
                 PublishingInterval = model.PublishingInterval,
-                SecurityMode = (OpcUa.Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (Platform.Core.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -1179,7 +1179,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Created = model.Created.ToApiModel(),
                 Updated = model.Updated.ToApiModel(),
                 SiteId = model.SiteId,
-                SecurityMode = (Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (Core.Api.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -1199,8 +1199,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 LocaleIds = model.LocaleIds?.ToList(),
                 MaxNetworkMessageSize = model.MaxNetworkMessageSize,
                 MessageSettings = model.MessageSettings.ToServiceModel(),
-                Encoding = (OpcUa.Publisher.Models.MessageEncoding?)model.Encoding,
-                Schema = (OpcUa.Publisher.Models.MessageSchema?)model.Schema,
+                Encoding = (Platform.Publisher.Models.MessageEncoding?)model.Encoding,
+                Schema = (Platform.Publisher.Models.MessageSchema?)model.Schema,
                 Name = model.Name,
                 Priority = model.Priority,
                 SecurityGroupId = model.SecurityGroupId,
@@ -1213,7 +1213,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Created = model.Created.ToServiceModel(),
                 Updated = model.Updated.ToServiceModel(),
                 SiteId = model.SiteId,
-                SecurityMode = (OpcUa.Core.Models.SecurityMode?)model.SecurityMode
+                SecurityMode = (Platform.Core.Models.SecurityMode?)model.SecurityMode
             };
         }
 
@@ -1244,8 +1244,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 return null;
             }
             return new WriterGroupMessageSettingsModel {
-                NetworkMessageContentMask = (OpcUa.Publisher.Models.NetworkMessageContentMask?)model.NetworkMessageContentMask,
-                DataSetOrdering = (OpcUa.Publisher.Models.DataSetOrderingType?)model.DataSetOrdering,
+                NetworkMessageContentMask = (Platform.Publisher.Models.NetworkMessageContentMask?)model.NetworkMessageContentMask,
+                DataSetOrdering = (Platform.Publisher.Models.DataSetOrderingType?)model.DataSetOrdering,
                 GroupVersion = model.GroupVersion,
                 PublishingOffset = model.PublishingOffset,
                 SamplingOffset = model.SamplingOffset
@@ -1290,7 +1290,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 BrowsePath = model.BrowsePath,
                 Filter = model.Filter.ToServiceModel(),
                 QueueSize = model.QueueSize,
-                MonitoringMode = (OpcUa.Publisher.Models.MonitoringMode?)model.MonitoringMode,
+                MonitoringMode = (Platform.Publisher.Models.MonitoringMode?)model.MonitoringMode,
                 TriggerId = model.TriggerId,
                 SelectedFields = model.SelectedFields?
                     .Select(f => f.ToServiceModel())
@@ -1406,7 +1406,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             return new DataSetAddVariableRequestApiModel {
                 Order = model.Order,
                 PublishedVariableNodeId = model.PublishedVariableNodeId,
-                Attribute = (Core.Models.NodeAttribute?)model.Attribute,
+                Attribute = (Core.Api.Models.NodeAttribute?)model.Attribute,
                 DataChangeFilter = (DataChangeTriggerType?)model.DataChangeFilter,
                 DeadbandType = (DeadbandType?)model.DeadbandType,
                 DeadbandValue = model.DeadbandValue,
@@ -1437,14 +1437,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             return new DataSetAddVariableRequestModel {
                 Order = model.Order,
                 PublishedVariableNodeId = model.PublishedVariableNodeId,
-                Attribute = (OpcUa.Core.Models.NodeAttribute?)model.Attribute,
-                DataChangeFilter = (OpcUa.Publisher.Models.DataChangeTriggerType?)model.DataChangeFilter,
-                DeadbandType = (OpcUa.Publisher.Models.DeadbandType?)model.DeadbandType,
+                Attribute = (Platform.Core.Models.NodeAttribute?)model.Attribute,
+                DataChangeFilter = (Platform.Publisher.Models.DataChangeTriggerType?)model.DataChangeFilter,
+                DeadbandType = (Platform.Publisher.Models.DeadbandType?)model.DeadbandType,
                 DeadbandValue = model.DeadbandValue,
                 DiscardNew = model.DiscardNew,
                 BrowsePath = model.BrowsePath,
                 IndexRange = model.IndexRange,
-                MonitoringMode = (OpcUa.Publisher.Models.MonitoringMode?)model.MonitoringMode,
+                MonitoringMode = (Platform.Publisher.Models.MonitoringMode?)model.MonitoringMode,
                 MetaDataProperties = model.MetaDataProperties?
                     .ToList(),
                 QueueSize = model.QueueSize,
@@ -1646,7 +1646,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 DiscardNew = model.DiscardNew,
                 Filter = model.Filter.ToServiceModel(),
                 QueueSize = model.QueueSize,
-                MonitoringMode = (OpcUa.Publisher.Models.MonitoringMode?)model.MonitoringMode,
+                MonitoringMode = (Platform.Publisher.Models.MonitoringMode?)model.MonitoringMode,
                 TriggerId = model.TriggerId,
                 SelectedFields = model.SelectedFields?
                     .Select(f => f.ToServiceModel())
@@ -1690,11 +1690,11 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             }
             return new DataSetUpdateVariableRequestModel {
                 GenerationId = model.GenerationId,
-                DataChangeFilter = (OpcUa.Publisher.Models.DataChangeTriggerType ?)model.DataChangeFilter,
-                DeadbandType = (OpcUa.Publisher.Models.DeadbandType?)model.DeadbandType,
+                DataChangeFilter = (Platform.Publisher.Models.DataChangeTriggerType ?)model.DataChangeFilter,
+                DeadbandType = (Platform.Publisher.Models.DeadbandType?)model.DeadbandType,
                 DeadbandValue = model.DeadbandValue,
                 DiscardNew = model.DiscardNew,
-                MonitoringMode = (OpcUa.Publisher.Models.MonitoringMode?)model.MonitoringMode,
+                MonitoringMode = (Platform.Publisher.Models.MonitoringMode?)model.MonitoringMode,
                 QueueSize = model.QueueSize,
                 SamplingInterval = model.SamplingInterval,
                 TriggerId = model.TriggerId,
@@ -1742,7 +1742,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 DataSetName = model.DataSetName,
                 GenerationId = model.GenerationId,
                 MessageSettings = model.MessageSettings.ToServiceModel(),
-                DataSetFieldContentMask = (OpcUa.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
+                DataSetFieldContentMask = (Platform.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
                 KeyFrameCount = model.KeyFrameCount,
                 KeyFrameInterval = model.KeyFrameInterval,
                 ExtensionFields = model.ExtensionFields
@@ -1788,7 +1788,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             return new DataSetWriterAddRequestModel {
                 WriterGroupId = model.WriterGroupId,
                 MessageSettings = model.MessageSettings.ToServiceModel(),
-                DataSetFieldContentMask = (OpcUa.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
+                DataSetFieldContentMask = (Platform.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
                 KeyFrameCount = model.KeyFrameCount,
                 KeyFrameInterval = model.KeyFrameInterval,
                 EndpointId = model.EndpointId,
@@ -1870,7 +1870,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 Updated = model.Updated.ToServiceModel(),
                 Created = model.Created.ToServiceModel(),
                 DataSet = model.DataSet.ToServiceModel(),
-                DataSetFieldContentMask = (OpcUa.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
+                DataSetFieldContentMask = (Platform.Publisher.Models.DataSetFieldContentMask?)model.DataSetFieldContentMask,
                 DataSetMetaDataSendInterval = model.DataSetMetaDataSendInterval,
                 IsDisabled = model.IsDisabled,
                 DataSetWriterId = model.DataSetWriterId,
@@ -1961,7 +1961,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 State = model.State.ToApiModel(),
                 SubscriptionSettings = model.SubscriptionSettings.ToApiModel(),
                 User = model.User.ToApiModel(),
-                DiagnosticsLevel = (Core.Models.DiagnosticsLevel?)model.DiagnosticsLevel,
+                DiagnosticsLevel = (Core.Api.Models.DiagnosticsLevel?)model.DiagnosticsLevel,
                 EndpointId = model.EndpointId,
                 ExtensionFields = model.ExtensionFields?
                     .ToDictionary(kv => kv.Key, kv => kv.Value)
@@ -1983,7 +1983,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 State = model.State.ToServiceModel(),
                 SubscriptionSettings = model.SubscriptionSettings.ToServiceModel(),
                 User = model.User.ToServiceModel(),
-                DiagnosticsLevel = (OpcUa.Core.Models.DiagnosticsLevel?)model.DiagnosticsLevel,
+                DiagnosticsLevel = (Platform.Core.Models.DiagnosticsLevel?)model.DiagnosticsLevel,
                 EndpointId = model.EndpointId,
                 ExtensionFields = model.ExtensionFields?
                     .ToDictionary(kv => kv.Key, kv => kv.Value)
@@ -2000,7 +2000,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 return null;
             }
             return new PublishedDataSetSourceStateApiModel {
-                EndpointState = (Core.Models.EndpointConnectivityState?)model.EndpointState,
+                EndpointState = (Core.Api.Models.EndpointConnectivityState?)model.EndpointState,
                 LastResult = model.LastResult.ToApiModel(),
                 LastResultChange = model.LastResultChange
             };
@@ -2016,7 +2016,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 return null;
             }
             return new PublishedDataSetSourceStateModel {
-                EndpointState = (OpcUa.Core.Models.EndpointConnectivityState?)model.EndpointState,
+                EndpointState = (Platform.Core.Models.EndpointConnectivityState?)model.EndpointState,
                 LastResult = model.LastResult.ToServiceModel(),
                 LastResultChange = model.LastResultChange
             };
@@ -2066,7 +2066,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 return null;
             }
             return new PublishedDataSetVariableQueryApiModel {
-                Attribute = (Core.Models.NodeAttribute?)model.Attribute,
+                Attribute = (Core.Api.Models.NodeAttribute?)model.Attribute,
                 PublishedVariableDisplayName = model.PublishedVariableDisplayName,
                 PublishedVariableNodeId = model.PublishedVariableNodeId
             };
@@ -2082,7 +2082,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 return null;
             }
             return new PublishedDataSetVariableQueryModel {
-                Attribute = (OpcUa.Core.Models.NodeAttribute?)model.Attribute,
+                Attribute = (Platform.Core.Models.NodeAttribute?)model.Attribute,
                 PublishedVariableDisplayName = model.PublishedVariableDisplayName,
                 PublishedVariableNodeId = model.PublishedVariableNodeId
             };
@@ -2128,8 +2128,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 KeepAliveTime = model.KeepAliveTime,
                 LocaleIds = model.LocaleIds?.ToList(),
                 MessageSettings = model.MessageSettings.ToServiceModel(),
-                Encoding = (OpcUa.Publisher.Models.MessageEncoding?)model.Encoding,
-                Schema = (OpcUa.Publisher.Models.MessageSchema?)model.Schema,
+                Encoding = (Platform.Publisher.Models.MessageEncoding?)model.Encoding,
+                Schema = (Platform.Publisher.Models.MessageSchema?)model.Schema,
                 Name = model.Name,
                 Priority = model.Priority,
                 PublishingInterval = model.PublishingInterval
@@ -2190,7 +2190,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 return null;
             }
             return new WriterGroupStateModel {
-                State = (OpcUa.Publisher.Models.WriterGroupState)model.State,
+                State = (Platform.Publisher.Models.WriterGroupState)model.State,
                 LastStateChange = model.LastStateChange
             };
         }
@@ -2261,9 +2261,9 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
             return new WriterGroupInfoQueryModel {
                 Priority = model.Priority,
                 Name = model.Name,
-                Encoding = (OpcUa.Publisher.Models.MessageEncoding?)model.Encoding,
-                Schema = (OpcUa.Publisher.Models.MessageSchema?)model.Schema,
-                State = (OpcUa.Publisher.Models.WriterGroupState?)model.State,
+                Encoding = (Platform.Publisher.Models.MessageEncoding?)model.Encoding,
+                Schema = (Platform.Publisher.Models.MessageSchema?)model.Schema,
+                State = (Platform.Publisher.Models.WriterGroupState?)model.State,
                 GroupVersion = model.GroupVersion,
                 SiteId = model.SiteId
             };
@@ -2309,8 +2309,8 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models {
                 KeepAliveTime = model.KeepAliveTime,
                 LocaleIds = model.LocaleIds?.ToList(),
                 MessageSettings = model.MessageSettings.ToServiceModel(),
-                Encoding = (OpcUa.Publisher.Models.MessageEncoding?)model.Encoding,
-                Schema = (OpcUa.Publisher.Models.MessageSchema?)model.Schema,
+                Encoding = (Platform.Publisher.Models.MessageEncoding?)model.Encoding,
+                Schema = (Platform.Publisher.Models.MessageSchema?)model.Schema,
                 Name = model.Name,
                 Priority = model.Priority,
                 PublishingInterval = model.PublishingInterval

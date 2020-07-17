@@ -3,35 +3,26 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Registry.Runtime;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Registry.Auth;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Migration;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Deploy;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Service {
+    using Microsoft.Azure.IIoT.Platform.Registry.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Registry.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Registry.Clients;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Services;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Auth;
+    using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Http.Default;
+    using Microsoft.Azure.IIoT.Rpc.Default;
+    using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
-    using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
-    using Microsoft.Azure.IIoT.Diagnostics.Runtime;
-    using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Services;
-    using Microsoft.Azure.IIoT.Messaging.Default;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
-    using Microsoft.Azure.IIoT.Module.Default;
-    using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb.Services;
-    using Microsoft.Azure.IIoT.Storage.Default;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -39,7 +30,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Prometheus;
@@ -127,8 +117,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
         /// <summary>
@@ -189,60 +178,22 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
 
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
 
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
 
-            // Iot hub services
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubTwinMethodClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ChunkMethodClient>()
-                .AsImplementedInterfaces();
 
-            // Register event bus for event publishing
-            builder.RegisterType<EventBusHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ServiceBusClientFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ServiceBusEventBus>()
-                .AsImplementedInterfaces().SingleInstance();
-
-            // Cosmos db collection as storage
-            builder.RegisterType<ItemContainerFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<CosmosDbServiceClient>()
-                .AsImplementedInterfaces();
+            // --- Logic ---
 
             // Registries and repositories
             builder.RegisterModule<RegistryServices>();
-            builder.RegisterType<StartupMigration>()
-                .AutoActivate()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<VaultApplicationMigration>()
-                .AsImplementedInterfaces().SingleInstance();
-#if !USE_APP_DB // TODO: Decide whether when to switch
             builder.RegisterType<ApplicationTwins>()
                 .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ApplicationRecordQuery>()
-                .AsImplementedInterfaces().SingleInstance();
-#else
-            builder.RegisterType<ApplicationDatabase>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ApplicationTwinsMigration>()
-                .AsImplementedInterfaces().SingleInstance();
-#endif
+
             // Additional clients needed by registry services
             builder.RegisterType<TwinModuleActivationClient>()
                 .AsImplementedInterfaces();
@@ -256,20 +207,22 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry {
                 .AsImplementedInterfaces();
             builder.RegisterType<OnboardingClient>()
                 .AsImplementedInterfaces();
-
-            builder.RegisterType<IoTHubConfigurationClient>()
+            builder.RegisterType<ChunkMethodClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<IoTHubEdgeBaseDeployment>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<LogAnalyticsConfig>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<IoTHubDiscovererDeployment>()
-                .AsImplementedInterfaces().SingleInstance();
 
             // ... and auto start
             builder.RegisterType<HostAutoStart>()
                 .AutoActivate()
                 .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
+            // Iot hub services
+            builder.RegisterModule<IoTHubModule>();
+            // Register event bus for integration events
+            builder.RegisterModule<ServiceBusModule>();
         }
     }
 }

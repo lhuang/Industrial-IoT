@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Services {
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Serializers;
     using Serilog;
@@ -26,7 +26,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="config"></param>
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
-        public SettingsSyncHost(IIoTHubTwinServices twins, IServiceEndpoint endpoint,
+        public SettingsSyncHost(IDeviceTwinServices twins, IServiceEndpoint endpoint,
             IJsonSerializer serializer, ILogger logger, ISettingsSyncConfig config = null) :
             base(logger, "Service Endpoint Update",
                 config?.SettingSyncInterval ?? TimeSpan.FromMinutes(1)) {
@@ -87,7 +87,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
 
         private readonly IServiceEndpoint _endpoint;
         private readonly IJsonSerializer _serializer;
-        private readonly IIoTHubTwinServices _twins;
+        private readonly IDeviceTwinServices _twins;
         private readonly ILogger _logger;
     }
 }

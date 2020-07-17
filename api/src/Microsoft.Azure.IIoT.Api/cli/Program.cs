@@ -5,28 +5,27 @@
 
 namespace Microsoft.Azure.IIoT.Api.Cli {
     using Microsoft.Azure.IIoT.Api.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault.Models;
-    using Microsoft.Azure.IIoT.Auth.Clients.Default;
+    using Microsoft.Azure.IIoT.Azure.ActiveDirectory.Clients;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.History.Api;
+    using Microsoft.Azure.IIoT.Platform.History.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api.Models;
     using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Http.SignalR;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Auth.Runtime;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Extensions.Configuration;
     using Autofac;
     using System;
@@ -60,9 +59,7 @@ namespace Microsoft.Azure.IIoT.Api.Cli {
                 .AsImplementedInterfaces();
 
             // Register logger
-            builder.AddDiagnostics(config, addConsole: false);
-            builder.RegisterModule<PrometheusCollector>();
-
+            builder.AddDebugDiagnostics(addConsole: false);
             builder.RegisterModule<NewtonSoftJsonModule>();
             if (useMsgPack) {
                 builder.RegisterModule<MessagePackModule>();
@@ -2493,7 +2490,7 @@ namespace Microsoft.Azure.IIoT.Api.Cli {
             var query = new EndpointRegistrationQueryApiModel {
                 Url = options.GetValueOrDefault<string>("-u", "--uri", null),
                 SecurityMode = options
-                    .GetValueOrDefault<OpcUa.Api.Core.Models.SecurityMode>("-m", "--mode", null),
+                    .GetValueOrDefault<Platform.Core.Api.Models.SecurityMode>("-m", "--mode", null),
                 SecurityPolicy = options.GetValueOrDefault<string>("-l", "--policy", null),
                 Connected = options.IsProvidedOrNull("-c", "--connected"),
                 Activated = options.IsProvidedOrNull("-a", "--activated"),
@@ -2532,7 +2529,7 @@ namespace Microsoft.Azure.IIoT.Api.Cli {
 
             // Activate all sign and encrypt endpoints
             var result = await _registry.QueryAllEndpointsAsync(new EndpointRegistrationQueryApiModel {
-                SecurityMode = options.GetValueOrDefault<OpcUa.Api.Core.Models.SecurityMode>("-m", "mode", null),
+                SecurityMode = options.GetValueOrDefault<Platform.Core.Api.Models.SecurityMode>("-m", "mode", null),
                 Activated = false
             });
             foreach (var item in result) {
@@ -2558,7 +2555,7 @@ namespace Microsoft.Azure.IIoT.Api.Cli {
 
             // Activate all sign and encrypt endpoints
             var result = await _registry.QueryAllEndpointsAsync(new EndpointRegistrationQueryApiModel {
-                SecurityMode = options.GetValueOrDefault<OpcUa.Api.Core.Models.SecurityMode>("-m", "mode", null),
+                SecurityMode = options.GetValueOrDefault<Platform.Core.Api.Models.SecurityMode>("-m", "mode", null),
                 Activated = true
             });
             foreach (var item in result) {

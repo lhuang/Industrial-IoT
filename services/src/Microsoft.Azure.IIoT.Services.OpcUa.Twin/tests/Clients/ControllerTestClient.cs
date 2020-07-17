@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Controllers.Test {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service.Controllers.Test {
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.Serializers;
     using System;

@@ -3,10 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
-    using Microsoft.Azure.IIoT.Module.Framework.Services;
+namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting {
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.IIoT.Hub;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.Devices.Client;
@@ -27,7 +29,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
     /// <summary>
     /// Module host implementation
     /// </summary>
-    public sealed class IoTEdgeModuleHost : IModuleHost, IPropertyReporter,
+    public sealed class IoTEdgeModuleHost : IModuleHost, ISettingsReporter,
         IIdentity, IEventClient, IJsonMethodClient {
 
         /// <inheritdoc/>

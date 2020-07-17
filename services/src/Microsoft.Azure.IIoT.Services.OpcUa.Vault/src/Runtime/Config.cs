@@ -3,7 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Runtime {
+namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Runtime {
+    using Microsoft.Azure.IIoT.Platform.Registry.Api;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Vault;
+    using Microsoft.Azure.IIoT.Platform.Vault.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
     using Microsoft.Azure.IIoT.AspNetCore.Cors.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
@@ -11,21 +15,17 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
+    using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
+    using Microsoft.Azure.IIoT.Azure.KeyVault;
+    using Microsoft.Azure.IIoT.Azure.KeyVault.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus.Runtime;
+    using Microsoft.Azure.IIoT.Azure.CosmosDb;
+    using Microsoft.Azure.IIoT.Azure.CosmosDb.Runtime;
     using Microsoft.Azure.IIoT.Auth.Runtime;
-    using Microsoft.Azure.IIoT.Crypto.KeyVault;
-    using Microsoft.Azure.IIoT.Crypto.KeyVault.Runtime;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Client.Runtime;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Vault;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Runtime;
     using Microsoft.Azure.IIoT.Storage;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Extensions.Configuration;
 

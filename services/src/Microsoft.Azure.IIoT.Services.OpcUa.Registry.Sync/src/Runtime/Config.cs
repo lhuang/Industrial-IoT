@@ -3,17 +3,16 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync.Runtime {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Runtime;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Client.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Sync.Service.Runtime {
+    using Microsoft.Azure.IIoT.Platform.Registry.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Edge;
+    using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
     using Microsoft.Azure.IIoT.AspNetCore.Diagnostics;
-    using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Extensions.Configuration;
     using System;
 
@@ -21,8 +20,8 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync.Runtime {
     /// Registry sync configuration
     /// </summary>
     public class Config : AppInsightsConfig, IIoTHubConfig, IServiceBusConfig,
-        IActivationSyncConfig, IServiceEndpoint, IOrchestrationConfig, IMetricServerConfig,
-        ISettingsSyncConfig {
+        IActivationSyncConfig, IServiceEndpoint, IWriterGroupOrchestrationConfig,
+        IMetricServerConfig, ISettingsSyncConfig {
 
         /// <inheritdoc/>
         public string IoTHubConnString => _hub.IoTHubConnString;

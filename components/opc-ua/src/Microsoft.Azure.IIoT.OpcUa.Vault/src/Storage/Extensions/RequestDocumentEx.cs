@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Storage.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Models {
+    using Microsoft.Azure.IIoT.Platform.Vault.Storage.Models;
     using System.Linq;
 
     /// <summary>

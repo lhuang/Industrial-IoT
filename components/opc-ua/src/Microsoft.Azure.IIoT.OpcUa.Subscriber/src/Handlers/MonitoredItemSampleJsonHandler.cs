@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Handlers {
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Handlers {
     using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber;
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
+    using Microsoft.Azure.IIoT.Platform.Subscriber;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Models;
     using Opc.Ua;
     using Opc.Ua.Extensions;
     using Opc.Ua.PubSub;
@@ -22,7 +22,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Subscriber.Handlers {
     /// <summary>
     /// Publisher message handling
     /// </summary>
-    public sealed class MonitoredItemSampleJsonHandler : IDeviceTelemetryHandler {
+    public sealed class MonitoredItemSampleJsonHandler : ITelemetryHandler {
 
         /// <inheritdoc/>
         public string MessageSchema => Core.MessageSchemaTypes.MonitoredItemMessageJson;

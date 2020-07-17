@@ -3,13 +3,14 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Cli {
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Cli {
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Diagnostics.Runtime;
-    using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.Hub.Client;
     using Microsoft.Azure.IIoT.Hub.Models;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Clients;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics.Runtime;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Exceptions;
@@ -181,7 +182,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Cli {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(
                     @"
-Usage:       Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Cli [options] operation [args]
+Usage:       Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Cli [options] operation [args]
 
 Operations (Mutually exclusive):
 
@@ -282,7 +283,7 @@ Options:
                 var arguments = new List<string> {
                     $"EdgeHubConnectionString={cs}"
                 };
-                Twin.Program.Main(arguments.ToArray());
+                Module.Program.Main(arguments.ToArray());
                 Console.WriteLine("Twin module exited.");
             }
         }

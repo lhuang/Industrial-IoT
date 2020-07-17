@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync {
+namespace Microsoft.Azure.IIoT.Platform.Registry.Sync.Service {
 
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Registry.Sync.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Registry.Sync.Service.Runtime;
     using Microsoft.Extensions.Hosting;
     using System;
     using System.Collections.Generic;

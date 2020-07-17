@@ -3,11 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Client {
+namespace Microsoft.Azure.IIoT.Azure.IoTEdge {
+    using Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge.Clients;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Storage.Default;
     using Autofac;
-    using Microsoft.Azure.IIoT.Module.Framework.Hosting;
 
     /// <summary>
     /// Injected iot hub edge hosting context
@@ -19,6 +21,14 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Client {
         /// </summary>
         /// <param name="builder"></param>
         protected override void Load(ContainerBuilder builder) {
+
+            // Edge metrics collection
+            builder.RegisterType<PrometheusCollectorHost>()
+                .AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<LogAnalyticsMetricsHandler>()
+                .AsImplementedInterfaces().InstancePerLifetimeScope()
+                .PropertiesAutowired(
+                    PropertyWiringOptions.AllowCircularDependencies);
 
             // Register sdk, edgelet client and token generators
             builder.RegisterType<IoTSdkFactory>()

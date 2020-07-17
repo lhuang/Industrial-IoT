@@ -3,8 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
+namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
     using Microsoft.Azure.IIoT.Hub;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using System;
@@ -24,7 +25,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                 async (deviceId, moduleId, services) => {
                     var test = _serializer.FromObject("test4");
                     // Act
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     await hub.UpdatePropertyAsync(deviceId, moduleId,
                         nameof(TestController1.TestSetting1), test);
                     var twin = await hub.GetAsync(deviceId, moduleId);
@@ -46,7 +47,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                     var test = _serializer.FromObject("test");
                     var test2 = _serializer.FromObject("test2");
                     // Act
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     await hub.UpdatePropertyAsync(deviceId, moduleId,
                         nameof(TestController1.TestSetting1), test);
                     await hub.UpdatePropertyAsync(deviceId, moduleId,
@@ -74,7 +75,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                     var test3 = _serializer.FromObject("test3");
 
                     // Act
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     await hub.UpdatePropertyAsync(deviceId, moduleId,
                         nameof(TestController1.TestSetting1), test);
                     await hub.UpdatePropertyAsync(deviceId, moduleId,
@@ -108,7 +109,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                     };
                     var test = _serializer.FromObject(expected);
 
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
 
                     // Act
                     await hub.UpdatePropertyAsync(deviceId, moduleId,
@@ -130,7 +131,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             await harness.RunTestAsync(controller.YieldReturn(),
                 async (deviceId, moduleId, services) => {
                     // Act
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = await hub.GetAsync(deviceId, moduleId);
 
                     // Assert
@@ -148,7 +149,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             var controller = new TestController1();
             await harness.RunTestAsync(controller.YieldReturn(),
                 async (deviceId, moduleId, services) => {
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = await hub.GetAsync(deviceId, moduleId);
 
                     // TODO : Assert precondition

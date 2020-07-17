@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Messaging.ServiceBus {
+namespace Microsoft.Azure.IIoT.Azure.ServiceBus {
 
     /// <summary>
     /// Service bus configuration

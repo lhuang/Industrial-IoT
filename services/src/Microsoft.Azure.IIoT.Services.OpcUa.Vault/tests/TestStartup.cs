@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Vault.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Service {
+    using Microsoft.Azure.IIoT.Platform.Vault.Service.Runtime;
     using Microsoft.Extensions.Hosting;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Testing;
@@ -33,7 +33,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault {
                 .AsImplementedInterfaces();
 
             // Add diagnostics based on configuration
-            builder.AddDiagnostics(Config);
+            builder.AddDebugDiagnostics(Config);
         }
     }
 

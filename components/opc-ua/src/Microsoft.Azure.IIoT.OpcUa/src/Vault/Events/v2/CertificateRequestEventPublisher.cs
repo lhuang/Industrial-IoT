@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault.Events.v2 {
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Events.v2.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Events.v2 {
+    using Microsoft.Azure.IIoT.Platform.Vault.Events.v2.Models;
+    using Microsoft.Azure.IIoT.Platform.Vault.Models;
     using Microsoft.Azure.IIoT.Messaging;
     using System;
     using System.Threading.Tasks;

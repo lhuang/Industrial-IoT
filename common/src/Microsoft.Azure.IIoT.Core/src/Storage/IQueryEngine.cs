@@ -21,15 +21,5 @@ namespace Microsoft.Azure.IIoT.Storage {
         /// <returns></returns>
         IEnumerable<IDocumentInfo<VariantValue>> ExecuteSql(
             IEnumerable<IDocumentInfo<VariantValue>> values, string query);
-
-        /// <summary>
-        /// Execute gremlin expression over the passed in values
-        /// to return result
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        IEnumerable<IDocumentInfo<VariantValue>> ExecuteGremlin(
-            IEnumerable<IDocumentInfo<VariantValue>> values, string query);
     }
 }

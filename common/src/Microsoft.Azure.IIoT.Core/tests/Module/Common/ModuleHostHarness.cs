@@ -3,13 +3,14 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Mock;
+namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
+    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Mock;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
-    using Microsoft.Azure.IIoT.Module.Framework.Services;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Utils;
     using Autofac;
@@ -34,7 +35,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             var moduleId = "TestModule";
 
             using (var hubContainer = CreateHubContainer()) {
-                var services = hubContainer.Resolve<IIoTHubTwinServices>();
+                var services = hubContainer.Resolve<IDeviceTwinServices>();
 
                 // Create module
                 var twin = await services.CreateOrUpdateAsync(new DeviceTwinModel {
@@ -84,7 +85,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
                         Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()))).ToString();
         }
 
-        public class TestModuleConfig : IModuleConfig, IAppInsightsConfig {
+        public class TestModuleConfig : IModuleConfig, IDiagnosticsConfig {
 
             public TestModuleConfig(DeviceModel device) {
                 _device = device;
@@ -102,8 +103,6 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
 
             public TimeSpan? MetricsCollectionInterval => null;
 
-            public string InstrumentationKey => null;
-
             private readonly DeviceModel _device;
         }
 
@@ -113,7 +112,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         /// <returns></returns>
         private IContainer CreateHubContainer() {
             var builder = new ContainerBuilder();
-            builder.AddDiagnostics();
+            builder.AddDebugDiagnostics();
             builder.RegisterModule<IoTHubMockService>();
             builder.RegisterType<TestIoTHubConfig>()
                 .AsImplementedInterfaces();
@@ -127,10 +126,10 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         /// <param name="device"></param>
         /// <param name="controllers"></param>
         /// <returns></returns>
-        private IContainer CreateModuleContainer(IIoTHubTwinServices hub, DeviceModel device,
+        private IContainer CreateModuleContainer(IDeviceTwinServices hub, DeviceModel device,
             IEnumerable<object> controllers) {
             var builder = new ContainerBuilder();
-            builder.AddDiagnostics();
+            builder.AddDebugDiagnostics();
             builder.RegisterInstance(hub)
                 .AsImplementedInterfaces().ExternallyOwned();
             builder.RegisterInstance(new TestModuleConfig(device))

@@ -3,20 +3,19 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Cli {
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Sample;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Models;
+namespace Microsoft.Azure.IIoT.Platform.Cli {
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Sample;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Twin;
+    using Microsoft.Azure.IIoT.Platform.Twin.Models;
     using Microsoft.Azure.IIoT.Storage;
     using Microsoft.Azure.IIoT.Storage.Default;
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
@@ -208,7 +207,7 @@ Operations (Mutually exclusive):
         }
 
         /// <inheritdoc/>
-        private class ModelWriter : IPropertyReporter, IEventClient {
+        private class ModelWriter : ISettingsReporter, IEventClient {
 
             public ModelWriter(ClientServices client, ILogger logger) {
                 _logger = logger;

@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Client {
-    using Microsoft.Azure.IIoT.Crypto;
+namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Clients {
+    using Microsoft.Azure.IIoT.Cryptography;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Serializers;

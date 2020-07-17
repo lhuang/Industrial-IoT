@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Messaging.SignalR.Services {
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
+namespace Microsoft.Azure.IIoT.Azure.SignalR.Services {
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.SignalR.Management;
     using Microsoft.Azure.SignalR.Common;

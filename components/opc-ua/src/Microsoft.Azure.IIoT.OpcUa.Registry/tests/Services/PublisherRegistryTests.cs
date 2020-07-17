@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Services {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.Hub.Mock;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Mock;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
@@ -19,9 +19,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
     using System.Linq;
     using Xunit;
     using Autofac;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
-    using System.Threading.Tasks;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
 
     public class PublisherRegistryTests {
 
@@ -33,7 +30,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 var hub = IoTHubServices.Create(modules);
                 builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
                 builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
+                builder.RegisterInstance(hub).As<IDeviceTwinServices>();
             })) {
                 IPublisherRegistry service = mock.Create<PublisherRegistry>();
 
@@ -55,7 +52,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 var hub = IoTHubServices.Create(modules);
                 builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
                 builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
+                builder.RegisterInstance(hub).As<IDeviceTwinServices>();
             })) {
                 IPublisherRegistry service = mock.Create<PublisherRegistry>();
 
@@ -75,7 +72,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 var hub = IoTHubServices.Create(modules);
                 builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
                 builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
+                builder.RegisterInstance(hub).As<IDeviceTwinServices>();
             })) {
                 IPublisherRegistry service = mock.Create<PublisherRegistry>();
 
@@ -99,7 +96,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 var hub = IoTHubServices.Create(modules);
                 builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
                 builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
+                builder.RegisterInstance(hub).As<IDeviceTwinServices>();
             })) {
                 IPublisherRegistry service = mock.Create<PublisherRegistry>();
 
@@ -119,7 +116,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
                 var hub = IoTHubServices.Create(modules);
                 builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
                 builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
+                builder.RegisterInstance(hub).As<IDeviceTwinServices>();
             })) {
                 IPublisherRegistry service = mock.Create<PublisherRegistry>();
 
@@ -128,154 +125,6 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
 
                 // Assert
                 Assert.True(publishers.IsSameAs(records.Items));
-            }
-        }
-
-        [Fact]
-        public async Task WriterGroupEventsTestsAsync() {
-            CreatePublisherFixtures(out var site, out var publishers, out var modules);
-
-            using (var mock = AutoMock.GetLoose(builder => {
-                var hub = IoTHubServices.Create(modules);
-                builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
-                builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
-            })) {
-                IWriterGroupRegistryListener events = mock.Create<PublisherRegistry>();
-                IWriterGroupStatus service = mock.Create<PublisherRegistry>();
-
-                var results = await service.ListAllWriterGroupActivationsAsync();
-                Assert.Empty(results);
-
-                // Run
-                await events.OnWriterGroupAddedAsync(null, new WriterGroupInfoModel {
-                    WriterGroupId = "testid",
-                    BatchSize = 5,
-                    LocaleIds = new List<string> { "test" }
-                });
-
-                // Assert
-                results = await service.ListAllWriterGroupActivationsAsync();
-                Assert.Empty(results);
-                results = await service.ListAllWriterGroupActivationsAsync(false);
-                Assert.Empty(results);
-
-                // Run
-                await events.OnWriterGroupActivatedAsync(null, new WriterGroupInfoModel {
-                    WriterGroupId = "testid"
-                });
-
-                // Assert
-                results = await service.ListAllWriterGroupActivationsAsync();
-                Assert.Empty(results); // Not placed and connected
-                results = await service.ListAllWriterGroupActivationsAsync(false);
-                Assert.Single(results);
-
-                // Run
-                await events.OnWriterGroupDeactivatedAsync(null, new WriterGroupInfoModel {
-                    WriterGroupId = "testid"
-                });
-
-                // Assert
-                results = await service.ListAllWriterGroupActivationsAsync(false);
-                Assert.Empty(results);
-                results = await service.ListAllWriterGroupActivationsAsync();
-                Assert.Empty(results);
-
-                // Run
-                await events.OnWriterGroupActivatedAsync(null, new WriterGroupInfoModel {
-                    WriterGroupId = "testid"
-                });
-
-                // Assert
-                results = await service.ListAllWriterGroupActivationsAsync();
-                Assert.Empty(results); // Not placed and connected
-                results = await service.ListAllWriterGroupActivationsAsync(false);
-                Assert.Single(results);
-
-                // Run
-                await events.OnWriterGroupRemovedAsync(null, "testid");
-                // Assert
-                results = await service.ListAllWriterGroupActivationsAsync();
-                Assert.Empty(results);
-                results = await service.ListAllWriterGroupActivationsAsync(false);
-                Assert.Empty(results);
-            }
-        }
-
-        [Fact]
-        public async Task DataSetWriterEventsTestsAsync() {
-            CreatePublisherFixtures(out var site, out var publishers, out var modules);
-
-            var hub = IoTHubServices.Create(modules);
-            using (var mock = AutoMock.GetLoose(builder => {
-                builder.RegisterType<NewtonSoftJsonConverters>().As<IJsonSerializerConverterProvider>();
-                builder.RegisterType<NewtonSoftJsonSerializer>().As<IJsonSerializer>();
-                builder.RegisterInstance(hub).As<IIoTHubTwinServices>();
-            })) {
-                IWriterGroupRegistryListener events = mock.Create<PublisherRegistry>();
-                IDataSetWriterRegistryListener writers = mock.Create<PublisherRegistry>();
-
-                // Run
-                var groupid = "testid";
-                await events.OnWriterGroupAddedAsync(null, new WriterGroupInfoModel {
-                    WriterGroupId = groupid,
-                    BatchSize = 5,
-                    LocaleIds = new List<string> { "test" }
-                });
-
-                await writers.OnDataSetWriterAddedAsync(null, new DataSetWriterInfoModel {
-                    DataSetWriterId = "dw1",
-                    WriterGroupId = groupid
-                });
-
-                var device = await hub.GetAsync(PublisherRegistryEx.ToDeviceId(groupid), null, default);
-                Assert.Contains(PublisherRegistryEx.ToPropertyName("dw1"), device.Properties.Desired.Keys);
-
-                await writers.OnDataSetWriterAddedAsync(null, new DataSetWriterInfoModel {
-                    DataSetWriterId = "dw2",
-                    WriterGroupId = groupid
-                });
-
-                device = await hub.GetAsync(PublisherRegistryEx.ToDeviceId(groupid), null, default);
-                Assert.Contains(PublisherRegistryEx.ToPropertyName("dw1"), device.Properties.Desired.Keys);
-                Assert.Contains(PublisherRegistryEx.ToPropertyName("dw2"), device.Properties.Desired.Keys);
-
-                await writers.OnDataSetWriterRemovedAsync(null, new DataSetWriterInfoModel {
-                    DataSetWriterId = "dw1",
-                    WriterGroupId = groupid
-                });
-
-                device = await hub.GetAsync(PublisherRegistryEx.ToDeviceId(groupid), null, default);
-                Assert.DoesNotContain(PublisherRegistryEx.ToPropertyName("dw1"), device.Properties.Desired.Keys);
-                Assert.Contains(PublisherRegistryEx.ToPropertyName("dw2"), device.Properties.Desired.Keys);
-
-                await writers.OnDataSetWriterUpdatedAsync(null, "dw2", new DataSetWriterInfoModel {
-                    IsDisabled = true
-                });
-
-                device = await hub.GetAsync(PublisherRegistryEx.ToDeviceId(groupid), null, default);
-                Assert.DoesNotContain(PublisherRegistryEx.ToPropertyName("dw1"), device.Properties.Desired.Keys);
-                Assert.DoesNotContain(PublisherRegistryEx.ToPropertyName("dw2"), device.Properties.Desired.Keys);
-
-                await writers.OnDataSetWriterUpdatedAsync(null, "dw2", new DataSetWriterInfoModel {
-                    DataSetWriterId = "dw2",
-                    WriterGroupId = groupid,
-                    IsDisabled = false
-                });
-
-                device = await hub.GetAsync(PublisherRegistryEx.ToDeviceId(groupid), null, default);
-                Assert.DoesNotContain(PublisherRegistryEx.ToPropertyName("dw1"), device.Properties.Desired.Keys);
-                Assert.Contains(PublisherRegistryEx.ToPropertyName("dw2"), device.Properties.Desired.Keys);
-
-                await writers.OnDataSetWriterRemovedAsync(null, new DataSetWriterInfoModel {
-                    DataSetWriterId = "dw2",
-                    WriterGroupId = groupid
-                });
-
-                device = await hub.GetAsync(PublisherRegistryEx.ToDeviceId(groupid), null, default);
-                Assert.DoesNotContain(PublisherRegistryEx.ToPropertyName("dw1"), device.Properties.Desired.Keys);
-                Assert.DoesNotContain(PublisherRegistryEx.ToPropertyName("dw2"), device.Properties.Desired.Keys);
             }
         }
 

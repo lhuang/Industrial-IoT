@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Crypto.Storage.Models {
-    using Microsoft.Azure.IIoT.Crypto.Models;
+namespace Microsoft.Azure.IIoT.Cryptography.Storage.Models {
+    using Microsoft.Azure.IIoT.Cryptography.Models;
     using System;
     using System.Linq;
 

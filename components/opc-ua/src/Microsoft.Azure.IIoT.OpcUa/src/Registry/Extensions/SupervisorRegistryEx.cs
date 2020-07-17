@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry {
+namespace Microsoft.Azure.IIoT.Platform.Registry {
     using Microsoft.Azure.IIoT.Exceptions;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;

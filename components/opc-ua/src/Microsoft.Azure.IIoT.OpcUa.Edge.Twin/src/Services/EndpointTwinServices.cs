@@ -3,12 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Services {
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Rpc;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Exceptions;
     using Serilog;
     using System;
@@ -33,7 +34,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
         /// <param name="identity"></param>
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
-        public EndpointTwinServices(IEndpointServices client, IPropertyReporter events,
+        public EndpointTwinServices(IEndpointServices client, ISettingsReporter events,
             IIdentity identity, IJsonSerializer serializer, ILogger logger) {
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
             _identity = identity ?? throw new ArgumentNullException(nameof(identity));
@@ -155,7 +156,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services {
         private readonly SemaphoreSlim _lock;
         private readonly IEndpointServices _client;
         private readonly IIdentity _identity;
-        private readonly IPropertyReporter _events;
+        private readonly ISettingsReporter _events;
         private readonly ILogger _logger;
     }
 }

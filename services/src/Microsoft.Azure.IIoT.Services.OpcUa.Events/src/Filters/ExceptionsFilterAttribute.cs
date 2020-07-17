@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events.Filters {
-    using Microsoft.Azure.IIoT.OpcUa.Exceptions;
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Filters {
+    using Microsoft.Azure.IIoT.Platform.Exceptions;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;

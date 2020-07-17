@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock.SqlParser {
-    using Microsoft.Azure.IIoT.Hub.Mock;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Mock;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Serializers;
     using Antlr4.Runtime;

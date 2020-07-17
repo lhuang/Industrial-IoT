@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Cdm.Storage {
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Storage {
     using Microsoft.Azure.IIoT.Storage;
     using Microsoft.CommonDataModel.ObjectModel.Storage;
     using Newtonsoft.Json.Linq;

@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Controllers {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.Filters;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Twin;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Twin.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Twin.Service.Filters;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi;
     using Microsoft.AspNetCore.Authorization;

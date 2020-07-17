@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service {
+    using Microsoft.Azure.IIoT.Platform.Twin.Api;
     using System;
 
     /// <inheritdoc/>

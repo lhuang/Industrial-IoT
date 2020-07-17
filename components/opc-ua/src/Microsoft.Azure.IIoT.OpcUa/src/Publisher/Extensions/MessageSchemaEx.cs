@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Core;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Models {
+    using Microsoft.Azure.IIoT.Platform.Core;
     using System;
 
     /// <summary>

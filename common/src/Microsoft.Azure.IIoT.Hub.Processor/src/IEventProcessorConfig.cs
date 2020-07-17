@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Hub.Processor {
-    using Microsoft.Azure.IIoT.Storage.Datalake;
+namespace Microsoft.Azure.IIoT.Azure.EventHub.Processor {
+    using Microsoft.Azure.IIoT.Azure.Datalake;
     using System;
 
     /// <summary>

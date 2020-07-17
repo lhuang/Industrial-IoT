@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Messaging.SignalR.Services {
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.AspNetCore.SignalR;
     using System;
     using System.Threading;

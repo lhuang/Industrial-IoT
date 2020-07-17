@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Twin.Endpoint {
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Twin.Endpoint {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
     using Xunit;
 
     [CollectionDefinition(Name)]

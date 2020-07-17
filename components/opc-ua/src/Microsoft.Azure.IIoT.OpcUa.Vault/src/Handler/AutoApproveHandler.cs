@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault.Handler {
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Handler {
+    using Microsoft.Azure.IIoT.Platform.Vault.Models;
     using Serilog;
     using System;
     using System.Threading.Tasks;

@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Events.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Events.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service {
+    using Microsoft.Azure.IIoT.Platform.Api.Events.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api;
+    using Microsoft.Azure.IIoT.Platform.Events.Api.Runtime;
     using Microsoft.Azure.IIoT.Auth.Runtime;
     using Microsoft.Azure.IIoT.Auth.Models;
     using Microsoft.Azure.IIoT.Auth;

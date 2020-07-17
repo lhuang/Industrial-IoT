@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.IIoT.App.Validation {
     using FluentValidation;
     using Microsoft.Azure.IIoT.App.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
     using System;
 
     public class PublisherInfoValidator : AbstractValidator<PublisherInfoRequested> {

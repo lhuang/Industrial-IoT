@@ -3,16 +3,16 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.Discovery {
-    using Microsoft.Azure.IIoT.Modules.Discovery.Runtime;
-    using Microsoft.Azure.IIoT.Modules.Discovery.Controllers;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Discovery.Services;
-    using Microsoft.Azure.IIoT.Module;
-    using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.Module.Framework.Services;
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
+namespace Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module {
+    using Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module.Controllers;
+    using Microsoft.Azure.IIoT.Platform.Discovery.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Rpc.Framework;
+    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+    using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Hub;
@@ -140,7 +140,7 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery {
                 .AsImplementedInterfaces();
 
             // register logger
-            builder.AddDiagnostics(config);
+            builder.AddDebugDiagnostics(config);
 
             // Register module framework
             builder.RegisterModule<ModuleFramework>();

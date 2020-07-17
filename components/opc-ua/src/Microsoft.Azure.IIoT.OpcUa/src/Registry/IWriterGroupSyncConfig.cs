@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry {
+namespace Microsoft.Azure.IIoT.Platform.Registry {
     using System;
 
     /// <summary>

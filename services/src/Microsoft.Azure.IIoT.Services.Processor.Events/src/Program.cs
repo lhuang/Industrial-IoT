@@ -3,24 +3,20 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.Processor.Events {
-    using Microsoft.Azure.IIoT.Services.Processor.Events.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Handlers;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Events.v2;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
-    using Microsoft.Azure.IIoT.Messaging.Default;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
-    using Microsoft.Azure.IIoT.Hub.Processor.EventHub;
-    using Microsoft.Azure.IIoT.Hub.Processor.Services;
-    using Microsoft.Azure.IIoT.Storage.CosmosDb.Services;
-    using Microsoft.Azure.IIoT.Hub.Services;
-    using Microsoft.Azure.IIoT.Hub.Client;
+namespace Microsoft.Azure.IIoT.Platform.Edge.Events.Service {
+    using Microsoft.Azure.IIoT.Platform.Edge.Events.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Handlers;
+    using Microsoft.Azure.IIoT.Platform.Registry.Events.v2;
+    using Microsoft.Azure.IIoT.Platform.Publisher;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.CosmosDb;
+    using Microsoft.Azure.IIoT.Azure.ActiveDirectory.Clients;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
     using Microsoft.Azure.IIoT.AspNetCore.Diagnostics.Default;
-    using Microsoft.Azure.IIoT.Auth.Clients;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -94,37 +90,17 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Events {
 
             // Add Application Insights dependency tracking.
             builder.AddDependencyTracking(config, serviceInfo);
-
             // Add diagnostics
             builder.AddDiagnostics(config);
-
-            // Register http client module
-            builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
-            // Add serializers
-            builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add unattended authentication
-            builder.RegisterModule<UnattendedAuthentication>();
-
-            // Event processor services for onboarding consumer
-            builder.RegisterType<EventProcessorHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EventProcessorFactory>()
-                .AsImplementedInterfaces();
-
-            // Prometheus metric server
             builder.RegisterType<MetricServerHost>()
                 .AsImplementedInterfaces().SingleInstance();
 
-            // Handle iot hub telemetry events...
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubDeviceEventHandler>()
-                .AsImplementedInterfaces();
-            // ... and pass to the following handlers:
+            // Register http client module
+            builder.RegisterModule<HttpClientModule>();
+            // Add serializers
+            builder.RegisterModule<NewtonSoftJsonModule>();
+
+            // --- Logic ---
 
             // 1.) Handler for discovery progress
             builder.RegisterType<DiscoveryProgressHandler>()
@@ -142,16 +118,19 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Events {
             builder.RegisterType<WriterGroupEventHandler>()
                 .AsImplementedInterfaces();
             builder.RegisterModule<PublisherServices>();
-            builder.RegisterType<CosmosDbServiceClient>()
-                .AsImplementedInterfaces();
 
-            // ... publish events to registered event bus
-            builder.RegisterType<EventBusHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ServiceBusClientFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ServiceBusEventBus>()
-                .AsImplementedInterfaces().SingleInstance();
+            // --- Dependencies ---
+
+            // Add unattended authentication
+            builder.RegisterModule<UnattendedAuthentication>();
+            // Handle iot hub telemetry events...
+            builder.RegisterModule<IoTHubEventsModule>();
+            // Register Cosmos db
+            builder.RegisterModule<CosmosDbModule>();
+            // Event processor services
+            builder.RegisterModule<EventHubProcessorModule>();
+            // Register event bus for integration events
+            builder.RegisterModule<ServiceBusModule>();
 
             return builder;
         }

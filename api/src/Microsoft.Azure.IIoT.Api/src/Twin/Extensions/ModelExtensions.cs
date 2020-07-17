@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Api.Models {
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using System.Linq;
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new AttributeReadRequestApiModel {
                 NodeId = model.NodeId,
-                Attribute = (Core.Models.NodeAttribute)model.Attribute
+                Attribute = (Core.Api.Models.NodeAttribute)model.Attribute
             };
         }
 
@@ -40,7 +40,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new AttributeReadRequestModel {
                 NodeId = model.NodeId,
-                Attribute = (OpcUa.Core.Models.NodeAttribute)model.Attribute
+                Attribute = (Core.Models.NodeAttribute)model.Attribute
             };
         }
 
@@ -86,7 +86,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             return new AttributeWriteRequestApiModel {
                 NodeId = model.NodeId,
                 Value = model.Value,
-                Attribute = (Core.Models.NodeAttribute)model.Attribute
+                Attribute = (Core.Api.Models.NodeAttribute)model.Attribute
             };
         }
 
@@ -102,7 +102,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             return new AttributeWriteRequestModel {
                 NodeId = model.NodeId,
                 Value = model.Value,
-                Attribute = (OpcUa.Core.Models.NodeAttribute)model.Attribute
+                Attribute = (Core.Models.NodeAttribute)model.Attribute
             };
         }
 
@@ -286,13 +286,13 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             return new BrowseRequestApiModel {
                 NodeId = model.NodeId,
                 MaxReferencesToReturn = model.MaxReferencesToReturn,
-                Direction = (Core.Models.BrowseDirection?)model.Direction,
+                Direction = (Core.Api.Models.BrowseDirection?)model.Direction,
                 View = model.View.ToApiModel(),
                 ReferenceTypeId = model.ReferenceTypeId,
                 TargetNodesOnly = model.TargetNodesOnly,
                 ReadVariableValues = model.ReadVariableValues,
                 NodeClassFilter = model.NodeClassFilter?
-                    .Select(f => (Core.Models.NodeClass)f)
+                    .Select(f => (Core.Api.Models.NodeClass)f)
                     .ToList(),
                 NoSubtypes = model.NoSubtypes,
                 Header = model.Header.ToApiModel()
@@ -311,13 +311,13 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             return new BrowseRequestModel {
                 NodeId = model.NodeId,
                 MaxReferencesToReturn = model.MaxReferencesToReturn,
-                Direction = (OpcUa.Core.Models.BrowseDirection?)model.Direction,
+                Direction = (Core.Models.BrowseDirection?)model.Direction,
                 View = model.View.ToServiceModel(),
                 ReferenceTypeId = model.ReferenceTypeId,
                 TargetNodesOnly = model.TargetNodesOnly,
                 ReadVariableValues = model.ReadVariableValues,
                 NodeClassFilter = model.NodeClassFilter?
-                    .Select(f => (OpcUa.Core.Models.NodeClass)f)
+                    .Select(f => (Core.Models.NodeClass)f)
                     .ToList(),
                 NoSubtypes = model.NoSubtypes,
                 Header = model.Header.ToServiceModel()
@@ -405,7 +405,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new CredentialApiModel {
                 Value = model.Value,
-                Type = (Core.Models.CredentialType?)model.Type
+                Type = (Core.Api.Models.CredentialType?)model.Type
             };
         }
 
@@ -419,7 +419,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new CredentialModel {
                 Value = model.Value,
-                Type = (OpcUa.Core.Models.CredentialType?)model.Type
+                Type = (Core.Models.CredentialType?)model.Type
             };
         }
 
@@ -434,7 +434,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new DiagnosticsApiModel {
                 AuditId = model.AuditId,
-                Level = (Core.Models.DiagnosticsLevel?)model.Level,
+                Level = (Core.Api.Models.DiagnosticsLevel?)model.Level,
                 TimeStamp = model.TimeStamp
             };
         }
@@ -449,7 +449,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new DiagnosticsModel {
                 AuditId = model.AuditId,
-                Level = (OpcUa.Core.Models.DiagnosticsLevel?)model.Level,
+                Level = (Core.Models.DiagnosticsLevel?)model.Level,
                 TimeStamp = model.TimeStamp
             };
         }
@@ -570,7 +570,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             return new MethodMetadataArgumentApiModel {
                 DefaultValue = model.DefaultValue,
                 Type = model.Type.ToApiModel(),
-                ValueRank = (Core.Models.NodeValueRank?)model.ValueRank,
+                ValueRank = (Core.Api.Models.NodeValueRank?)model.ValueRank,
                 ArrayDimensions = model.ArrayDimensions,
                 Description = model.Description,
                 Name = model.Name
@@ -589,7 +589,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             return new MethodMetadataArgumentModel {
                 DefaultValue = model.DefaultValue,
                 Type = model.Type.ToServiceModel(),
-                ValueRank = (OpcUa.Core.Models.NodeValueRank?)model.ValueRank,
+                ValueRank = (Core.Models.NodeValueRank?)model.ValueRank,
                 ArrayDimensions = model.ArrayDimensions,
                 Description = model.Description,
                 Name = model.Name
@@ -685,14 +685,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
                 BrowseName = model.BrowseName,
                 DisplayName = model.DisplayName,
                 Description = model.Description,
-                NodeClass = (Core.Models.NodeClass?)model.NodeClass,
+                NodeClass = (Core.Api.Models.NodeClass?)model.NodeClass,
                 IsAbstract = model.IsAbstract,
-                AccessLevel = (Core.Models.NodeAccessLevel?)model.AccessLevel,
-                EventNotifier = (Core.Models.NodeEventNotifier?)model.EventNotifier,
+                AccessLevel = (Core.Api.Models.NodeAccessLevel?)model.AccessLevel,
+                EventNotifier = (Core.Api.Models.NodeEventNotifier?)model.EventNotifier,
                 Executable = model.Executable,
                 DataType = model.DataType,
-                ValueRank = (Core.Models.NodeValueRank?)model.ValueRank,
-                AccessRestrictions = (Core.Models.NodeAccessRestrictions?)model.AccessRestrictions,
+                ValueRank = (Core.Api.Models.NodeValueRank?)model.ValueRank,
+                AccessRestrictions = (Core.Api.Models.NodeAccessRestrictions?)model.AccessRestrictions,
                 ArrayDimensions = model.ArrayDimensions,
                 ContainsNoLoops = model.ContainsNoLoops,
                 DataTypeDefinition = model.DataTypeDefinition,
@@ -706,7 +706,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
                 InverseName = model.InverseName,
                 MinimumSamplingInterval = model.MinimumSamplingInterval,
                 Symmetric = model.Symmetric,
-                UserAccessLevel = (Core.Models.NodeAccessLevel?)model.UserAccessLevel,
+                UserAccessLevel = (Core.Api.Models.NodeAccessLevel?)model.UserAccessLevel,
                 UserExecutable = model.UserExecutable,
                 UserWriteMask = model.UserWriteMask,
                 WriteMask = model.WriteMask,
@@ -735,14 +735,14 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
                 BrowseName = model.BrowseName,
                 DisplayName = model.DisplayName,
                 Description = model.Description,
-                NodeClass = (OpcUa.Core.Models.NodeClass?)model.NodeClass,
+                NodeClass = (Core.Models.NodeClass?)model.NodeClass,
                 IsAbstract = model.IsAbstract,
-                AccessLevel = (OpcUa.Core.Models.NodeAccessLevel?)model.AccessLevel,
-                EventNotifier = (OpcUa.Core.Models.NodeEventNotifier?)model.EventNotifier,
+                AccessLevel = (Core.Models.NodeAccessLevel?)model.AccessLevel,
+                EventNotifier = (Core.Models.NodeEventNotifier?)model.EventNotifier,
                 Executable = model.Executable,
                 DataType = model.DataType,
-                ValueRank = (OpcUa.Core.Models.NodeValueRank?)model.ValueRank,
-                AccessRestrictions = (OpcUa.Core.Models.NodeAccessRestrictions?)model.AccessRestrictions,
+                ValueRank = (Core.Models.NodeValueRank?)model.ValueRank,
+                AccessRestrictions = (Core.Models.NodeAccessRestrictions?)model.AccessRestrictions,
                 ArrayDimensions = model.ArrayDimensions,
                 ContainsNoLoops = model.ContainsNoLoops,
                 DataTypeDefinition = model.DataTypeDefinition,
@@ -756,7 +756,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
                 ServerTimestamp = model.ServerTimestamp,
                 MinimumSamplingInterval = model.MinimumSamplingInterval,
                 Symmetric = model.Symmetric,
-                UserAccessLevel = (OpcUa.Core.Models.NodeAccessLevel?)model.UserAccessLevel,
+                UserAccessLevel = (Core.Models.NodeAccessLevel?)model.UserAccessLevel,
                 UserExecutable = model.UserExecutable,
                 UserWriteMask = model.UserWriteMask,
                 WriteMask = model.WriteMask,
@@ -813,7 +813,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new NodeReferenceApiModel {
                 ReferenceTypeId = model.ReferenceTypeId,
-                Direction = (Core.Models.BrowseDirection?)model.Direction,
+                Direction = (Core.Api.Models.BrowseDirection?)model.Direction,
                 Target = model.Target.ToApiModel()
             };
         }
@@ -829,7 +829,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new NodeReferenceModel {
                 ReferenceTypeId = model.ReferenceTypeId,
-                Direction = (OpcUa.Core.Models.BrowseDirection?)model.Direction,
+                Direction = (Core.Models.BrowseDirection?)model.Direction,
                 Target = model.Target.ToServiceModel()
             };
         }
@@ -943,7 +943,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new RolePermissionApiModel {
                 RoleId = model.RoleId,
-                Permissions = (Core.Models.RolePermissions?)model.Permissions
+                Permissions = (Core.Api.Models.RolePermissions?)model.Permissions
             };
         }
 
@@ -958,7 +958,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models {
             }
             return new RolePermissionModel {
                 RoleId = model.RoleId,
-                Permissions = (OpcUa.Core.Models.RolePermissions?)model.Permissions
+                Permissions = (Core.Models.RolePermissions?)model.Permissions
             };
         }
 

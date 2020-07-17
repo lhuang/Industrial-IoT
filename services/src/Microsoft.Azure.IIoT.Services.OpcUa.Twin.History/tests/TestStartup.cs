@@ -3,14 +3,14 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.History {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.History.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
-    using Microsoft.Azure.IIoT.Hub.Client;
+namespace Microsoft.Azure.IIoT.Platform.History.Service {
+    using Microsoft.Azure.IIoT.Platform.History.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
     using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Hosting;

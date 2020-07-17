@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Hub.Mock {
+namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock {
     using Microsoft.Azure.IIoT.Azure.IoTHub.Mock.SqlParser;
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Azure.Devices.Shared;
     using Microsoft.Azure.IIoT.Exceptions;
-    using Microsoft.Azure.IIoT.Hub.Client;
+    using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Messaging;
@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.Hub.Mock {
     /// <summary>
     /// Mock device registry
     /// </summary>
-    public class IoTHubServices : IIoTHubTwinServices,
+    public class IoTHubServices : IDeviceTwinServices,
         IIoTHub, IEventProcessingHost, IHostProcess {
 
         /// <inheritdoc/>

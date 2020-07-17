@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Services {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Core;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Opc.Ua;
     using Opc.Ua.Extensions;
     using Opc.Ua.PubSub;
@@ -43,7 +43,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
         public IEnumerable<NetworkMessageModel> EncodeBatch(string writerGroupId,
             IEnumerable<DataSetWriterMessageModel> messages,
             string headerLayoutUri, NetworkMessageContentMask? contentMask,
-            OpcUa.Publisher.Models.DataSetOrderingType? order, int maxMessageSize) {
+            Platform.Publisher.Models.DataSetOrderingType? order, int maxMessageSize) {
 
             // by design all messages are generated in the same session context,
             // therefore it is safe to get the first message's context
@@ -108,7 +108,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
         public IEnumerable<NetworkMessageModel> Encode(string writerGroupId,
             IEnumerable<DataSetWriterMessageModel> messages,
             string headerLayoutUri, NetworkMessageContentMask? contentMask,
-            OpcUa.Publisher.Models.DataSetOrderingType? order, int maxMessageSize) {
+            Platform.Publisher.Models.DataSetOrderingType? order, int maxMessageSize) {
 
             // by design all messages are generated in the same session context,
             // therefore it is safe to get the first message's context

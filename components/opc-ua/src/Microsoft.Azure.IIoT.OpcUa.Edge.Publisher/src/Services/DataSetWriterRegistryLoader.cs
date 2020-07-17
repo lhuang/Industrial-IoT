@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Services {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge;
+    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Utils;
     using System;
     using System.Collections.Generic;

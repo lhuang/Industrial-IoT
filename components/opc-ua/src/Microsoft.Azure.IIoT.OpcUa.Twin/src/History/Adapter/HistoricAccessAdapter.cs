@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.History.Clients {
-    using Microsoft.Azure.IIoT.OpcUa.History.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
+namespace Microsoft.Azure.IIoT.Platform.History.Clients {
+    using Microsoft.Azure.IIoT.Platform.History.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using System;
     using System.Threading.Tasks;
 

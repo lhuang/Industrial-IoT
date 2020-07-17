@@ -3,15 +3,15 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
+namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
+    using Microsoft.Azure.IIoT.Platform.Edge;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Exceptions;
-    using Microsoft.Azure.IIoT.Module;
-    using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
-    using Microsoft.Azure.IIoT.Module.Framework.Services;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
     using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Hosting;
     using Autofac;
     using Serilog;
     using System;
@@ -19,6 +19,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Edge.Supervisor.Services {
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Azure.IIoT.Messaging;
 
     /// <summary>
     /// Supervisor services allowing edge activating and managing entity twin instances

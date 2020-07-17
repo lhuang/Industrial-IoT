@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
-    using Microsoft.Azure.IIoT.Module.Framework.Client;
-    using Microsoft.Azure.IIoT.Crypto;
-    using Microsoft.Azure.IIoT.Module;
+namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting {
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Cryptography;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Storage;
     using Microsoft.Azure.IIoT.Utils;

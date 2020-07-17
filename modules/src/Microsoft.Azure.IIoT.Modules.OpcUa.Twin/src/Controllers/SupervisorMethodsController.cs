@@ -3,20 +3,21 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Controllers {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Filters;
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Models;
-    using Microsoft.Azure.IIoT.Module;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.History;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Filters;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Twin;
+    using Microsoft.Azure.IIoT.Platform.History.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.History;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Rpc;
     using System;
     using System.Threading.Tasks;
 

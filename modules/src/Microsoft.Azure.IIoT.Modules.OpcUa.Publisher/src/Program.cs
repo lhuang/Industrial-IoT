@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Runtime;
     using Microsoft.Extensions.Configuration;
     using System;
     using System.IO;

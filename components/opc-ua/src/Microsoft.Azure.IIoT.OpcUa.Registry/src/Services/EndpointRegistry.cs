@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Services {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
@@ -38,7 +38,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="serializer"></param>
         /// <param name="gateways"></param>
         /// <param name="events"></param>
-        public EndpointRegistry(IIoTHubTwinServices iothub, IJsonSerializer serializer,
+        public EndpointRegistry(IDeviceTwinServices iothub, IJsonSerializer serializer,
             IGatewayRegistry gateways, IRegistryEventBroker<IEndpointRegistryListener> broker,
             IActivationServices<EndpointRegistrationModel> activator,
             ICertificateServices<EndpointRegistrationModel> certificates,
@@ -900,7 +900,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         private readonly IGatewayRegistry _gateways;
         private readonly IJsonSerializer _serializer;
         private readonly Action _unregister;
-        private readonly IIoTHubTwinServices _iothub;
+        private readonly IDeviceTwinServices _iothub;
         private readonly ILogger _logger;
     }
 }

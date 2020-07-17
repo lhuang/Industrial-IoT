@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service {
     using Microsoft.Azure.IIoT.Diagnostics;
 
     /// <summary>

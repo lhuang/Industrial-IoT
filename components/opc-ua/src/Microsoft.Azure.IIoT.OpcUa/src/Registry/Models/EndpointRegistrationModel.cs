@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Models {
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Models {
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using System.Collections.Generic;
 
     /// <summary>

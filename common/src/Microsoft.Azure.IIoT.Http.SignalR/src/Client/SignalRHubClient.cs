@@ -6,7 +6,7 @@
 namespace Microsoft.Azure.IIoT.Http.SignalR {
     using Microsoft.Azure.IIoT.Http.SignalR.Services;
     using Microsoft.Azure.IIoT.Messaging.SignalR;
-    using Microsoft.Azure.IIoT.Messaging;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Auth;
     using Serilog;

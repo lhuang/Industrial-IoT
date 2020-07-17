@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Twin {
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Models;
+namespace Microsoft.Azure.IIoT.Platform.Twin {
+    using Microsoft.Azure.IIoT.Platform.Twin.Models;
     using Microsoft.Azure.IIoT.Utils;
     using System;
     using System.Threading.Tasks;

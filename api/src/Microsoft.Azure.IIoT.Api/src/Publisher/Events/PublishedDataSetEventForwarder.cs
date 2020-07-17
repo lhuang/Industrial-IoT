@@ -3,10 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Events.v2.Models;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Events.v2.Models;
     using Microsoft.Azure.IIoT.Messaging;
+    using Microsoft.Azure.IIoT.Rpc;
     using System.Threading.Tasks;
     using System;
 

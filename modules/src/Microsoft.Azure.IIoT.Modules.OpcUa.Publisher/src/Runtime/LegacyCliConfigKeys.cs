@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Runtime {
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Runtime {
     using Microsoft.Azure.IIoT.Hub.Module.Client.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Runtime;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Runtime;
 
     /// <summary>
     /// Static class that contains the default keys for the legacy command line arguments how they will be represented in

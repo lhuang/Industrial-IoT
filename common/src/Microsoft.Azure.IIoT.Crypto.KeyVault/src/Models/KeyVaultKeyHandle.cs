@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Crypto.KeyVault.Models {
-    using Microsoft.Azure.IIoT.Crypto.Models;
+namespace Microsoft.Azure.IIoT.Azure.KeyVault.Models {
+    using Microsoft.Azure.IIoT.Cryptography.Models;
     using Microsoft.Azure.KeyVault.Models;
     using System;
     using System.Runtime.Serialization;

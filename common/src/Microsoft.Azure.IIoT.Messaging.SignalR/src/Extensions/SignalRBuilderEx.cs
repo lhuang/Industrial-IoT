@@ -5,7 +5,7 @@
 
 namespace Microsoft.Extensions.DependencyInjection {
     using Microsoft.AspNetCore.SignalR;
-    using Microsoft.Azure.IIoT.Messaging.SignalR;
+    using Microsoft.Azure.IIoT.Azure.SignalR;
     using Microsoft.Azure.SignalR;
     using System.Linq;
     using System.Security.Claims;

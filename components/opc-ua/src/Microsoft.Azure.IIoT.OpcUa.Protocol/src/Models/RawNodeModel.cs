@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Models {
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Models {
     using Opc.Ua.Models;
     using Opc.Ua.Client;
     using Opc.Ua;

@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;

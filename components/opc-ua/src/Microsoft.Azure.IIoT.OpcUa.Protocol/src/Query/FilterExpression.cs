@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Parser {
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Parser {
     using Antlr4.Runtime;
     using System;
     using Opc.Ua;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using System.Linq;
     using System.Collections.Generic;
     using Antlr4.Runtime.Tree;

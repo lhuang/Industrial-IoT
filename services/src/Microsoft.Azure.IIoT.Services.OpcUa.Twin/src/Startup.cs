@@ -3,27 +3,25 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.Runtime;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.Auth;
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Deploy;
-    using Microsoft.Azure.IIoT.OpcUa.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service {
+    using Microsoft.Azure.IIoT.Platform.Twin.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Twin.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Twin.Deploy;
+    using Microsoft.Azure.IIoT.Platform.Twin.Clients;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics.Runtime;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Auth;
+    using Microsoft.Azure.IIoT.Http.Default;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Rpc.Default;
+    using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
-    using Microsoft.Azure.IIoT.Auth;
-    using Microsoft.Azure.IIoT.Diagnostics.Runtime;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
-    using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Module.Default;
-    using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -118,8 +116,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
 
@@ -176,37 +173,24 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
 
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
 
-            // Iot hub services
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubTwinMethodClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ChunkMethodClient>()
-                .AsImplementedInterfaces();
+            // --- Logic ---
 
             // Edge clients
             builder.RegisterType<TwinModuleControlClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<TwinModuleSupervisorClient>()
+                .AsImplementedInterfaces();
+            builder.RegisterType<ChunkMethodClient>()
                 .AsImplementedInterfaces();
 
             // Publish services publisher adapter
@@ -218,10 +202,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
                 .AsImplementedInterfaces().SingleInstance();
 
             // Edge deployment
-            builder.RegisterType<IoTHubConfigurationClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<LogAnalyticsConfig>()
-                .AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<IoTHubSupervisorDeployment>()
                 .AsImplementedInterfaces().SingleInstance();
 
@@ -229,6 +209,17 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
             builder.RegisterType<HostAutoStart>()
                 .AutoActivate()
                 .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // Add diagnostics
+            builder.AddDiagnostics(Config);
+            builder.RegisterType<LogAnalyticsConfig>()
+                .AsImplementedInterfaces().SingleInstance();
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
+            // Iot hub services
+            builder.RegisterModule<IoTHubModule>();
         }
     }
 }

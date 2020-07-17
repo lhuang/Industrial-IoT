@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Parser {
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Parser {
     public class FilterExpressionTests {
 #if FALSE
         [Fact]

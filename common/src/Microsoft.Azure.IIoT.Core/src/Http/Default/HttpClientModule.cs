@@ -4,6 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Http.Default {
+    using Microsoft.Azure.IIoT.Http.Ssl;
     using Autofac;
 
     /// <summary>
@@ -27,6 +28,11 @@ namespace Microsoft.Azure.IIoT.Http.Default {
             builder.RegisterType<HttpClientFactory>().SingleInstance()
                 .AsImplementedInterfaces()
                 .IfNotRegistered(typeof(System.Net.Http.IHttpClientFactory));
+
+#if DEBUG
+            builder.RegisterType<NoOpCertValidator>()
+                .AsImplementedInterfaces();
+#endif
 
             base.Load(builder);
         }

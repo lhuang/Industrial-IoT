@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Subscriber {
-    using Microsoft.Azure.IIoT.OpcUa.Subscriber.Models;
+namespace Microsoft.Azure.IIoT.Platform.Subscriber {
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Models;
     using System.Threading.Tasks;
 
     /// <summary>

@@ -6,7 +6,6 @@
 namespace Microsoft.Azure.IIoT.Storage {
     using Microsoft.Azure.IIoT.Exceptions;
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 

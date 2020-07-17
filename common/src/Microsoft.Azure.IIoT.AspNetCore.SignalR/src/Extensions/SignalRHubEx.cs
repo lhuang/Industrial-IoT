@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Extensions.DependencyInjection {
-    using Microsoft.Azure.IIoT.Messaging;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Routing;
     using Microsoft.AspNetCore.SignalR;

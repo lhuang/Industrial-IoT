@@ -3,19 +3,19 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Publisher.Standalone {
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Standalone.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Publisher.Standalone {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Publisher.Standalone.Runtime;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Publisher.Models;
     using Microsoft.Azure.IIoT.Agent.Framework;
     using Microsoft.Azure.IIoT.Agent.Framework.Agent;
     using Microsoft.Azure.IIoT.Agent.Framework.Models;
     using Microsoft.Azure.IIoT.Module.Framework.Client;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Engine;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Triggering;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Testing;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Edge.Publisher;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Edge.Publisher.Engine;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Edge.Publisher.Triggering;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Protocol.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
     using Microsoft.Extensions.Configuration;
     using Autofac;
     using Newtonsoft.Json;

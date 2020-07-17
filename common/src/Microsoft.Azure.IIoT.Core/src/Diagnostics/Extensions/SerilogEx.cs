@@ -65,6 +65,30 @@ namespace Serilog {
                 .MinimumLevel.ControlledBy(LogControl.Level);
         }
 
+        /// <summary>
+        /// Create trace logger
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="addConsole"></param>
+        /// <returns></returns>
+        public static LoggerConfiguration Trace(this LoggerConfiguration configuration,
+            bool addConsole = true) {
+            return configuration.Configure((c, m) => c
+                .WriteTo.Trace(outputTemplate: m), addConsole);
+        }
+
+        /// <summary>
+        /// Create trace logger
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="addConsole"></param>
+        /// <returns></returns>
+        public static LoggerConfiguration Debug(this LoggerConfiguration configuration,
+            bool addConsole = true) {
+            return configuration.Configure((c, m) => c
+                .WriteTo.Debug(outputTemplate: m), addConsole);
+        }
+
         private const string kDefaultTemplate =
             "[{Timestamp:HH:mm:ss} {Level:u3} {SourceContext:lj}] {Message:lj} {NewLine}{Exception}";
     }

@@ -3,26 +3,27 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
-    using Microsoft.Azure.IIoT.Services.Processor.Onboarding.Runtime;
-    using Microsoft.Azure.IIoT.AspNetCore.Diagnostics.Default;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Handlers;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Discovery.Service {
+    using Microsoft.Azure.IIoT.Platform.Discovery.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Discovery.Services;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Clients;
+    using Microsoft.Azure.IIoT.Platform.Discovery.Deploy;
+    using Microsoft.Azure.IIoT.Platform.Discovery.Handlers;
+    using Microsoft.Azure.IIoT.Platform.Registry.Services;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Clients;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Handlers;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.ServiceBus;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Processor.EventHub;
-    using Microsoft.Azure.IIoT.Hub.Processor.Services;
     using Microsoft.Azure.IIoT.Hub.Services;
-    using Microsoft.Azure.IIoT.Messaging.Default;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Clients;
-    using Microsoft.Azure.IIoT.Messaging.ServiceBus.Services;
-    using Microsoft.Azure.IIoT.Module.Default;
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Tasks.Default;
+    using Microsoft.Azure.IIoT.AspNetCore.Diagnostics.Default;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -93,80 +94,57 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Onboarding {
 
             // Add Application Insights dependency tracking.
             builder.AddDependencyTracking(config, serviceInfo);
-
             // Add diagnostics
             builder.AddDiagnostics(config);
-
-            // Register http client module
-            builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
-            // Add serializers
-            builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // and build on Iot hub services
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubTwinMethodClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ChunkMethodClient>()
-                .AsImplementedInterfaces();
-
-            // Event processor services for onboarding consumer
-            builder.RegisterType<EventProcessorHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EventProcessorFactory>()
-                .AsImplementedInterfaces();
-
-            // Prometheus metric server
             builder.RegisterType<MetricServerHost>()
                 .AsImplementedInterfaces().SingleInstance();
 
-            // Handle device events
-            builder.RegisterType<IoTHubDeviceEventHandler>()
-                .AsImplementedInterfaces();
+            // Register http client module
+            builder.RegisterModule<HttpClientModule>();
+            // Add serializers
+            builder.RegisterModule<NewtonSoftJsonModule>();
 
-            // Including discovery events
+            // --- Logic ---
+
+            // Handle discovery events and process them
             builder.RegisterType<DiscoveryEventHandler>()
                 .AsImplementedInterfaces();
-
-            // Processor for discovery events plus ...
             builder.RegisterType<DiscoveryProcessor>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<TaskProcessor>()
-                .AsImplementedInterfaces().SingleInstance();
 
-            // the dependent registries and repositories
+            // Use registry services directly
             builder.RegisterModule<RegistryServices>();
-
-#if !USE_APP_DB // TODO: Decide whether when to switch
             builder.RegisterType<ApplicationTwins>()
                 .AsImplementedInterfaces().SingleInstance();
-#else
-            // Cosmos db collection as storage
-            builder.RegisterType<ItemContainerFactory>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<CosmosDbServiceClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ApplicationDatabase>()
-                .AsImplementedInterfaces().SingleInstance();
-#endif
-            // which need additional registry services
             builder.RegisterType<TwinModuleCertificateClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<TwinModuleActivationClient>()
                 .AsImplementedInterfaces();
             builder.RegisterType<OnboardingClient>()
                 .AsImplementedInterfaces();
-
-            // Register event bus for event publishing
-            builder.RegisterType<EventBusHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<ServiceBusClientFactory>()
+            builder.RegisterType<ChunkMethodClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<ServiceBusEventBus>()
+
+            // Deployments
+            builder.RegisterType<IoTHubConfigurationClient>()
+                .AsImplementedInterfaces();
+            builder.RegisterType<IoTEdgeBaseDeployment>()
                 .AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<IoTEdgeDiscovererDeployment>()
+                .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // IoT Hub and device events
+            builder.RegisterType<LogAnalyticsConfig>()
+                .AsImplementedInterfaces().SingleInstance();
+            builder.RegisterModule<IoTHubModule>();
+            builder.RegisterType<IoTHubDeviceEventHandler>()
+                .AsImplementedInterfaces();
+            // Event processor host
+            builder.RegisterModule<EventHubProcessorModule>();
+            // Register event bus for integration events
+            builder.RegisterModule<ServiceBusModule>();
 
             return builder;
         }

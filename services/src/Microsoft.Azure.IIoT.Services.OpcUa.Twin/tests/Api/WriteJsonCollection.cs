@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Api {
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service.Api {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
     using Xunit;
 
     [CollectionDefinition(Name)]

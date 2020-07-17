@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault {
+namespace Microsoft.Azure.IIoT.Platform.Vault {
 
     /// <summary>
     /// Vault configuration

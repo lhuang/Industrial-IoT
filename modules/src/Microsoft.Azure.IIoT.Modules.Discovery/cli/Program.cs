@@ -3,15 +3,16 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.Discovery.Cli {
-    using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Hub.Client;
+namespace Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module.Cli {
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Clients;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics.Runtime;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Diagnostics.Runtime;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Extensions.Configuration;
@@ -21,7 +22,6 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Cli {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Net;
     using System.Diagnostics.Tracing;
     using System.Collections.Generic;
 
@@ -93,7 +93,7 @@ namespace Microsoft.Azure.IIoT.Modules.Discovery.Cli {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(
                     @"
-Usage:       Microsoft.Azure.IIoT.Modules.Discovery.Cli [options]
+Usage:       Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module.Cli [options]
 
 Options:
      -C
@@ -136,7 +136,7 @@ Options:
                 var arguments = new List<string> {
                     $"EdgeHubConnectionString={cs}"
                 };
-            	Discovery.Program.Main(arguments.ToArray());
+                Module.Program.Main(arguments.ToArray());
             	Console.WriteLine("Discovery module exited.");
             }
         }

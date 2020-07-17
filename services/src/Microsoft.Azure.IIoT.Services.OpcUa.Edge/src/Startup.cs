@@ -3,19 +3,17 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service {
+    using Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Storage;
     using Microsoft.Azure.IIoT.AspNetCore.Cors;
     using Microsoft.Azure.IIoT.AspNetCore.Correlation;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Services;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.AspNetCore.Authentication;
@@ -25,7 +23,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge {
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.OpenApi.Models;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -109,8 +106,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge {
             services.AddSwagger(ServiceInfo.Name, ServiceInfo.Description);
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
         /// <summary>
@@ -170,20 +166,18 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge {
 
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
-
+            // Protected cache
+            builder.RegisterType<DistributedProtectedCache>()
+                .AsImplementedInterfaces();
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
+
+            // --- Logic ---
 
             // Publisher API
             builder.RegisterType<PublishServicesApiAdapter>()
@@ -193,16 +187,17 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge {
 
             // ... other API proxy ...
 
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubSasTokenValidator>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<DistributedProtectedCache>()
-                .AsImplementedInterfaces();
-
             // Activate all hosts
             builder.RegisterType<HostAutoStart>()
                 .AutoActivate()
                 .AsImplementedInterfaces().SingleInstance();
+
+            // --- Dependencies ---
+
+            // Iot hub
+            builder.RegisterModule<IoTHubModule>();
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
         }
     }
 }

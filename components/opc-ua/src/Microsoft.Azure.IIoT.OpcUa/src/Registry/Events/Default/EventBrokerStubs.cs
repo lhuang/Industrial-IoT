@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Default;
+namespace Microsoft.Azure.IIoT.Platform.Registry {
+    using Microsoft.Azure.IIoT.Platform.Registry.Default;
     using Autofac;
 
     /// <summary>

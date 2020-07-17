@@ -3,13 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Controllers {
-    using Microsoft.Azure.IIoT.Module.Framework;
-    using Microsoft.Azure.IIoT.OpcUa.Edge;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
     using Serilog;
     using Serilog.Events;
     using System;

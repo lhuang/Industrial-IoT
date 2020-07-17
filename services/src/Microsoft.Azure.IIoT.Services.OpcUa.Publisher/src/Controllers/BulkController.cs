@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Controllers {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Filters;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Service.Filters;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;

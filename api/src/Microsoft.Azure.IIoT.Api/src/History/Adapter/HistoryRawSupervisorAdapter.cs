@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.History {
-    using Microsoft.Azure.IIoT.OpcUa.Api.History.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.History.Models;
-    using Microsoft.Azure.IIoT.OpcUa.History;
+namespace Microsoft.Azure.IIoT.Platform.History.Api {
+    using Microsoft.Azure.IIoT.Platform.History.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.History.Models;
+    using Microsoft.Azure.IIoT.Platform.History;
     using Microsoft.Azure.IIoT.Serializers;
     using System;
     using System.Threading.Tasks;

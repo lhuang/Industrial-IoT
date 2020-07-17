@@ -17,7 +17,7 @@ namespace Microsoft.Azure.Devices.Common.Exceptions {
         /// <summary>
         /// Translate exception
         /// </summary>
-        public static Exception Rethrow(this Exception ex) {
+        public static Exception Translate(this Exception ex) {
             switch (ex) {
                 case ModuleNotFoundException mex:
                     return new ResourceNotFoundException(mex.Message, mex);
@@ -34,15 +34,19 @@ namespace Microsoft.Azure.Devices.Common.Exceptions {
                 case UnauthorizedException ue:
                     return new UnauthorizedAccessException(ue.Message, ue);
                 case MessageTooLargeException mtl:
-                    return new IIoT.Exceptions.MessageSizeLimitException(mtl.Message);
+                    return new MessageSizeLimitException(mtl.Message);
                 case DeviceMessageLockLostException mtl:
                     return new BadRequestException(mtl.Message, mtl);
                 case TooManyModulesOnDeviceException tmd:
                     return new BadRequestException(tmd.Message, tmd);
                 case PreconditionFailedException pf:
                     return new ResourceOutOfDateException(pf.Message, pf);
+                case JobQuotaExceededException qe:
+                    return new ResourceInvalidStateException(qe.Message, qe);
+                case QuotaExceededException qe:
+                    return new ResourceInvalidStateException(qe.Message, qe);
                 case ServerErrorException se:
-                    return new HttpTransientException(HttpStatusCode.InternalServerError, se.Message);
+                    return new ResourceInvalidStateException(se.Message, se);
                 case ServerBusyException sb:
                     return new HttpTransientException(HttpStatusCode.ServiceUnavailable, sb.Message);
                 case IotHubThrottledException te:

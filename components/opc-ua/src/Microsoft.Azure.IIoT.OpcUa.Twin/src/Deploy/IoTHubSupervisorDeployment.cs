@@ -3,13 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Twin.Deploy {
+namespace Microsoft.Azure.IIoT.Platform.Twin.Deploy {
     using Microsoft.Azure.IIoT.Deploy;
-    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
     using Microsoft.Azure.IIoT.Hub.Services;
     using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
     using Serilog;
     using System;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Twin.Deploy {
         /// <param name="diagnostics"></param>
         /// <param name="serializer"></param>
         /// <param name="logger"></param>
-        public IoTHubSupervisorDeployment(IIoTHubConfigurationServices service,
+        public IoTHubSupervisorDeployment(IDeviceDeploymentServices service,
             IContainerRegistryConfig config, ILogAnalyticsConfig diagnostics,
             IJsonSerializer serializer, ILogger logger) {
             _serializer = serializer ?? throw new ArgumentNullException(nameof(serializer));
@@ -46,7 +46,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Twin.Deploy {
                     ModulesContent = CreateLayeredDeployment()
                 },
                 SchemaVersion = kDefaultSchemaVersion,
-                TargetCondition = IoTHubEdgeBaseDeployment.TargetCondition,
+                TargetCondition = IoTEdgeBaseDeployment.TargetCondition,
                 Priority = 1
             }, true);
         }
@@ -115,7 +115,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Twin.Deploy {
         }
 
         private const string kDefaultSchemaVersion = "1.0";
-        private readonly IIoTHubConfigurationServices _service;
+        private readonly IDeviceDeploymentServices _service;
         private readonly IContainerRegistryConfig _config;
         private readonly ILogAnalyticsConfig _diagnostics;
         private readonly IJsonSerializer _serializer;

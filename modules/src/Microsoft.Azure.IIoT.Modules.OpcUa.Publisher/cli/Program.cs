@@ -3,19 +3,20 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Cli {
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Sample;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.Diagnostics.Runtime;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Cli {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Sample;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Utils;
-    using Microsoft.Azure.IIoT.Http.Default;
     using Microsoft.Azure.IIoT.Hub;
-    using Microsoft.Azure.IIoT.Hub.Client;
     using Microsoft.Azure.IIoT.Hub.Models;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Clients;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
@@ -27,7 +28,6 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Cli {
     using System.Collections.Generic;
     using System.Diagnostics.Tracing;
     using System.Linq;
-    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
     using System.IO;
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Cli {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(
                     @"
-Usage:       Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Cli [options]
+Usage:       Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Cli [options]
 
 Options:
      -C
@@ -197,7 +197,7 @@ Options:
                 if (acceptAll) {
                     arguments.Add("--aa");
                 }
-                Publisher.Program.Main(arguments.ToArray());
+                Module.Program.Main(arguments.ToArray());
                 Console.WriteLine("Publisher module exited.");
             }
         }

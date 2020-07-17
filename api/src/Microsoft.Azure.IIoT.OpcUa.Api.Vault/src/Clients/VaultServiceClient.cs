@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Vault.Clients {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Api.Clients {
+    using Microsoft.Azure.IIoT.Platform.Vault.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Api.Models;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;

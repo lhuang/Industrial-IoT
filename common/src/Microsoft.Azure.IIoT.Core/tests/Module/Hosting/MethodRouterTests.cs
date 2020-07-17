@@ -3,14 +3,14 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
+namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hub.Models;
-    using Microsoft.Azure.IIoT.Module.Default;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.Devices.Client;
     using Serilog;
     using System;
@@ -30,7 +30,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         public async Task TestTest1Invocation() {
             var harness = new ModuleHostHarness();
             await harness.RunTestAsync(GetControllers(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var buffer = new byte[1049];
                 kRand.NextBytes(buffer);
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         public async Task TestTest2Invocation() {
             var harness = new ModuleHostHarness();
             await harness.RunTestAsync(GetControllers(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var buffer = new byte[1049];
                 kRand.NextBytes(buffer);
@@ -71,7 +71,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         public async Task TestTest3Invocation() {
             var harness = new ModuleHostHarness();
             await harness.RunTestAsync(GetControllers(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var buffer = new byte[1049];
                 kRand.NextBytes(buffer);
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         public async Task TestTest3InvocationV2() {
             var harness = new ModuleHostHarness();
             await harness.RunTestAsync(GetControllers(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var buffer = new byte[1049];
                 kRand.NextBytes(buffer);
@@ -118,7 +118,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         public async Task TestTestNoParametersInvocationNoParam() {
             var harness = new ModuleHostHarness();
             await harness.RunTestAsync(GetControllers(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var response = await hub.CallMethodAsync(device, module, new MethodParameterModel {
                     Name = "TestNoParameters_V1",
@@ -135,7 +135,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
         public async Task TestTestNoReturnInvocationNoReturn() {
             var harness = new ModuleHostHarness();
             await harness.RunTestAsync(GetControllers(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var response = await hub.CallMethodAsync(device, module, new MethodParameterModel {
                     Name = "TestNoReturn_V1",
@@ -152,7 +152,7 @@ namespace Microsoft.Azure.IIoT.Module.Framework.Hosting {
             var harness = new ModuleHostHarness();
             var controller = new TestControllerV1();
             await harness.RunTestAsync(controller.YieldReturn(), async (device, module, services) => {
-                var hub = services.Resolve<IIoTHubTwinServices>();
+                var hub = services.Resolve<IDeviceTwinServices>();
 
                 var response = await hub.CallMethodAsync(device, module, new MethodParameterModel {
                     Name = "TestNoParametersAndNoReturn_V1",

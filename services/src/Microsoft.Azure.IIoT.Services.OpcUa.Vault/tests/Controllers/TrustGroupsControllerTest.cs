@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Controllers {
-    using Microsoft.Azure.IIoT.OpcUa.Vault;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Vault;
+    using Microsoft.Azure.IIoT.Platform.Vault.Models;
     using Moq;
     using Xunit;
     using System.Threading;

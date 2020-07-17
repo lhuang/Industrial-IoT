@@ -3,9 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.Discovery.Controllers {
+namespace Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module.Controllers {
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Azure.LogAnalytics;
     using Serilog;
     using Serilog.Events;
     using System;

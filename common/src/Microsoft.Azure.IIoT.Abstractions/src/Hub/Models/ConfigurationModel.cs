@@ -6,7 +6,6 @@
 namespace Microsoft.Azure.IIoT.Hub.Models {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// Configuration

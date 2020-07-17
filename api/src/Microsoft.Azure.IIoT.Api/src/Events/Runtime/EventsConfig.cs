@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Api.Events.Runtime {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Events;
+namespace Microsoft.Azure.IIoT.Platform.Events.Api.Runtime {
+    using Microsoft.Azure.IIoT.Platform.Events.Api;
     using Microsoft.Azure.IIoT.Api.Runtime;
     using Microsoft.Azure.IIoT.Messaging.SignalR;
     using Microsoft.Extensions.Configuration;

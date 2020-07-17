@@ -3,23 +3,19 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Gateway.Server;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Transport;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Clients;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Ua.Service {
+    using Microsoft.Azure.IIoT.Platform.Twin.Ua.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Twin.Ua.Server;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Transport;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Clients;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Clients;
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.Auth.Clients;
     using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Auth.Server.Default;
-    using Microsoft.Azure.IIoT.Diagnostics.AppInsights.Default;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Module.Default;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -27,7 +23,6 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway {
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Microsoft.ApplicationInsights.Extensibility;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Prometheus;
@@ -109,8 +104,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway {
             services.AddControllers();
 
             // Enable Application Insights telemetry collection.
-            services.AddApplicationInsightsTelemetry(Config.InstrumentationKey);
-            services.AddSingleton<ITelemetryInitializer, ApplicationInsightsTelemetryInitializer>();
+            services.AddAppInsightsTelemetry();
         }
 
         /// <summary>
@@ -169,36 +163,11 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway {
 
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
-
-            builder.RegisterType<JwtTokenValidator>()
-                .AsImplementedInterfaces();
-
-            // Iot hub services
-            builder.RegisterModule<IoTHubModule>();
-            builder.RegisterType<IoTHubTwinMethodClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<ChunkMethodClient>()
-                .AsImplementedInterfaces();
-
-            // Register registry micro service adapter
-            builder.RegisterType<RegistryServiceClient>()
-                .AsImplementedInterfaces();
-            builder.RegisterType<RegistryServicesApiAdapter>()
-                .AsImplementedInterfaces();
-
-            // Todo: use twin micro service adapter
-            builder.RegisterType<TwinModuleControlClient>()
-                .AsImplementedInterfaces();
+            // --- Logic ---
 
             // Auto start listeners
             builder.RegisterType<TcpChannelListener>()
@@ -216,12 +185,31 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin.Gateway {
 
             builder.RegisterType<GatewayServer>()
                 .AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<JwtTokenValidator>()
+                .AsImplementedInterfaces();
             builder.RegisterType<SessionServices>()
                 .AsImplementedInterfaces();
             builder.RegisterType<MessageSerializer>()
                 .AsImplementedInterfaces();
             builder.RegisterType<VariantEncoderFactory>()
                 .AsImplementedInterfaces();
+
+            // Register registry micro service adapter
+            builder.RegisterType<RegistryServiceClient>()
+                .AsImplementedInterfaces();
+            builder.RegisterType<RegistryServicesApiAdapter>()
+                .AsImplementedInterfaces();
+
+            // Register twin micro service adapter
+            builder.RegisterType<TwinServiceClient>()
+                .AsImplementedInterfaces();
+            builder.RegisterType<TwinServicesApiAdapter>()
+                .AsImplementedInterfaces();
+
+            // --- Dependencies ---
+
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
         }
     }
 }

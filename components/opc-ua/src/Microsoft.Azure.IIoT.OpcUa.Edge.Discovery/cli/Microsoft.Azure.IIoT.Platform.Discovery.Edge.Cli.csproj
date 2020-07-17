@@ -7,7 +7,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Testing\src\Microsoft.Azure.IIoT.OpcUa.Testing.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Testing\src\Microsoft.Azure.IIoT.Platform.OpcUa.Testing.csproj" />
     <ProjectReference Include="..\src\Microsoft.Azure.IIoT.Platform.Discovery,Edge.csproj" />
   </ItemGroup>
 </Project>

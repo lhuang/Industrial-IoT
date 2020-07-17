@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Vault.Controllers {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Vault.Auth;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Vault.Filters;
-    using Microsoft.Azure.IIoT.Services.OpcUa.Vault.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Vault;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Vault.Service.Auth;
+    using Microsoft.Azure.IIoT.Platform.Vault.Service.Filters;
+    using Microsoft.Azure.IIoT.Platform.Vault.Service.Models;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Vault;
     using Microsoft.Azure.IIoT.Http;
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi;
     using Microsoft.AspNetCore.Authorization;

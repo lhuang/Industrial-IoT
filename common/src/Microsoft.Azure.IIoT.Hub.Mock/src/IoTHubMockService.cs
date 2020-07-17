@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Hub.Mock {
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Services;
+namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock {
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Clients;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Module.Default;
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Autofac;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Handlers;
 
     /// <summary>
     /// Injected mock framework module

@@ -5,7 +5,6 @@
 
 namespace Microsoft.Azure.IIoT.Hub.Models {
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// List of device twins with continuation token

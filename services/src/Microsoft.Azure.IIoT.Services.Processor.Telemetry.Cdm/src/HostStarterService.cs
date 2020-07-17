@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.Processor.Telemetry.Cdm {
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service {
 
     using Microsoft.Azure.IIoT.Diagnostics;
-    using Microsoft.Azure.IIoT.Services.Processor.Telemetry.Cdm.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service.Runtime;
     using Microsoft.Extensions.Hosting;
     using System;
     using System.Collections.Generic;

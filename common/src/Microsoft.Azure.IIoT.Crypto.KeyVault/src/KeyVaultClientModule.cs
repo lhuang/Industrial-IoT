@@ -3,12 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Crypto.KeyVault.Clients {
-    using Microsoft.Azure.IIoT.Auth.Clients.Default;
+namespace Microsoft.Azure.IIoT.Azure.KeyVault.Clients {
     using Autofac;
 
     /// <summary>
-    /// Keyvault client and authentication support
+    /// Keyvault client support
     /// </summary>
     public class KeyVaultClientModule : Module {
 
@@ -18,7 +17,6 @@ namespace Microsoft.Azure.IIoT.Crypto.KeyVault.Clients {
                 .AsImplementedInterfaces();
             builder.RegisterType<KeyVaultServiceClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterModule<KeyVaultAuthentication>();
             base.Load(builder);
         }
     }

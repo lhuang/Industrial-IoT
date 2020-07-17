@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.Hub.Mock {
+namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock {
     using Microsoft.Azure.Devices.Client;
     using Microsoft.Azure.Devices.Shared;
 

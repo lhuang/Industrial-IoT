@@ -15,6 +15,6 @@
     <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Edge\src\Microsoft.Azure.IIoT.Platform.Core.Edge.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Microsoft.Azure.IIoT.OpcUa.Testing.csproj" />
+    <ProjectReference Include="..\src\Microsoft.Azure.IIoT.Platform.OpcUa.Testing.csproj" />
   </ItemGroup>
 </Project>

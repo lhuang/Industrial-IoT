@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT {
+namespace Microsoft.Azure.IIoT.Hosting {
 
     /// <summary>
     /// Allows a program to control the hosting

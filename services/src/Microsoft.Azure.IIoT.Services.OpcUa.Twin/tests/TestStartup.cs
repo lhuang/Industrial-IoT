@@ -3,14 +3,14 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Twin.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.Hub.Client;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Service {
+    using Microsoft.Azure.IIoT.Platform.Twin.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
     using Microsoft.Azure.IIoT.Auth;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Hub;
@@ -72,7 +72,7 @@ namespace Microsoft.Azure.IIoT.Services.OpcUa.Twin {
             public IEnumerable<IOAuthServerConfig> JwtBearerProviders { get; }
         }
 
-        public class TestIoTHubConfig : IIoTHubConfig, IIoTHubConfigurationServices {
+        public class TestIoTHubConfig : IIoTHubConfig, IDeviceDeploymentServices {
             public string IoTHubConnString =>
                 ConnectionString.CreateServiceConnectionString(
                     "test.test.org", "iothubowner", Convert.ToBase64String(

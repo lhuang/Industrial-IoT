@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Vault.Storage {
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Storage.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Vault.Models;
+namespace Microsoft.Azure.IIoT.Platform.Vault.Storage {
+    using Microsoft.Azure.IIoT.Platform.Vault.Storage.Models;
+    using Microsoft.Azure.IIoT.Platform.Vault.Models;
     using Microsoft.Azure.IIoT.Storage;
     using System;
     using System.Linq;

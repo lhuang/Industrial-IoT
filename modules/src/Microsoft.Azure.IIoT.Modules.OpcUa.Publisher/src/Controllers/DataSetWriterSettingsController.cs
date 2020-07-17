@@ -3,11 +3,11 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Controllers {
-    using Microsoft.Azure.IIoT.OpcUa.Edge.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge;
+    using Microsoft.Azure.IIoT.Platform.Registry;
     using Microsoft.Azure.IIoT.Serializers;
-    using Microsoft.Azure.IIoT.Module;
+    using Microsoft.Azure.IIoT.Hosting;
     using Serilog;
     using System;
     using System.Collections.Generic;

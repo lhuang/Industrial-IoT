@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.Processor.Telemetry.Runtime {
+namespace Microsoft.Azure.IIoT.Platform.Subscriber.Service.Runtime {
     using Microsoft.Azure.IIoT.Diagnostics;
 
     /// <summary>

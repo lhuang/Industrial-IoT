@@ -3,12 +3,12 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Supervisor {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Services;
+namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Supervisor {
+    using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Tests;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry.Services;
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Hub;
@@ -84,8 +84,8 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Supervisor {
 
                     // Setup
                     var publisherId = PublisherModelEx.CreatePublisherId(device, module);
-                    var activation = services.Resolve<IPublisherOrchestration>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var activation = services.Resolve<IWriterGroupOrchestration>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = new WriterGroupInfoModel {
                         WriterGroupId = "ua326029342304923",
                         SiteId = device
@@ -120,8 +120,8 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Supervisor {
 
                     // Setup
                     var publisherId = PublisherModelEx.CreatePublisherId(device, module);
-                    var activation = services.Resolve<IPublisherOrchestration>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var activation = services.Resolve<IWriterGroupOrchestration>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = new WriterGroupInfoModel {
                         WriterGroupId = "ua260293423049231",
                         SiteId = device
@@ -172,8 +172,8 @@ namespace Microsoft.Azure.IIoT.Modules.OpcUa.Publisher.Supervisor {
 
                     // Setup
                     var publisherId = PublisherModelEx.CreatePublisherId(device, module);
-                    var activation = services.Resolve<IPublisherOrchestration>();
-                    var hub = services.Resolve<IIoTHubTwinServices>();
+                    var activation = services.Resolve<IWriterGroupOrchestration>();
+                    var hub = services.Resolve<IDeviceTwinServices>();
                     var twin = new WriterGroupInfoModel {
                         WriterGroupId = "ua260293423049231",
                         SiteId = device

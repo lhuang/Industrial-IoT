@@ -4,27 +4,28 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Api.Runtime {
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History;
-    using Microsoft.Azure.IIoT.OpcUa.Api.History.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Registry.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Twin.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Vault.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Events.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Events;
-    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.History.Api;
+    using Microsoft.Azure.IIoT.Platform.History.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api;
+    using Microsoft.Azure.IIoT.Platform.Registry.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api;
+    using Microsoft.Azure.IIoT.Platform.Twin.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api;
+    using Microsoft.Azure.IIoT.Platform.Vault.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Events.Api.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Events.Api;
     using Microsoft.Azure.IIoT.Messaging.SignalR;
+    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
 
     /// <summary>
     /// Complete api configuration
     /// </summary>
-    public class ApiConfig : AppInsightsConfig, ITwinConfig, IRegistryConfig,
-        IVaultConfig, IHistoryConfig, IPublisherConfig, IEventsConfig, ISignalRClientConfig {
+    public class ApiConfig : ConfigBase, ITwinConfig, IRegistryConfig,
+        IVaultConfig, IHistoryConfig, IPublisherConfig, IEventsConfig,
+        ISignalRClientConfig {
 
         /// <inheritdoc/>
         public string OpcUaTwinServiceUrl => _twin.OpcUaTwinServiceUrl;

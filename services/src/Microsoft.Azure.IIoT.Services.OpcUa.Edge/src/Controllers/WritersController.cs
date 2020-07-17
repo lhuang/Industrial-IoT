@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge.Controllers {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Publisher.Edge.Filters;
-    using Microsoft.Azure.IIoT.OpcUa.Api.Publisher.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Publisher;
+namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.Controllers {
+    using Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.Filters;
+    using Microsoft.Azure.IIoT.Platform.Publisher.Api.Models;
+    using Microsoft.Azure.IIoT.Platform.Publisher;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Threading.Tasks;

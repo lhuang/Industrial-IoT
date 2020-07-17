@@ -3,13 +3,13 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Twin.StartStop {
-    using Microsoft.Azure.IIoT.Modules.OpcUa.Twin.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures;
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Tests;
-    using Microsoft.Azure.IIoT.OpcUa.Twin;
+namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Twin.StartStop {
+    using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Tests;
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Tests;
+    using Microsoft.Azure.IIoT.Platform.Twin;
     using Microsoft.Azure.IIoT.Utils;
     using Opc.Ua;
     using System.Linq;

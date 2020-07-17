@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Description>Azure Industrial IoT OPC UA Abstractions</Description>
+    <Description>Azure Industrial IoT Platform Abstractions</Description>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Publisher\Models\New\**" />

@@ -3,18 +3,17 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.Processor.Tunnel {
-    using Microsoft.Azure.IIoT.Services.Processor.Tunnel.Runtime;
-    using Microsoft.Azure.IIoT.AspNetCore.Diagnostics.Default;
-    using Microsoft.Azure.IIoT.Auth.Clients;
+namespace Microsoft.Azure.IIoT.Platform.Edge.Tunnel.Service {
+    using Microsoft.Azure.IIoT.Platform.Edge.Tunnel.Service.Runtime;
+    using Microsoft.Azure.IIoT.Azure.ActiveDirectory.Clients;
+    using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Handlers;
+    using Microsoft.Azure.IIoT.Azure.IoTHub;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Http.Default;
-    using Microsoft.Azure.IIoT.Http.Ssl;
-    using Microsoft.Azure.IIoT.Hub.Client;
-    using Microsoft.Azure.IIoT.Hub.Processor.EventHub;
-    using Microsoft.Azure.IIoT.Hub.Processor.Services;
-    using Microsoft.Azure.IIoT.Hub.Services;
-    using Microsoft.Azure.IIoT.Module.Default;
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.AspNetCore.Diagnostics.Default;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
@@ -86,45 +85,34 @@ namespace Microsoft.Azure.IIoT.Services.Processor.Tunnel {
 
             // Add Application Insights dependency tracking.
             builder.AddDependencyTracking(config, serviceInfo);
-
             // Add diagnostics
             builder.AddDiagnostics(config);
-
-            // Register http client module
-            builder.RegisterModule<HttpClientModule>();
-#if DEBUG
-            builder.RegisterType<NoOpCertValidator>()
-                .AsImplementedInterfaces();
-#endif
-            // Add serializers
-            builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add unattended authentication
-            builder.RegisterModule<UnattendedAuthentication>();
-
-            // Event processor services for onboarding consumer
-            builder.RegisterType<EventProcessorHost>()
-                .AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<EventProcessorFactory>()
-                .AsImplementedInterfaces();
-
-            // Prometheus metric server
             builder.RegisterType<MetricServerHost>()
                 .AsImplementedInterfaces().SingleInstance();
 
+            // Register http client module
+            builder.RegisterModule<HttpClientModule>();
+            // Add serializers
+            builder.RegisterModule<NewtonSoftJsonModule>();
+
+            // --- Logic ---
+
             // Handle tunnel server events
-            builder.RegisterType<IoTHubDeviceEventHandler>()
-                .AsImplementedInterfaces();
             builder.RegisterType<HttpTunnelServer>()
                 .AsImplementedInterfaces();
-
-            // which builds on Iot hub method calls for responses
             builder.RegisterType<ChunkMethodClient>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<IoTHubTwinMethodClient>()
+
+            // --- Dependencies ---
+
+            // IoT Hub client and telemetry handler
+            builder.RegisterModule<IoTHubModule>();
+            builder.RegisterType<IoTHubDeviceEventHandler>()
                 .AsImplementedInterfaces();
-            builder.RegisterType<IoTHubServiceClient>()
-                .AsImplementedInterfaces();
+            // Event processor host
+            builder.RegisterModule<EventHubProcessorModule>();
+            // Add unattended authentication
+            builder.RegisterModule<UnattendedAuthentication>();
 
             return builder;
         }

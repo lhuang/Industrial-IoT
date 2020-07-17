@@ -4,8 +4,8 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.OpcUa.Protocol.Exceptions {
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Exceptions {
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using System;
 
     /// <summary>

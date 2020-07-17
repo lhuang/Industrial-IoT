@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Hub.Client.Runtime {
-    using Microsoft.Azure.IIoT.Messaging.EventHub;
+namespace Microsoft.Azure.IIoT.Azure.IoTHub.Runtime {
+    using Microsoft.Azure.IIoT.Azure.EventHub;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
     using System;

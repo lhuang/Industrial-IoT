@@ -3,10 +3,10 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
-    using Microsoft.Azure.IIoT.OpcUa.Registry.Models;
-    using Microsoft.Azure.IIoT.OpcUa.Registry;
-    using Microsoft.Azure.IIoT.OpcUa.Core.Models;
+namespace Microsoft.Azure.IIoT.Platform.Registry.Services {
+    using Microsoft.Azure.IIoT.Platform.Registry.Models;
+    using Microsoft.Azure.IIoT.Platform.Registry;
+    using Microsoft.Azure.IIoT.Platform.Core.Models;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Serializers;
@@ -29,7 +29,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
         /// <param name="serializer"></param>
         /// <param name="broker"></param>
         /// <param name="logger"></param>
-        public SupervisorRegistry(IIoTHubTwinServices iothub, IJsonSerializer serializer,
+        public SupervisorRegistry(IDeviceTwinServices iothub, IJsonSerializer serializer,
             IRegistryEventBroker<ISupervisorRegistryListener> broker, ILogger logger) {
             _iothub = iothub ?? throw new ArgumentNullException(nameof(iothub));
             _broker = broker ?? throw new ArgumentNullException(nameof(broker));
@@ -154,7 +154,7 @@ namespace Microsoft.Azure.IIoT.OpcUa.Registry.Services {
             };
         }
 
-        private readonly IIoTHubTwinServices _iothub;
+        private readonly IDeviceTwinServices _iothub;
         private readonly IRegistryEventBroker<ISupervisorRegistryListener> _broker;
         private readonly ILogger _logger;
         private readonly IJsonSerializer _serializer;

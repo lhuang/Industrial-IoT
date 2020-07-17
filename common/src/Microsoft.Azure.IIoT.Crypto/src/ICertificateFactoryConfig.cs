@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 
-namespace Microsoft.Azure.IIoT.Crypto {
+namespace Microsoft.Azure.IIoT.Cryptography {
 
     /// <summary>
     /// Issuer configuration

@@ -3,9 +3,9 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Services.OpcUa.Events {
-    using Microsoft.Azure.IIoT.Services.OpcUa.Events.Auth;
-    using Microsoft.Azure.IIoT.Messaging;
+namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service {
+    using Microsoft.Azure.IIoT.Platform.Api.Events.Service.Auth;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.AspNetCore.SignalR;
     using Microsoft.AspNetCore.Authorization;
 

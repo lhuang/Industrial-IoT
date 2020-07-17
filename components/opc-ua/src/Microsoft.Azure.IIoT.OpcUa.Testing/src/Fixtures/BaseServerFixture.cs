@@ -3,19 +3,19 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.OpcUa.Testing.Fixtures {
-    using Microsoft.Azure.IIoT.OpcUa.Testing.Runtime;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Services;
-    using Microsoft.Azure.IIoT.OpcUa.Protocol.Sample;
+namespace Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Fixtures {
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Testing.Runtime;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
+    using Microsoft.Azure.IIoT.Platform.OpcUa.Sample;
+    using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Azure.IIoT.Utils;
     using Opc.Ua.Server;
+    using Serilog;
+    using Serilog.Events;
     using System;
     using System.IO;
     using System.Collections.Generic;
-    using Serilog;
-    using Serilog.Events;
     using System.Threading;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;

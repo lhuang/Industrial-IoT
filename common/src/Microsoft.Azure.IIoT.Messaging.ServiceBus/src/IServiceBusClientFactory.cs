@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Messaging.ServiceBus {
+namespace Microsoft.Azure.IIoT.Azure.ServiceBus {
     using Microsoft.Azure.ServiceBus;
     using System;
     using System.Threading.Tasks;
@@ -30,6 +30,7 @@ namespace Microsoft.Azure.IIoT.Messaging.ServiceBus {
         /// <summary>
         /// Create topic client
         /// </summary>
+        /// <param name="topicName"></param>
         /// <returns></returns>
         Task<ITopicClient> CreateOrGetTopicClientAsync(string topicName = null);
 
