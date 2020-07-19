@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Platform.Discovery.Service.Runtime {
-    using Microsoft.Azure.IIoT.AspNetCore.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub;
@@ -16,16 +16,20 @@ namespace Microsoft.Azure.IIoT.Platform.Discovery.Service.Runtime {
     using Microsoft.Azure.IIoT.Azure.EventHub.Processor.Runtime;
     using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
     using Microsoft.Azure.IIoT.Storage;
+    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Extensions.Configuration;
     using System;
 
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IEventProcessorHostConfig,
+    public class Config : DiagnosticsConfig, IEventProcessorHostConfig,
         IEventHubConsumerConfig, IServiceBusConfig, IIoTHubConfig,
         IEventProcessorConfig, ICosmosDbConfig, IItemContainerConfig,
-        IMetricServerConfig {
+        IMetricServerConfig, IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public string ConsumerGroup => GetStringOrDefault(
@@ -75,6 +79,10 @@ namespace Microsoft.Azure.IIoT.Platform.Discovery.Service.Runtime {
 
         /// <inheritdoc/>
         public int Port => 9501;
+        /// <inheritdoc/>
+        public string Path => _ms.Path;
+        /// <inheritdoc/>
+        public bool UseHttps => _ms.UseHttps;
 
         /// <summary>
         /// Configuration constructor
@@ -88,8 +96,12 @@ namespace Microsoft.Azure.IIoT.Platform.Discovery.Service.Runtime {
             _ep = new EventProcessorConfig(configuration);
             _eh = new IoTHubEventHubConfig(configuration);
             _cosmos = new CosmosDbConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
+            _ms = new MetricsServerConfig(configuration);
         }
 
+        private readonly MetricsServerConfig _ms;
+        private readonly AppInsightsConfig _ai;
         private readonly EventProcessorConfig _ep;
         private readonly IoTHubEventHubConfig _eh;
         private readonly ServiceBusConfig _sb;

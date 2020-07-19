@@ -25,7 +25,7 @@ namespace Microsoft.Azure.IIoT.Azure.AppInsights {
         /// <param name="log"></param>
         /// <param name="addConsole"></param>
         /// <returns></returns>
-        public static IModuleRegistrar AddDiagnostics(this ContainerBuilder builder,
+        public static IModuleRegistrar AddAppInsightsLogging(this ContainerBuilder builder,
             IAppInsightsConfig config, LoggerConfiguration log = null, bool addConsole = true) {
             if (builder == null) {
                 throw new ArgumentNullException(nameof(builder));

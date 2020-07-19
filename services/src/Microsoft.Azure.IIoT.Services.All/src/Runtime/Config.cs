@@ -6,6 +6,8 @@
 namespace Microsoft.Azure.IIoT.Platform.Service.Runtime {
     using Microsoft.Azure.IIoT.Auth.Runtime;
     using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
@@ -15,8 +17,11 @@ namespace Microsoft.Azure.IIoT.Platform.Service.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig,
-        IForwardedHeadersConfig {
+    public class Config : DiagnosticsConfig, IWebHostConfig,
+        IForwardedHeadersConfig, IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public int HttpsRedirectPort => _host.HttpsRedirectPort;
@@ -44,8 +49,10 @@ namespace Microsoft.Azure.IIoT.Platform.Service.Runtime {
 
             _host = new WebHostConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly WebHostConfig _host;
         private readonly ForwardedHeadersConfig _fh;
     }

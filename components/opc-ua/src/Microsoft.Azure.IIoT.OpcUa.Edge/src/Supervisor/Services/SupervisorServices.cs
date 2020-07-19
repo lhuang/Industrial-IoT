@@ -9,7 +9,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
     using Microsoft.Azure.IIoT.Platform.Registry.Models;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Azure.IoTEdge;
-    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+    using Microsoft.Azure.IIoT.Hosting.Services;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Hosting;
     using Autofac;
@@ -35,7 +35,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
         /// <param name="identity"></param>
         /// <param name="process"></param>
         /// <param name="logger"></param>
-        public SupervisorServices(IContainerFactory factory, IModuleConfig config,
+        public SupervisorServices(IContainerFactory factory, IIoTEdgeConfig config,
             IIdentity identity, IProcessControl process, ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _config = config ?? throw new ArgumentNullException(nameof(config));
@@ -226,7 +226,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
         /// <summary>
         /// Runs a twin device connected to transparent gateway
         /// </summary>
-        private class TwinHost : IDisposable, IProcessControl, IModuleConfig {
+        private class TwinHost : IDisposable, IProcessControl, IIoTEdgeConfig {
 
             /// <summary>
             /// Whether the host is running
@@ -258,7 +258,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
             /// <param name="deviceId"></param>
             /// <param name="secret"></param>
             /// <param name="logger"></param>
-            public TwinHost(SupervisorServices outer, IModuleConfig config,
+            public TwinHost(SupervisorServices outer, IIoTEdgeConfig config,
                 string deviceId, string secret, ILogger logger) {
                 _outer = outer;
                 _logger = (logger ?? Log.Logger)
@@ -397,7 +397,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
             /// <param name="deviceId"></param>
             /// <param name="secret"></param>
             /// <returns></returns>
-            private static string GetEdgeHubConnectionString(IModuleConfig config,
+            private static string GetEdgeHubConnectionString(IIoTEdgeConfig config,
                 string deviceId, string secret) {
 
                 var cs = config.EdgeHubConnectionString;
@@ -448,7 +448,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services {
         }
 
         private readonly ILogger _logger;
-        private readonly IModuleConfig _config;
+        private readonly IIoTEdgeConfig _config;
         private readonly IIdentity _identity;
         private readonly IProcessControl _process;
         private readonly IContainerFactory _factory;

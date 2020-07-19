@@ -158,9 +158,6 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Ua.Service {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
             // Add serializers
@@ -210,6 +207,8 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Ua.Service {
 
             // Add service to service authentication
             builder.RegisterModule<WebApiAuthentication>();
+            // Add diagnostics
+            builder.AddAppInsightsLogging(Config);
         }
     }
 }

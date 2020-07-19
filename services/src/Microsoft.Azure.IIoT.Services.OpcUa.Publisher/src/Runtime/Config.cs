@@ -13,6 +13,8 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.Cors.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub;
@@ -30,10 +32,13 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Service.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
+    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, IOpenApiConfig, IRoleConfig, IServiceBusConfig,
         ICosmosDbConfig, IItemContainerConfig, IRegistryConfig,
-        IForwardedHeadersConfig, IContainerRegistryConfig {
+        IForwardedHeadersConfig, IContainerRegistryConfig, IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public bool UseRoles => GetBoolOrDefault(PcsVariable.PCS_AUTH_ROLES);
@@ -116,8 +121,10 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Service.Runtime {
             _cosmos = new CosmosDbConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
             _cr = new ContainerRegistryConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly ContainerRegistryConfig _cr;
         private readonly OpenApiConfig _openApi;
         private readonly WebHostConfig _host;

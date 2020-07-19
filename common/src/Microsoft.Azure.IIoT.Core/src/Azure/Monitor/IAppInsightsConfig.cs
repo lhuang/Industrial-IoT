@@ -4,12 +4,10 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Azure.AppInsights {
-    using Microsoft.Azure.IIoT.Diagnostics;
-
     /// <summary>
     /// AppInsights configuration
     /// </summary>
-    public interface IAppInsightsConfig : IDiagnosticsConfig {
+    public interface IAppInsightsConfig {
 
         /// <summary>
         /// Instrumentation key if it exists

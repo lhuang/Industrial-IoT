@@ -3,8 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Rpc.Framework {
-    using Microsoft.Azure.IIoT.Rpc.Framework.Hosting;
+namespace Microsoft.Azure.IIoT.Hosting {
+    using Microsoft.Azure.IIoT.Hosting.Services;
     using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Tasks;

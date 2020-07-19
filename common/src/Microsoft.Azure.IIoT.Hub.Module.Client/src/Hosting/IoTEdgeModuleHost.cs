@@ -5,7 +5,7 @@
 
 namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting {
     using Microsoft.Azure.IIoT.Azure.IoTEdge;
-    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+    using Microsoft.Azure.IIoT.Hosting.Services;
     using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Hosting;

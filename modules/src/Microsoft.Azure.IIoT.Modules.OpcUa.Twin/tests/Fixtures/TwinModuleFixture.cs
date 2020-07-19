@@ -256,7 +256,7 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Tests {
         }
 
         /// <inheritdoc/>
-        public class TestModuleConfig : IModuleConfig {
+        public class TestModuleConfig : IIoTEdgeConfig {
 
             /// <inheritdoc/>
             public TestModuleConfig(DeviceModel device) {

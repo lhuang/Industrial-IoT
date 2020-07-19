@@ -173,9 +173,6 @@ namespace Microsoft.Azure.IIoT.Platform.Registry.Service {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
             // Add serializers
@@ -185,7 +182,6 @@ namespace Microsoft.Azure.IIoT.Platform.Registry.Service {
             // CORS setup
             builder.RegisterType<CorsSetup>()
                 .AsImplementedInterfaces();
-
 
             // --- Logic ---
 
@@ -217,6 +213,8 @@ namespace Microsoft.Azure.IIoT.Platform.Registry.Service {
 
             // --- Dependencies ---
 
+            // Add App Insights logging
+            builder.AddAppInsightsLogging(Config);
             // Add service to service authentication
             builder.RegisterModule<WebApiAuthentication>();
             // Iot hub services

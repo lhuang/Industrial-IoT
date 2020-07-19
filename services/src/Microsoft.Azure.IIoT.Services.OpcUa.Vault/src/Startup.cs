@@ -175,17 +175,11 @@ namespace Microsoft.Azure.IIoT.Platform.Vault.Service {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
             // Add serializers
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
-
-            // Add service to service authentication
-            builder.RegisterModule<WebApiAuthentication>();
 
             // CORS setup
             builder.RegisterType<CorsSetup>()
@@ -254,6 +248,10 @@ namespace Microsoft.Azure.IIoT.Platform.Vault.Service {
 
             // --- Dependencies ---
 
+            // Add service to service authentication
+            builder.RegisterModule<WebApiAuthentication>();
+            // Add diagnostics
+            builder.AddAppInsightsLogging(Config);
             // Register event bus for integration events
             builder.RegisterModule<ServiceBusModule>();
             // ... with cosmos db collection as storage

@@ -23,7 +23,7 @@ namespace Microsoft.Azure.IIoT.Azure.IoTEdge {
         protected override void Load(ContainerBuilder builder) {
 
             // Edge metrics collection
-            builder.RegisterType<PrometheusCollectorHost>()
+            builder.RegisterType<MetricsCollector>()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
             builder.RegisterType<LogAnalyticsMetricsHandler>()
                 .AsImplementedInterfaces().InstancePerLifetimeScope()

@@ -12,6 +12,7 @@ namespace Microsoft.Azure.IIoT.Platform.Subscriber.Service {
     using Microsoft.Azure.IIoT.Azure.EventHub;
     using Microsoft.Azure.IIoT.Azure.EventHub.Runtime;
     using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
+    using Microsoft.Azure.IIoT.Azure.IoTHub.Handlers;
     using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Hub;
@@ -25,7 +26,6 @@ namespace Microsoft.Azure.IIoT.Platform.Subscriber.Service {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Microsoft.Azure.IIoT.Azure.IoTHub.Handlers;
 
     /// <summary>
     /// IoT Hub device telemetry event processor host.  Processes all
@@ -90,15 +90,9 @@ namespace Microsoft.Azure.IIoT.Platform.Subscriber.Service {
             builder.RegisterInstance(config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add Application Insights dependency tracking.
-            builder.AddDependencyTracking(config, serviceInfo);
-
-            // Add diagnostics
-            builder.AddDiagnostics(config);
-            // Prometheus metric server
-            builder.RegisterType<MetricServerHost>()
+            // Add prometheus endpoint
+            builder.RegisterType<KestrelMetricsHost>()
                 .AsImplementedInterfaces().SingleInstance();
-
             // Add serializers
             builder.RegisterModule<NewtonSoftJsonModule>();
 
@@ -124,6 +118,9 @@ namespace Microsoft.Azure.IIoT.Platform.Subscriber.Service {
 
             // --- Dependencies ---
 
+            // Add Application Insights logging and dependency tracking.
+            builder.AddDependencyTracking(config, serviceInfo);
+            builder.AddAppInsightsLogging(config);
             // Event Hub client
             builder.RegisterType<EventHubClientConfig>()
                 .AsImplementedInterfaces();

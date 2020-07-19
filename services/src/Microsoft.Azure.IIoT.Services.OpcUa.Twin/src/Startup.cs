@@ -213,7 +213,7 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Service {
             // --- Dependencies ---
 
             // Add diagnostics
-            builder.AddDiagnostics(Config);
+            builder.AddAppInsightsLogging(Config);
             builder.RegisterType<LogAnalyticsConfig>()
                 .AsImplementedInterfaces().SingleInstance();
             // Add service to service authentication

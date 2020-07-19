@@ -3,16 +3,17 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Hub.Module.Client.Runtime {
+namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Runtime {
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Azure.IIoT.Messaging;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
     using System;
 
     /// <summary>
-    /// Module configuration
+    /// IoT Edge device or module configuration
     /// </summary>
-    public class ModuleConfig : ConfigBase {
+    public class IoTEdgeConfig : ConfigBase, IIoTEdgeConfig {
 
         /// <summary>
         /// Module configuration
@@ -37,7 +38,7 @@ namespace Microsoft.Azure.IIoT.Hub.Module.Client.Runtime {
         /// Create configuration
         /// </summary>
         /// <param name="configuration"></param>
-        public ModuleConfig(IConfiguration configuration = null) :
+        public IoTEdgeConfig(IConfiguration configuration = null) :
             base(configuration) {
         }
     }

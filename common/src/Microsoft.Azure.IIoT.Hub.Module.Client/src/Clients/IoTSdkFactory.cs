@@ -50,7 +50,7 @@ namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Clients {
         /// <param name="config"></param>
         /// <param name="broker"></param>
         /// <param name="logger"></param>
-        public IoTSdkFactory(IModuleConfig config, IEventSourceBroker broker, ILogger logger) {
+        public IoTSdkFactory(IIoTEdgeConfig config, IEventSourceBroker broker, ILogger logger) {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             if (broker != null) {

@@ -170,9 +170,6 @@ namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
             // Add serializers
@@ -266,6 +263,8 @@ namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service {
 
             // --- Dependencies ---
 
+            // Add App Insights logging
+            builder.AddAppInsightsLogging(Config);
             // Add service to service authentication
             builder.RegisterModule<WebApiAuthentication>();
             // Register event bus for integration events

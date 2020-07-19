@@ -17,7 +17,7 @@ namespace Microsoft.Azure.IIoT.Azure.LogAnalytics {
         protected override void Load(ContainerBuilder builder) {
 
             // Register prometheus logging
-            builder.RegisterType<PrometheusCollectorHost>()
+            builder.RegisterType<MetricsCollector>()
                 .AsImplementedInterfaces().InstancePerLifetimeScope();
 
             builder.RegisterType<LogAnalyticsConfig>()

@@ -11,9 +11,8 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module {
     using Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services;
     using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
-    using Microsoft.Azure.IIoT.Rpc.Framework;
-    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
     using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Hosting.Services;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Hub;

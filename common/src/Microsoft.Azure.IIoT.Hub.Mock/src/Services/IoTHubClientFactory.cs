@@ -36,7 +36,7 @@ namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock {
         /// </summary>
         /// <param name="hub">Outer hub abstraction</param>
         /// <param name="config">Module framework configuration</param>
-        public IoTHubClientFactory(IIoTHub hub, IModuleConfig config) {
+        public IoTHubClientFactory(IIoTHub hub, IIoTEdgeConfig config) {
             _hub = hub ?? throw new ArgumentNullException(nameof(hub));
             if (string.IsNullOrEmpty(config.EdgeHubConnectionString)) {
                 throw new InvalidConfigurationException(

@@ -28,7 +28,7 @@ namespace Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting {
         /// <param name="hsm"></param>
         /// <param name="cache"></param>
         /// <param name="identity"></param>
-        public SasTokenGenerator(IModuleConfig config, IIdentity identity, ISecureElement hsm,
+        public SasTokenGenerator(IIoTEdgeConfig config, IIdentity identity, ISecureElement hsm,
             ICache cache) {
             _identity = identity ?? throw new ArgumentNullException(nameof(identity));
             _hsm = hsm ?? throw new ArgumentNullException(nameof(hsm));

@@ -4,13 +4,13 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Azure.AppInsights.Runtime {
-    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Extensions.Configuration;
 
     /// <summary>
     /// Diagnostics configuration
     /// </summary>
-    public class AppInsightsConfig : DiagnosticsConfig, IAppInsightsConfig {
+    public class AppInsightsConfig : ConfigBase, IAppInsightsConfig {
 
         /// <summary>
         /// Configuration keys

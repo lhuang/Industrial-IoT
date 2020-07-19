@@ -13,6 +13,8 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Ua.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.Cors.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub;
@@ -26,9 +28,13 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Ua.Service.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
+    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, ITcpListenerConfig, IWebListenerConfig,
-        ISessionServicesConfig, IRegistryConfig, IForwardedHeadersConfig {
+        ISessionServicesConfig, IRegistryConfig, IForwardedHeadersConfig,
+        IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public string IoTHubConnString => _hub.IoTHubConnString;
@@ -91,8 +97,10 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Ua.Service.Runtime {
             _sessions = new SessionServicesConfig(configuration);
             _api = new RegistryConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly WebHostConfig _host;
         private readonly CorsConfig _cors;
         private readonly IoTHubConfig _hub;

@@ -7,9 +7,9 @@ namespace Microsoft.Azure.IIoT.Azure.IoTEdge {
     using Microsoft.Azure.IIoT.Messaging;
 
     /// <summary>
-    /// Module configuration
+    /// IoT Edge configuration
     /// </summary>
-    public interface IModuleConfig {
+    public interface IIoTEdgeConfig {
 
         /// <summary>
         /// IoTEdgeHub connection string

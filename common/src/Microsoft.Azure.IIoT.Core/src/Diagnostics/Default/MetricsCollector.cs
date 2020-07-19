@@ -18,7 +18,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
     /// <summary>
     /// Prometheus metrics collector and pusher
     /// </summary>
-    public class PrometheusCollectorHost : MetricHandler {
+    public class MetricsCollector : MetricHandler {
 
         /// <summary>
         /// Create configuration
@@ -26,7 +26,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         /// <param name="config"></param>
         /// <param name="handlers"></param>
         /// <param name="logger"></param>
-        public PrometheusCollectorHost(IEnumerable<IMetricsHandler> handlers,
+        public MetricsCollector(IEnumerable<IMetricsHandler> handlers,
             IDiagnosticsConfig config, ILogger logger) : base(null) {
             _handlers = handlers?.ToList() ??
                 throw new ArgumentNullException(nameof(handlers));
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
                         await Task.Delay(sleepTime, ct);
                     }
                     catch (OperationCanceledException) {
-                        // Post one mopre time
+                        // Post one more time
                     }
                 }
             }

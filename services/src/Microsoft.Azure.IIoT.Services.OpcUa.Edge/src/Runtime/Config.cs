@@ -13,6 +13,8 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
     using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Auth.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub;
@@ -24,9 +26,13 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
+    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, IOpenApiConfig, ICosmosDbConfig,
-        IItemContainerConfig, IForwardedHeadersConfig, IRoleConfig {
+        IItemContainerConfig, IForwardedHeadersConfig, IRoleConfig,
+        IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public string DbConnectionString => _cosmos.DbConnectionString;
@@ -90,8 +96,10 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service.Runtime {
             _cors = new CorsConfig(configuration);
             _cosmos = new CosmosDbConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly OpenApiConfig _openApi;
         private readonly WebHostConfig _host;
         private readonly CorsConfig _cors;

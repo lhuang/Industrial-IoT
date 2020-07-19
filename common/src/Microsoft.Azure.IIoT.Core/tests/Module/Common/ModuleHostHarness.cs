@@ -3,8 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
-    using Microsoft.Azure.IIoT.Rpc.Framework.Services;
+namespace Microsoft.Azure.IIoT.Hosting.Services {
     using Microsoft.Azure.IIoT.Azure.IoTHub;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Mock;
     using Microsoft.Azure.IIoT.Azure.IoTEdge;
@@ -85,7 +84,7 @@ namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
                         Encoding.UTF8.GetBytes(Guid.NewGuid().ToString()))).ToString();
         }
 
-        public class TestModuleConfig : IModuleConfig, IDiagnosticsConfig {
+        public class TestModuleConfig : IIoTEdgeConfig, IDiagnosticsConfig {
 
             public TestModuleConfig(DeviceModel device) {
                 _device = device;

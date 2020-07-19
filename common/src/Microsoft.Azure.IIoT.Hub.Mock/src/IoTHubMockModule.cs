@@ -5,7 +5,7 @@
 
 namespace Microsoft.Azure.IIoT.Azure.IoTHub.Mock {
     using Microsoft.Azure.IIoT.Azure.IoTEdge.Hosting;
-    using Microsoft.Azure.IIoT.Rpc.Framework.Hosting;
+    using Microsoft.Azure.IIoT.Hosting.Services;
     using Microsoft.Azure.IIoT.Tasks;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Serializers;

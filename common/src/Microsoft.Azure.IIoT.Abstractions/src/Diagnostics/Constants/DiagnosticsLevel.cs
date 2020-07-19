@@ -18,6 +18,11 @@ namespace Microsoft.Azure.IIoT.Diagnostics {
         Public = 0x1,
 
         /// <summary>
+        /// Push metrics
+        /// </summary>
+        PushMetrics = 0x2,
+
+        /// <summary>
         /// Disable metrics sending
         /// </summary>
         NoMetrics = 0x10,

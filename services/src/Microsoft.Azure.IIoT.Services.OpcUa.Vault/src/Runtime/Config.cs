@@ -15,6 +15,8 @@ namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.OpenApi.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.KeyVault;
     using Microsoft.Azure.IIoT.Azure.KeyVault.Runtime;
@@ -32,10 +34,13 @@ namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Runtime {
     /// <summary>
     /// Web service configuration
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
+    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
         ICorsConfig, IOpenApiConfig, IVaultConfig, ICosmosDbConfig, IRoleConfig,
         IItemContainerConfig, IKeyVaultConfig, IServiceBusConfig, IRegistryConfig,
-        IForwardedHeadersConfig {
+        IForwardedHeadersConfig, IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public bool UseRoles => GetBoolOrDefault(PcsVariable.PCS_AUTH_ROLES);
@@ -116,8 +121,10 @@ namespace Microsoft.Azure.IIoT.Platform.Vault.Service.Runtime {
             _hub = new IoTHubConfig(configuration);
             _registry = new RegistryConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly IVaultConfig _vault;
         private readonly KeyVaultConfig _keyVault;
         private readonly ICosmosDbConfig _cosmos;

@@ -11,6 +11,8 @@ namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.Auth;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.SignalR;
     using Microsoft.Azure.IIoT.Azure.SignalR.Runtime;
@@ -28,10 +30,13 @@ namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig, IServiceBusConfig,
+    public class Config : DiagnosticsConfig, IWebHostConfig, IServiceBusConfig,
         ICorsConfig, IOpenApiConfig, ISignalRServiceConfig,
         IEventProcessorConfig, IEventHubConsumerConfig, IForwardedHeadersConfig,
-        IEventProcessorHostConfig, IRoleConfig {
+        IEventProcessorHostConfig, IRoleConfig, IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public string CorsWhitelist => _cors.CorsWhitelist;
@@ -128,8 +133,10 @@ namespace Microsoft.Azure.IIoT.Platform.Api.Events.Service.Runtime {
             _fh = new ForwardedHeadersConfig(configuration);
             _ep = new EventProcessorConfig(configuration);
             _eh = new EventHubConsumerConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly OpenApiConfig _openApi;
         private readonly WebHostConfig _host;
         private readonly CorsConfig _cors;

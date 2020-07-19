@@ -88,11 +88,8 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Events.Service {
             builder.RegisterInstance(config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add Application Insights dependency tracking.
-            builder.AddDependencyTracking(config, serviceInfo);
-            // Add diagnostics
-            builder.AddDiagnostics(config);
-            builder.RegisterType<MetricServerHost>()
+            // Add prometheus endpoint
+            builder.RegisterType<KestrelMetricsHost>()
                 .AsImplementedInterfaces().SingleInstance();
 
             // Register http client module
@@ -121,6 +118,9 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Events.Service {
 
             // --- Dependencies ---
 
+            // Add Application Insights logging and dependency tracking.
+            builder.AddDependencyTracking(config, serviceInfo);
+            builder.AddAppInsightsLogging(config);
             // Add unattended authentication
             builder.RegisterModule<UnattendedAuthentication>();
             // Handle iot hub telemetry events...

@@ -11,6 +11,8 @@ namespace Microsoft.Azure.IIoT.Platform.History.Service.Runtime {
     using Microsoft.Azure.IIoT.AspNetCore.Cors.Runtime;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders;
     using Microsoft.Azure.IIoT.AspNetCore.ForwardedHeaders.Runtime;
+    using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Runtime;
     using Microsoft.Azure.IIoT.Azure.IoTHub;
@@ -21,8 +23,12 @@ namespace Microsoft.Azure.IIoT.Platform.History.Service.Runtime {
     /// <summary>
     /// Common web service configuration aggregation
     /// </summary>
-    public class Config : AppInsightsConfig, IWebHostConfig, IIoTHubConfig,
-        ICorsConfig, IOpenApiConfig, IForwardedHeadersConfig, IRoleConfig {
+    public class Config : DiagnosticsConfig, IWebHostConfig, IIoTHubConfig,
+        ICorsConfig, IOpenApiConfig, IForwardedHeadersConfig, IRoleConfig,
+        IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public string IoTHubConnString => _hub.IoTHubConnString;
@@ -75,8 +81,10 @@ namespace Microsoft.Azure.IIoT.Platform.History.Service.Runtime {
             _hub = new IoTHubConfig(configuration);
             _cors = new CorsConfig(configuration);
             _fh = new ForwardedHeadersConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
         }
 
+        private readonly AppInsightsConfig _ai;
         private readonly OpenApiConfig _openApi;
         private readonly WebHostConfig _host;
         private readonly CorsConfig _cors;

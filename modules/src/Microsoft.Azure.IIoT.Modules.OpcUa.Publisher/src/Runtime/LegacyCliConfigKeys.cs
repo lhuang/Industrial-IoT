@@ -4,7 +4,7 @@
 // ------------------------------------------------------------
 
 namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Runtime {
-    using Microsoft.Azure.IIoT.Hub.Module.Client.Runtime;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge.Runtime;
     using Microsoft.Azure.IIoT.Platform.OpcUa.Runtime;
 
     /// <summary>
@@ -111,12 +111,12 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module.Runtime {
         /// <summary>
         /// Key for the transport mode to IoT Hub.
         /// </summary>
-        public const string HubTransport = ModuleConfig.TransportKey;
+        public const string HubTransport = IoTEdgeConfig.TransportKey;
 
         /// <summary>
         /// Key for the EdgeHub connection string.
         /// </summary>
-        public const string EdgeHubConnectionString = ModuleConfig.EdgeHubConnectionStringKey;
+        public const string EdgeHubConnectionString = IoTEdgeConfig.EdgeHubConnectionStringKey;
 
         /// <summary>
         /// Key for the operation timeout in milliseconds.

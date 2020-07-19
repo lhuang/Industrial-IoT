@@ -6,21 +6,25 @@
 namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service.Runtime {
     using Microsoft.Azure.IIoT.Platform.Subscriber.Cdm;
     using Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Runtime;
+    using Microsoft.Azure.IIoT.Azure.AppInsights;
     using Microsoft.Azure.IIoT.Azure.AppInsights.Runtime;
     using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
     using Microsoft.Azure.IIoT.Azure.EventHub.Processor.Runtime;
     using Microsoft.Azure.IIoT.Azure.EventHub;
     using Microsoft.Azure.IIoT.Azure.EventHub.Runtime;
-    using Microsoft.Azure.IIoT.AspNetCore.Diagnostics;
+    using Microsoft.Azure.IIoT.Diagnostics;
     using Microsoft.Extensions.Configuration;
     using System;
 
     /// <summary>
     /// Cdm processor service configuration
     /// </summary>
-    public class Config : AppInsightsConfig, IEventProcessorHostConfig,
+    public class Config : DiagnosticsConfig, IEventProcessorHostConfig,
         IEventHubConsumerConfig, ICdmFolderConfig, IEventProcessorConfig,
-        IMetricServerConfig {
+        IMetricServerConfig, IAppInsightsConfig {
+
+        /// <inheritdoc/>
+        public string InstrumentationKey => _ai.InstrumentationKey;
 
         /// <inheritdoc/>
         public string ConsumerGroup => GetStringOrDefault(
@@ -60,6 +64,10 @@ namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service.Runtime {
 
         /// <inheritdoc/>
         public int Port => 9503;
+        /// <inheritdoc/>
+        public string Path => _ms.Path;
+        /// <inheritdoc/>
+        public bool UseHttps => _ms.UseHttps;
 
         /// <summary>
         /// Configuration constructor
@@ -69,8 +77,12 @@ namespace Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.Service.Runtime {
             _ep = new EventProcessorConfig(configuration);
             _eh = new EventHubConsumerConfig(configuration);
             _cdm = new CdmFolderConfig(configuration);
+            _ai = new AppInsightsConfig(configuration);
+            _ms = new MetricsServerConfig(configuration);
         }
 
+        private readonly MetricsServerConfig _ms;
+        private readonly AppInsightsConfig _ai;
         private readonly EventProcessorConfig _ep;
         private readonly EventHubConsumerConfig _eh;
         private readonly CdmFolderConfig _cdm;

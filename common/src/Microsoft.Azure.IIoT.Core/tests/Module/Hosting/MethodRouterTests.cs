@@ -3,7 +3,7 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
+namespace Microsoft.Azure.IIoT.Hosting.Services {
     using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Exceptions;
     using Microsoft.Azure.IIoT.Hub;
@@ -11,6 +11,7 @@ namespace Microsoft.Azure.IIoT.Rpc.Framework.Hosting {
     using Microsoft.Azure.IIoT.Serializers.NewtonSoft;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Hosting;
+    using Microsoft.Azure.IIoT.Rpc;
     using Microsoft.Azure.Devices.Client;
     using Serilog;
     using System;

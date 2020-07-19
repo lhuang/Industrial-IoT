@@ -161,9 +161,6 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Add diagnostics
-            builder.AddDiagnostics(Config);
-
             // Register http client module
             builder.RegisterModule<HttpClientModule>();
             // Add serializers
@@ -194,6 +191,8 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service {
 
             // --- Dependencies ---
 
+            // Add App Insights logging
+            builder.AddAppInsightsLogging(Config);
             // Iot hub
             builder.RegisterModule<IoTHubModule>();
             // Add service to service authentication

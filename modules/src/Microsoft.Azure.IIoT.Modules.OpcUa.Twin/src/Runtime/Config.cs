@@ -6,23 +6,27 @@
 namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Runtime {
     using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Microsoft.Azure.IIoT.Platform.OpcUa.Runtime;
-    using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Azure.IIoT.Messaging;
-    using Microsoft.Azure.IIoT.Hub.Module.Client.Runtime;
     using Microsoft.Azure.IIoT.Diagnostics;
+    using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge.Runtime;
     using Microsoft.Extensions.Configuration;
+    using System;
 
     /// <summary>
     /// Wraps a configuration root
     /// </summary>
-    public class Config : DiagnosticsConfig, IModuleConfig, IClientServicesConfig{
+    public class Config : ConfigBase, IIoTEdgeConfig, IClientServicesConfig,
+        IDiagnosticsConfig, IMetricServerConfig {
 
         /// <inheritdoc/>
-        public string EdgeHubConnectionString => _module.EdgeHubConnectionString;
+        public string EdgeHubConnectionString => _ie.EdgeHubConnectionString;
         /// <inheritdoc/>
-        public bool BypassCertVerification => _module.BypassCertVerification;
+        public bool BypassCertVerification => _ie.BypassCertVerification;
         /// <inheritdoc/>
-        public TransportOption Transport => _module.Transport;
+        public TransportOption Transport => _ie.Transport;
+
         /// <inheritdoc/>
         public string ApplicationName => _opc.ApplicationName;
         /// <inheritdoc/>
@@ -72,17 +76,30 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Runtime {
         /// <inheritdoc/>
         public int SecurityTokenLifetime => _opc.SecurityTokenLifetime;
 
+        /// <inheritdoc/>
+        public DiagnosticsLevel DiagnosticsLevel => _ms.DiagnosticsLevel;
+        /// <inheritdoc/>
+        public TimeSpan? MetricsCollectionInterval => _ms.MetricsCollectionInterval;
+        /// <inheritdoc/>
+        public int Port => _ms.Port;
+        /// <inheritdoc/>
+        public string Path => _ms.Path;
+        /// <inheritdoc/>
+        public bool UseHttps => _ms.UseHttps;
+
         /// <summary>
         /// Configuration constructor
         /// </summary>
         /// <param name="configuration"></param>
         public Config(IConfiguration configuration) :
             base(configuration) {
-            _module = new ModuleConfig(configuration);
+            _ie = new IoTEdgeConfig(configuration);
             _opc = new ClientServicesConfig(configuration);
+            _ms = new MetricsServerConfig(configuration);
         }
 
+        private readonly MetricsServerConfig _ms;
         private readonly ClientServicesConfig _opc;
-        private readonly ModuleConfig _module;
+        private readonly IoTEdgeConfig _ie;
     }
 }

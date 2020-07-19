@@ -202,11 +202,6 @@ namespace Microsoft.Azure.IIoT.App {
             builder.RegisterInstance(Config.Configuration)
                 .AsImplementedInterfaces();
 
-            // Register logger
-            builder.AddDiagnostics(Config, new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft.AspNetCore.Components", LogEventLevel.Information)
-                .MinimumLevel.Override("Microsoft.AspNetCore.SignalR", LogEventLevel.Information));
-
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
@@ -252,6 +247,13 @@ namespace Microsoft.Azure.IIoT.App {
                 .AsImplementedInterfaces().AsSelf().SingleInstance();
             builder.RegisterType<SecureData>()
                 .AsImplementedInterfaces().AsSelf();
+
+            // Add application insights logging
+            builder.AddAppInsightsLogging(Config, new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft.AspNetCore.Components",
+                    LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft.AspNetCore.SignalR",
+                    LogEventLevel.Information));
         }
     }
 }

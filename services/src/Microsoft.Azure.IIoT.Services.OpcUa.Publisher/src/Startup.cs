@@ -218,7 +218,7 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Service {
             builder.RegisterType<LogAnalyticsConfig>()
                 .AsImplementedInterfaces().SingleInstance();
             // Add diagnostics
-            builder.AddDiagnostics(Config);
+            builder.AddAppInsightsLogging(Config);
             // Register event bus for integration events
             builder.RegisterModule<ServiceBusModule>();
             // Register Cosmos db for publisher storage
