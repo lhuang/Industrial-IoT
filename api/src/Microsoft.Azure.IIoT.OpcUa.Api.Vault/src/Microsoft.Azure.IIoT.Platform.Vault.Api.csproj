@@ -7,6 +7,6 @@
     <Description>Azure Industrial IoT OPC Vault API</Description>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Api\src\Microsoft.Azure.IIoT.Platform.Core.Api.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Api\src\Microsoft.Azure.IIoT.Platform.Api.csproj" />
   </ItemGroup>
 </Project>
