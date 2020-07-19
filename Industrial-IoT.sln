@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Service", "services\src\Microsoft.Azure.IIoT.Services.All\src\Microsoft.Azure.IIoT.Platform.Service.csproj", "{D2DB7A83-1682-4A01-857F-CE415287ACF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api", "api\src\Microsoft.Azure.IIoT.Api\src\Microsoft.Azure.IIoT.Platform.Api.csproj", "{C42023DA-F375-401B-BF9B-D20286311455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api.Internal", "api\src\Microsoft.Azure.IIoT.Api\src\Microsoft.Azure.IIoT.Platform.Api.Internal.csproj", "{C42023DA-F375-401B-BF9B-D20286311455}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.History.Api", "api\src\Microsoft.Azure.IIoT.OpcUa.Api.History\src\Microsoft.Azure.IIoT.Platform.History.Api.csproj", "{4338CF8A-5298-4C8F-942F-D20E7255BEA8}"
 EndProject
@@ -83,7 +83,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.OpcUa.Testing.Cli", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Testing\cli\Microsoft.Azure.IIoT.OpcUa.Testing.Cli.csproj", "{23029DA0-F9B3-46CC-B279-1BBA855D1996}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.OpcUa.Protocol.Tests", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Protocol\tests\Microsoft.Azure.IIoT.OpcUa.Protocol.Tests.csproj", "{CE5A3795-B3A9-4AEA-9319-B594E2794A0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.OpcUa.Tests", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Protocol\tests\Microsoft.Azure.IIoT.Platform.OpcUa.Tests.csproj", "{CE5A3795-B3A9-4AEA-9319-B594E2794A0F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Core.Tests", "common\src\Microsoft.Azure.IIoT.Core\tests\Microsoft.Azure.IIoT.Core.Tests.csproj", "{C093A5D1-56DB-4A54-9E81-4A644B6238EF}"
 EndProject
@@ -166,7 +166,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Core.Cli", "common\src\Microsoft.Azure.IIoT.Core\cli\Microsoft.Azure.IIoT.Core.Cli.csproj", "{225F39AA-C351-47DA-8392-817220A9102D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Core.Api", "api\src\Microsoft.Azure.IIoT.OpcUa.Api\src\Microsoft.Azure.IIoT.Platform.Core.Api.csproj", "{141AE617-037F-43FF-A7C9-B3E01160B9E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api", "api\src\Microsoft.Azure.IIoT.OpcUa.Api\src\Microsoft.Azure.IIoT.Platform.Api.csproj", "{141AE617-037F-43FF-A7C9-B3E01160B9E3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Subscriber.Cdm", "components\opc-ua\src\Microsoft.Azure.IIoT.OpcUa.Cdm\src\Microsoft.Azure.IIoT.Platform.Subscriber.Cdm.csproj", "{B32532AB-1D40-4C72-898A-96BA65DF3D9B}"
 EndProject
@@ -182,7 +182,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.AspNet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api.Events.Service.Tests", "services\src\Microsoft.Azure.IIoT.Services.OpcUa.Events\tests\Microsoft.Azure.IIoT.Platform.Api.Events.Service.Tests.csproj", "{6CFFAE7C-5943-4954-B8BF-9C455AF7F071}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api.Tests", "api\src\Microsoft.Azure.IIoT.Api\tests\Microsoft.Azure.IIoT.Platform.Api.Tests.csproj", "{69864BDD-63E3-473D-AF33-96EA0637715B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Api.Internal.Tests", "api\src\Microsoft.Azure.IIoT.Api\tests\Microsoft.Azure.IIoT.Platform.Api.Internal.Tests.csproj", "{69864BDD-63E3-473D-AF33-96EA0637715B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Azure.IIoT.Platform.Service.Test.Scenarios", "api\src\Microsoft.Azure.IIoT.Api.Testing\cli\Microsoft.Azure.IIoT.Platform.Service.Test.Scenarios.csproj", "{2923AD3C-A604-410C-93E9-E52DF312D55E}"
 EndProject
