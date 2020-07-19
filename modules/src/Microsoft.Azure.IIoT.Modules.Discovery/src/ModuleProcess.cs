@@ -11,11 +11,11 @@ namespace Microsoft.Azure.IIoT.Platform.Discovery.Edge.Module {
     using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
     using Microsoft.Azure.IIoT.Hosting;
     using Microsoft.Azure.IIoT.Hosting.Services;
-    using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Azure.IIoT.Tasks.Default;
     using Microsoft.Azure.IIoT.Serializers;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Utils;
+    using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Extensions.Configuration;
     using Autofac;
     using System;

@@ -38,8 +38,6 @@ namespace Microsoft.Azure.IIoT.Hosting {
                 .AsImplementedInterfaces().SingleInstance()
                 .IfNotRegistered(typeof(ITaskScheduler));
 #endif
-            // Register http (tunnel) client module
-            builder.RegisterModule<HttpTunnelClient>();
 
             base.Load(builder);
         }

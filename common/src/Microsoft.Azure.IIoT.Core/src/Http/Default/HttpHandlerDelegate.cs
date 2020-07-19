@@ -88,7 +88,7 @@ namespace Microsoft.Azure.IIoT.Http.Default {
         /// <summary>
         /// Returns max lifetime
         /// </summary>
-        internal TimeSpan MaxLifetime { get; set; } = TimeSpan.FromMinutes(5);
+        public TimeSpan MaxLifetime { get; set; } = TimeSpan.FromMinutes(5);
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing) {

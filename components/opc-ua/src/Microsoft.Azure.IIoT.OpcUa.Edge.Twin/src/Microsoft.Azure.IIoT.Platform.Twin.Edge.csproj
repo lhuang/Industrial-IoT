@@ -8,6 +8,6 @@
     <ProjectReference Include="..\..\..\..\..\api\src\Microsoft.Azure.IIoT.Api\src\Microsoft.Azure.IIoT.Platform.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Edge\src\Microsoft.Azure.IIoT.Platform.Core.Edge.csproj" />
+    <ProjectReference Include="..\..\Microsoft.Azure.IIoT.OpcUa.Edge\src\Microsoft.Azure.IIoT.Platform.Edge.csproj" />
   </ItemGroup>
 </Project>

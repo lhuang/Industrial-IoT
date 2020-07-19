@@ -3,7 +3,8 @@
 //  Licensed under the MIT License (MIT). See License.txt in the repo root for license information.
 // ------------------------------------------------------------
 
-namespace Microsoft.Azure.IIoT.Rpc.Default {
+namespace Microsoft.Azure.IIoT.Platform.Edge.Tunnel {
+    using Microsoft.Azure.IIoT.Platform.Edge.Tunnel.Services;
     using Microsoft.Azure.IIoT.Http.Default;
     using Autofac;
 

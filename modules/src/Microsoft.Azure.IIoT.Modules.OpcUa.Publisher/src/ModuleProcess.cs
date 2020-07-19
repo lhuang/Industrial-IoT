@@ -9,6 +9,7 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module {
     using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Clients;
     using Microsoft.Azure.IIoT.Platform.Publisher.Edge.Services;
     using Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services;
+    using Microsoft.Azure.IIoT.Platform.Edge.Tunnel;
     using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
     using Microsoft.Azure.IIoT.Platform.OpcUa;
@@ -152,6 +153,7 @@ namespace Microsoft.Azure.IIoT.Platform.Publisher.Edge.Module {
             // Register module and publisher framework ...
             builder.RegisterModule<ModuleFramework>();
             builder.RegisterModule<IoTEdgeHosted>();
+            builder.RegisterModule<HttpTunnelClient>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
             if (legacyCliOptions.RunInLegacyMode) {

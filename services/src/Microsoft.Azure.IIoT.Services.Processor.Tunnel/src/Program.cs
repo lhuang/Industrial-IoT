@@ -5,6 +5,7 @@
 
 namespace Microsoft.Azure.IIoT.Platform.Edge.Tunnel.Service {
     using Microsoft.Azure.IIoT.Platform.Edge.Tunnel.Service.Runtime;
+    using Microsoft.Azure.IIoT.Platform.Edge.Tunnel.Services;
     using Microsoft.Azure.IIoT.Azure.ActiveDirectory.Clients;
     using Microsoft.Azure.IIoT.Azure.EventHub.Processor;
     using Microsoft.Azure.IIoT.Azure.IoTHub.Handlers;

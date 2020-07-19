@@ -21,7 +21,7 @@ namespace Microsoft.Azure.IIoT.Http.Default {
     /// Adds unix domain socket capabilities to the default client handler
     /// which does not support anything outside http/https scheme.
     /// </summary>
-    internal class HttpClientHandler : System.Net.Http.HttpClientHandler {
+    public class HttpClientHandler : System.Net.Http.HttpClientHandler {
 
         /// <inheritdoc/>
         protected override Task<HttpResponseMessage> SendAsync(

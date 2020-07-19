@@ -167,7 +167,7 @@ namespace Microsoft.Azure.IIoT.Platform.Edge.Gateway.Service {
             builder.RegisterModule<MessagePackModule>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
-            // Protected cache
+            // Protected cache for sas token auth handler
             builder.RegisterType<DistributedProtectedCache>()
                 .AsImplementedInterfaces();
             // CORS setup

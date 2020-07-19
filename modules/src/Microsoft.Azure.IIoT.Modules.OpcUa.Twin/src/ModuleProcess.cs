@@ -6,9 +6,10 @@
 namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module {
     using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Runtime;
     using Microsoft.Azure.IIoT.Platform.Twin.Edge.Module.Controllers;
-    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Platform.Twin.Edge.Services;
+    using Microsoft.Azure.IIoT.Platform.Edge;
     using Microsoft.Azure.IIoT.Platform.Edge.Supervisor.Services;
+    using Microsoft.Azure.IIoT.Platform.Edge.Tunnel;
     using Microsoft.Azure.IIoT.Platform.OpcUa;
     using Microsoft.Azure.IIoT.Platform.OpcUa.Services;
     using Microsoft.Azure.IIoT.Hosting;
@@ -17,6 +18,7 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module {
     using Microsoft.Azure.IIoT.Utils;
     using Microsoft.Azure.IIoT.Hub;
     using Microsoft.Azure.IIoT.Serializers;
+    using Microsoft.Azure.IIoT.Rpc.Default;
     using Microsoft.Azure.IIoT.Azure.IoTEdge;
     using Microsoft.Extensions.Configuration;
     using Autofac;
@@ -149,6 +151,7 @@ namespace Microsoft.Azure.IIoT.Platform.Twin.Edge.Module {
 
             // Register module framework
             builder.RegisterModule<ModuleFramework>();
+            builder.RegisterModule<HttpTunnelClient>();
             builder.RegisterModule<IoTEdgeHosted>();
             builder.RegisterModule<NewtonSoftJsonModule>();
 
